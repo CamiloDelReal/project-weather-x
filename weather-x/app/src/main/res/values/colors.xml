@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#6200EE</color>
+    <color name="primaryDark">#3700B3</color>
+    <color name="accent">#03DAC5</color>
+
+    <color name="clearSkyDay1">#04befe</color>
+    <color name="clearSkyDay2">#4481eb</color>
+    <color name="clearSkyNight1">#485563</color>
+    <color name="clearSkyNight2">#29323c</color>
+<!--    <color name="clearSkyNight1">#485563</color>-->
+<!--    <color name="clearSkyNight2">#29323c</color>-->
+</resources>
