@@ -56,7 +56,7 @@ class SplashFragment @Inject constructor() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Handler().postDelayed({
             val extras = FragmentNavigatorExtras(
-                lotConditionImage to getString(R.string.transition_item)
+                lotConditionImage to getString(R.string.transition_weather_condition)
             )
             findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment(), extras)
         }, 2000)

@@ -11,16 +11,100 @@
             type="org.xapps.apps.weatherx.services.models.Location" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_gradient_clear_sky_day"
-        android:fitsSystemWindows="true">
+        android:background="@drawable/ic_gradient_clear_sky_day">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motionBg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/scene_home_background">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.11" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.35" />
+
+            <com.github.florent37.shapeofview.shapes.ArcView
+                android:id="@+id/itemBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:shape_arc_height="@dimen/_minus20sdp"
+                app:shape_arc_position="top">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorSurface" />
+
+            </com.github.florent37.shapeofview.shapes.ArcView>
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motionFg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layoutDescription="@xml/scene_home">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.14" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.02" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.34" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v66"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.66" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v98"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.98" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v82"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.82" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/v50"
@@ -30,6 +114,13 @@
                 app:layout_constraintGuide_percent="0.5" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.04" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,106 +128,287 @@
                 app:layout_constraintGuide_percent="0.2" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.26" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.41" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h70"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.7"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h79"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.79" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h98"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.98" />
+
 
             <ImageButton
                 android:id="@+id/btnAdd"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:fitsSystemWindows="true"
                 android:src="@drawable/ic_add"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txvCounty"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_4sdp"
                 android:text="@{location.city}"
                 android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintBottom_toBottomOf="@id/btnAdd"
-                app:layout_constraintEnd_toEndOf="@id/v50"
-                app:layout_constraintStart_toStartOf="@id/v50"
-                app:layout_constraintTop_toTopOf="@id/btnAdd"
+                android:textSize="@dimen/_20ssp"
                 tools:text="Belgrade" />
 
             <TextView
+                android:id="@+id/txvCountry"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{location.name}"
                 android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintEnd_toEndOf="@id/v50"
-                app:layout_constraintStart_toStartOf="@id/v50"
-                app:layout_constraintTop_toBottomOf="@id/txvCounty"
                 tools:text="Serbia" />
+
+            <TextView
+                android:id="@+id/txvTemperature"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_84sdp"
+                android:gravity="end|center_vertical"
+                android:text="@{String.valueOf(location.temperature)}"
+                android:textColor="?attr/colorOnPrimarySurface"
+                tools:text="28" />
+
+            <TextView
+                android:id="@+id/txvTemperatureScale"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:gravity="start|center_vertical"
+                android:text="@{location.useCelsius ? @string/celsius : @string/fahrenheit}"
+                android:textColor="?attr/colorOnPrimarySurface"
+                tools:text="°C" />
+
+            <TextView
+                android:id="@+id/txvCondition"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_42sdp"
+                android:gravity="start|center_vertical"
+                android:text="@{location.condition}"
+                android:textColor="?attr/colorOnPrimarySurface"
+                tools:text="Clear" />
+
+            <TextView
+                android:id="@+id/txvToday"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/today"
+                android:textColor="?attr/colorOnPrimarySurface" />
+
+            <TextView
+                android:id="@+id/txvTodaySeparatorMinMax"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slash"
+                android:textColor="?attr/colorOnPrimarySurface" />
+
+            <TextView
+                android:id="@+id/txvTodayMinTemp"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22°"
+                android:textColor="?attr/colorOnPrimarySurface"/>
+
+            <TextView
+                android:id="@+id/txvTodayMaxTemp"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="28°"
+                android:textColor="?attr/colorOnPrimarySurface"/>
+
+
+            <TextView
+                android:id="@+id/txvTomorrowSeparatorMinMax"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:text="@string/slash"
+                android:textColor="?attr/colorOnPrimarySurface" />
+
+            <TextView
+                android:id="@+id/txvTomorrowMinTemp"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22°"
+                android:textColor="?attr/colorOnPrimarySurface"
+                app:layout_constraintEnd_toStartOf="@id/txvTomorrowSeparatorMinMax"
+                app:layout_constraintTop_toBottomOf="@id/txvTodayMinTemp" />
+
+            <TextView
+                android:id="@+id/txvTomorrowMaxTemp"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="28°"
+                android:textColor="?attr/colorOnPrimarySurface"
+                app:layout_constraintStart_toEndOf="@id/txvTomorrowSeparatorMinMax"
+                app:layout_constraintTop_toBottomOf="@id/txvTodayMaxTemp" />
+
+            <TextView
+                android:id="@+id/tvxTomorrow"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="@string/tomorrow"
+                android:textColor="?attr/colorOnPrimarySurface"/>
+
+            <TextView
+                android:id="@+id/tvxTomorrowCondition"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="Rainy"
+                android:textColor="?attr/colorOnPrimarySurface"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotConditionImage"
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_140sdp"
-                android:transitionName="@string/transition_item"
-                app:layout_constraintEnd_toEndOf="@id/v50"
-                app:layout_constraintStart_toStartOf="@id/v50"
-                app:layout_constraintTop_toBottomOf="@id/h20"
+                android:transitionName="@string/transition_weather_condition"
                 app:lottie_autoPlay="true"
                 app:lottie_fileName="lottie-clear-sky-day.json"
                 app:lottie_loop="true"
                 app:lottie_speed="1" />
 
-            <TextView
-                android:id="@+id/txvTemperature"
-                style="@style/TextAppearance.MaterialComponents.Headline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:text="@{String.valueOf(location.temperature)}"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintEnd_toStartOf="@id/txvTemperatureScale"
-                app:layout_constraintTop_toBottomOf="@id/lotConditionImage"
-                tools:text="28" />
-
-            <TextView
-                android:id="@+id/txvTemperatureScale"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:text="@{location.useCelsius ? @string/celsius : @string/fahrenheit}"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintEnd_toStartOf="@id/v50"
-                app:layout_constraintTop_toTopOf="@id/txvTemperature"
-                tools:text="°C" />
-
-            <TextView
-                android:id="@+id/txvCondition"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{location.condition}"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintStart_toEndOf="@id/v50"
-                app:layout_constraintTop_toTopOf="@id/txvTemperatureScale"
-                tools:text="Clear" />
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
+            <LinearLayout
+                android:id="@+id/layoutDayNight"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/h70"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/layoutRealFeel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/layoutHumidity"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/layoutUV"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/layoutPressure"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/layoutWind"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/layoutVisibility"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listHourly"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_hourly_info" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/draggerEnd"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <View
+                android:id="@+id/draggerHalf"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

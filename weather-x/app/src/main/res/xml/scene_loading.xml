@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        android:id="@+id/loadingToBegin"
+        app:constraintSetEnd="@id/setBegin"
+        app:constraintSetStart="@id/setLoading"
+        app:duration="500" />
+
+    <Transition
+        android:id="@+id/beginToHalf"
+        app:constraintSetEnd="@id/setHalf"
+        app:constraintSetStart="@id/setBegin">
+        <OnSwipe
+            app:touchAnchorId="@+id/draggerHalf"
+            app:touchAnchorSide="top"
+            app:dragDirection="dragUp" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/setLoading">
+
+        <Constraint
+            android:id="@+id/draggerHalf"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/btnAdd"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/txvCounty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/btnAdd"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/btnAdd" />
+
+        <Constraint
+            android:id="@+id/txvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+
+        <Constraint
+            android:id="@+id/txvTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toStartOf="@id/txvTemperatureScale"
+            app:layout_constraintTop_toBottomOf="@id/lotConditionImage" />
+
+        <Constraint
+            android:id="@+id/txvTemperatureScale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/txvTemperature" />
+
+        <Constraint
+            android:id="@+id/txvCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:alpha="0.0"
+            app:layout_constraintStart_toEndOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/txvTemperatureScale" />
+
+        <Constraint
+            android:id="@+id/listHourly"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h50"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/h50" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/setBegin">
+
+        <Constraint
+            android:id="@+id/draggerHalf"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/btnAdd"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/txvCounty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/btnAdd"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/btnAdd" />
+
+        <Constraint
+            android:id="@+id/txvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+
+        <Constraint
+            android:id="@+id/txvTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toStartOf="@id/txvTemperatureScale"
+            app:layout_constraintTop_toBottomOf="@id/lotConditionImage" />
+
+        <Constraint
+            android:id="@+id/txvTemperatureScale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/txvTemperature" />
+
+        <Constraint
+            android:id="@+id/txvCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toEndOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/txvTemperatureScale" />
+
+        <Constraint
+            android:id="@+id/listHourly"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_140sdp"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toBottomOf="@id/h20" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/setHalf">
+
+
+        <Constraint
+            android:id="@+id/draggerHalf"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </ConstraintSet>
+
+</MotionScene>

@@ -149,7 +149,8 @@ dependencies {
     // Lottie
     implementation("com.airbnb.android:lottie:3.4.1")
 
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    // Shape of View
+    implementation("com.github.florent37:shapeofview:1.4.7")
 
     // Logger
     implementation(Libraries.Logger.Timber.CORE)

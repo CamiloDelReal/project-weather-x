@@ -34,7 +34,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_80sdp"
                 android:layout_marginBottom="@dimen/_80sdp"
-                android:transitionName="@string/transition_item"
+                android:transitionName="@string/transition_weather_condition"
                 app:layout_constraintBottom_toBottomOf="@id/h50"
                 app:layout_constraintEnd_toEndOf="@id/v50"
                 app:layout_constraintStart_toStartOf="@id/v50"
