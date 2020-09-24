@@ -184,9 +184,7 @@
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:fitsSystemWindows="true"
-                android:src="@drawable/ic_add"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/ic_add" />
 
             <TextView
                 android:id="@+id/txvCounty"
@@ -208,6 +206,30 @@
                 android:text="@{location.name}"
                 android:textColor="?attr/colorOnPrimarySurface"
                 tools:text="Serbia" />
+
+            <View
+                android:id="@+id/centerDotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot_marker" />
+
+            <View
+                android:id="@+id/topDotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot_marker" />
+
+            <View
+                android:id="@+id/bottomDotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot_marker" />
+
+            <View
+                android:id="@+id/dotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot" />
 
             <TextView
                 android:id="@+id/txvTemperature"
@@ -262,7 +284,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="22°"
-                android:textColor="?attr/colorOnPrimarySurface"/>
+                android:textColor="?attr/colorOnPrimarySurface" />
 
             <TextView
                 android:id="@+id/txvTodayMaxTemp"
@@ -270,7 +292,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="28°"
-                android:textColor="?attr/colorOnPrimarySurface"/>
+                android:textColor="?attr/colorOnPrimarySurface" />
 
 
             <TextView
@@ -310,7 +332,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:text="@string/tomorrow"
-                android:textColor="?attr/colorOnPrimarySurface"/>
+                android:textColor="?attr/colorOnPrimarySurface" />
 
             <TextView
                 android:id="@+id/tvxTomorrowCondition"
@@ -319,7 +341,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:text="Rainy"
-                android:textColor="?attr/colorOnPrimarySurface"/>
+                android:textColor="?attr/colorOnPrimarySurface" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotConditionImage"
@@ -336,49 +358,69 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/ic_bg_card"
-                android:orientation="vertical" />
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/layoutRealFeel"
+            </LinearLayout>
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCard
+                android:id="@+id/pressureCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/ic_bg_card"
-                android:orientation="vertical" />
+                app:fc_description="@string/pressure"
+                app:fc_icon="@drawable/ic_gauge"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/pressure"
+                app:fc_value="1024mb" />
 
-            <LinearLayout
-                android:id="@+id/layoutHumidity"
+            <org.xapps.apps.weatherx.views.custom.ForecastCard
+                android:id="@+id/windCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/ic_bg_card"
-                android:orientation="vertical" />
+                app:fc_description="East"
+                app:fc_icon="@drawable/ic_wind"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/wind"
+                app:fc_value="14 km/h" />
 
-            <LinearLayout
-                android:id="@+id/layoutUV"
+            <org.xapps.apps.weatherx.views.custom.ForecastCard
+                android:id="@+id/realFeelCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/ic_bg_card"
-                android:orientation="vertical" />
+                app:fc_description="@string/real_feel"
+                app:fc_icon="@drawable/ic_thermometer"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/realFeel"
+                app:fc_value="28" />
 
-            <LinearLayout
-                android:id="@+id/layoutPressure"
+            <org.xapps.apps.weatherx.views.custom.ForecastCard
+                android:id="@+id/uvIndexCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/ic_bg_card"
-                android:orientation="vertical" />
+                app:fc_description="@string/uv_index"
+                app:fc_icon="@drawable/ic_sun"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/uvIndex"
+                app:fc_value="0.1" />
 
-            <LinearLayout
-                android:id="@+id/layoutWind"
+            <org.xapps.apps.weatherx.views.custom.ForecastCard
+                android:id="@+id/humidityCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/ic_bg_card"
-                android:orientation="vertical" />
+                app:fc_description="@string/humidity"
+                app:fc_icon="@drawable/ic_water"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/humidity"
+                app:fc_value="48%" />
 
-            <LinearLayout
-                android:id="@+id/layoutVisibility"
+            <org.xapps.apps.weatherx.views.custom.ForecastCard
+                android:id="@+id/visibilityCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/ic_bg_card"
-                android:orientation="vertical" />
+                app:fc_description="@string/visibility"
+                app:fc_icon="@drawable/ic_eye_off"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/visibility"
+                app:fc_value="18 km" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listHourly"

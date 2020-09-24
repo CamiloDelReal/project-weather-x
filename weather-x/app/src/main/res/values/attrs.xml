@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ForecastCard">
+        <attr name="fc_value" format="string"/>
+        <attr name="fc_description" format="string"/>
+        <attr name="fc_iconTint" format="color"/>
+        <attr name="fc_clickable" format="boolean"/>
+        <attr name="fc_iconSize" format="dimension" />
+        <attr name="fc_icon" format="reference" />
+    </declare-styleable>
+
+</resources>

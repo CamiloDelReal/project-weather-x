@@ -73,7 +73,47 @@
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="@id/txvCounty"
             app:layout_constraintStart_toStartOf="@id/txvCounty"
-            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+            app:layout_constraintTop_toBottomOf="@id/txvCounty"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty" />
+
+        <Constraint
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintTop_toTopOf="@id/h4"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/v98" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            android:layout_marginBottom="@dimen/_2sdp"/>
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker"
+            android:layout_marginTop="@dimen/_2sdp" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            app:layout_constraintTop_toTopOf="@id/topDotMarker"
+            app:layout_constraintStart_toStartOf="@id/topDotMarker"
+            app:layout_constraintBottom_toBottomOf="@id/topDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/topDotMarker"
+            android:alpha="0.0"/>
 
         <Constraint
             android:id="@+id/txvTemperature"
@@ -116,6 +156,15 @@
                 app:attributeName="textSize"
                 app:customDimension="@dimen/_10ssp" />
         </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h50"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/h50" />
 
         <Constraint
             android:id="@+id/txvToday"
@@ -248,15 +297,6 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
-            android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            app:layout_constraintBottom_toBottomOf="@id/h50"
-            app:layout_constraintEnd_toEndOf="@id/v50"
-            app:layout_constraintStart_toStartOf="@id/v50"
-            app:layout_constraintTop_toTopOf="@id/h50" />
-
-        <Constraint
             android:id="@+id/layoutDayNight"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -272,7 +312,7 @@
             app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
-            android:id="@+id/layoutRealFeel"
+            android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -288,7 +328,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutHumidity"
+            android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -303,7 +343,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutUV"
+            android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -319,7 +359,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutPressure"
+            android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -335,7 +375,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutWind"
+            android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -350,7 +390,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutVisibility"
+            android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -405,13 +445,53 @@
             app:layout_constraintTop_toTopOf="@id/h4" />
 
         <Constraint
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintTop_toTopOf="@id/h4"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/v98" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            android:layout_marginBottom="@dimen/_2sdp"/>
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker"
+            android:layout_marginTop="@dimen/_2sdp" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            app:layout_constraintTop_toTopOf="@id/topDotMarker"
+            app:layout_constraintStart_toStartOf="@id/topDotMarker"
+            app:layout_constraintBottom_toBottomOf="@id/topDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/topDotMarker"
+            android:alpha="1.0"/>
+
+        <Constraint
             android:id="@+id/txvCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="@id/txvCounty"
             app:layout_constraintStart_toStartOf="@id/txvCounty"
-            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+            app:layout_constraintTop_toBottomOf="@id/txvCounty"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty" />
 
         <Constraint
             android:id="@+id/txvTemperature"
@@ -454,6 +534,15 @@
                 app:attributeName="textSize"
                 app:customDimension="@dimen/_10ssp" />
         </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_140sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toBottomOf="@id/h20" />
 
         <Constraint
             android:id="@+id/txvToday"
@@ -586,15 +675,6 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
-            android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_140sdp"
-            android:layout_height="@dimen/_140sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="@id/v50"
-            app:layout_constraintStart_toStartOf="@id/v50"
-            app:layout_constraintTop_toBottomOf="@id/h20" />
-
-        <Constraint
             android:id="@+id/layoutDayNight"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -610,7 +690,7 @@
             app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
-            android:id="@+id/layoutRealFeel"
+            android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -626,7 +706,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutHumidity"
+            android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -641,7 +721,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutUV"
+            android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -657,7 +737,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutPressure"
+            android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -673,7 +753,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutWind"
+            android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -688,7 +768,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutVisibility"
+            android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -749,15 +829,47 @@
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="@id/txvCounty"
             app:layout_constraintStart_toStartOf="@id/txvCounty"
-            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+            app:layout_constraintTop_toBottomOf="@id/txvCounty"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty" />
 
         <Constraint
-            android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            app:layout_constraintBottom_toTopOf="@id/h26"
-            app:layout_constraintEnd_toEndOf="@id/v50"
-            app:layout_constraintStart_toStartOf="@id/v50" />
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintTop_toTopOf="@id/h4"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/v98" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            android:layout_marginBottom="@dimen/_2sdp"/>
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker"
+            android:layout_marginTop="@dimen/_2sdp" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            app:layout_constraintTop_toTopOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintBottom_toBottomOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            android:alpha="1.0"/>
 
         <Constraint
             android:id="@+id/txvTemperature"
@@ -801,6 +913,14 @@
                 app:attributeName="textSize"
                 app:customDimension="@dimen/_5ssp" />
         </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            app:layout_constraintBottom_toTopOf="@id/h26"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50" />
 
         <Constraint
             android:id="@+id/txvToday"
@@ -947,7 +1067,7 @@
             app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
-            android:id="@+id/layoutRealFeel"
+            android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -963,7 +1083,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutHumidity"
+            android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -979,7 +1099,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutUV"
+            android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -995,7 +1115,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutPressure"
+            android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1011,7 +1131,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutWind"
+            android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1026,7 +1146,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutVisibility"
+            android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1086,15 +1206,47 @@
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="@id/txvCounty"
             app:layout_constraintStart_toStartOf="@id/txvCounty"
-            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+            app:layout_constraintTop_toBottomOf="@id/txvCounty"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty" />
 
         <Constraint
-            android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_28sdp"
-            android:layout_height="@dimen/_28sdp"
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintTop_toTopOf="@id/h4"
             app:layout_constraintBottom_toBottomOf="@id/h4"
-            app:layout_constraintStart_toStartOf="@id/v66"
-            app:layout_constraintTop_toTopOf="@+id/h4" />
+            app:layout_constraintEnd_toStartOf="@id/v98" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            android:layout_marginBottom="@dimen/_2sdp"/>
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker"
+            android:layout_marginTop="@dimen/_2sdp" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            app:layout_constraintTop_toTopOf="@id/bottomDotMarker"
+            app:layout_constraintStart_toStartOf="@id/bottomDotMarker"
+            app:layout_constraintBottom_toBottomOf="@id/bottomDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/bottomDotMarker"
+            android:alpha="1.0"/>
 
         <Constraint
             android:id="@+id/txvTemperature"
@@ -1137,6 +1289,14 @@
                 app:attributeName="textSize"
                 app:customDimension="@dimen/_4ssp" />
         </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@+id/h4" />
 
         <Constraint
             android:id="@+id/txvToday"
@@ -1259,6 +1419,15 @@
         </Constraint>
 
         <Constraint
+            android:id="@+id/listHourly"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <Constraint
             android:id="@+id/layoutDayNight"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -1274,7 +1443,7 @@
             app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
-            android:id="@+id/layoutRealFeel"
+            android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1290,7 +1459,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutHumidity"
+            android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1306,7 +1475,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutUV"
+            android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1322,7 +1491,7 @@
             app:layout_constraintTop_toTopOf="@id/h60" />
 
         <Constraint
-            android:id="@+id/layoutPressure"
+            android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1338,7 +1507,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutWind"
+            android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1354,7 +1523,7 @@
             app:layout_constraintTop_toTopOf="@id/h79" />
 
         <Constraint
-            android:id="@+id/layoutVisibility"
+            android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_6sdp"
@@ -1368,15 +1537,6 @@
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
             app:layout_constraintTop_toTopOf="@id/h79" />
-
-        <Constraint
-            android:id="@+id/listHourly"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_100sdp"
-            android:alpha="0.0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
 
     </ConstraintSet>
 

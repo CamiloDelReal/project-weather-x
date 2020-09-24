@@ -10,4 +10,11 @@
     <color name="clearSkyNight2">#29323c</color>
 <!--    <color name="clearSkyNight1">#485563</color>-->
 <!--    <color name="clearSkyNight2">#29323c</color>-->
+
+    <color name="humidity">#4259F7</color>
+    <color name="uvIndex">#EED558</color>
+    <color name="wind">#7BBFFC</color>
+    <color name="visibility">#DE1FFE</color>
+    <color name="realFeel">#EDA03C</color>
+    <color name="pressure">#DF565D</color>
 </resources>
