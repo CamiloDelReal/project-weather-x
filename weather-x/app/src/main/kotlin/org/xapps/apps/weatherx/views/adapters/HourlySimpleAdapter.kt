@@ -6,9 +6,9 @@ import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.ItemHourlyInfoBinding
 
 
-class HourlyInfoSimpleAdapter(items: List<HourlyInfo>) : ListBindingAdapter<HourlyInfo>(items) {
+class HourlySimpleInfoAdapter(items: List<HourlyInfo>) : ListBindingAdapter<HourlyInfo>(items) {
 
-    override val itemLayout: Int = R.layout.item_hourly_info
+    override val itemLayout: Int = R.layout.item_hourly_simple_info
 
     override fun bind(binding: ViewDataBinding, item: HourlyInfo) {
         when (binding) {
