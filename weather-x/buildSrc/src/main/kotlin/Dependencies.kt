@@ -14,10 +14,10 @@ object Plugins {
 }
 
 object Build {
-    const val SDK_VERSION = 29
+    const val SDK_VERSION = 30
     const val MIN_SDK_VERSION = 23
-    const val TARGET_SDK_VERSION = 29
-    const val BUILD_TOOLS_VERSION = "29.0.3"
+    const val TARGET_SDK_VERSION = 30
+    const val BUILD_TOOLS_VERSION = "30.0.2"
     const val APPLICATION_ID = "org.xapps.apps.weatherx"
     const val APP_NAME = "WeatherX"
     const val MAJOR_VERSION = 0
@@ -54,6 +54,7 @@ object Libraries {
         private const val CORE_VERSION = "1.3.0"
         private const val COROUTINES_VERSION = "1.3.5"
 
+        const val MODULE = "stdlib-jdk8"
         const val CORE = "androidx.core:core-ktx:$CORE_VERSION"
         const val COROUTINES_CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$COROUTINES_VERSION"
         const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_VERSION"
@@ -67,8 +68,8 @@ object Libraries {
         }
 
         object UI {
-            private const val CONSTRAINT_LAYOUT_VERSION = "2.0.0-beta6"
-            private const val MATERIAL_VERSION = "1.2.0-alpha06"
+            private const val CONSTRAINT_LAYOUT_VERSION = "2.0.1"
+            private const val MATERIAL_VERSION = "1.2.1"
             private const val APP_COMPAT_VERSION = "1.1.0"
             private const val RECYCLER_VIEW_VERSION = "1.1.0"
             private const val CARD_VIEW_VERSION = "1.0.0"
@@ -116,10 +117,12 @@ object Libraries {
             private const val VERSION = "2.2.0"
 
             const val RUNTIME = "androidx.lifecycle:lifecycle-runtime:$VERSION"
+            const val RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:$VERSION"
             const val EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:$VERSION"
             const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel:$VERSION"
-            const val VIEWMODEL_SAVED_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$VERSION"
             const val VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$VERSION"
+            const val LIVEDATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:$VERSION"
+            const val VIEWMODEL_SAVED_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$VERSION"
             const val COMPILER = "androidx.lifecycle:lifecycle-compiler:$VERSION"
         }
 
@@ -205,6 +208,8 @@ object Libraries {
         private const val OVERSCROLL_DECOR_VERSION = "1.0.4"
         private const val FILE_PICKER_VERSION = "v8.0.19"
         private const val MATERIAL_RATING_VERSION = "1.4.0"
+        private const val SHAPE_OF_VIEW_VERSION = "1.4.7"
+        private const val LOTTIE_VERSION = "3.4.1"
 
         const val LOOPING_VIEW_PAGER = "com.asksira.android:loopingviewpager:$LOOPING_VIEW_PAGER_VERSION"
         const val PAGE_INDICATOR_VIEW = "com.romandanylyk:pageindicatorview:$PAGE_INDICATOR_VIEW_VERSION"
@@ -219,6 +224,8 @@ object Libraries {
         const val OVERSCROLL_DECOR = "me.everything:overscroll-decor-android:$OVERSCROLL_DECOR_VERSION"
         const val FILE_PICKER = "com.github.TutorialsAndroid:FilePicker:$FILE_PICKER_VERSION"
         const val MATERIAL_RATING = "me.zhanghai.android.materialratingbar:library:$MATERIAL_RATING_VERSION"
+        const val SHAPE_OF_VIEW = "com.github.florent37:shapeofview:$SHAPE_OF_VIEW_VERSION"
+        const val LOTTIE = "com.airbnb.android:lottie:$LOTTIE_VERSION"
     }
 
     object MaterialDialog {
