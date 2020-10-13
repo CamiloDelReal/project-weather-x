@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableList
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 
 
 abstract class ListBindingAdapter<TItem>(items: List<TItem>) :

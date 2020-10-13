@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.xapps.apps.weatherx">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".application.ApplicationManager"
         android:allowBackup="true"
@@ -12,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".views.activities.MainActivity">
+        <activity android:name=".views.activities.MainActivity" android:screenOrientation="userPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

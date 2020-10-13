@@ -2,58 +2,58 @@ package org.xapps.apps.weatherx.services.local
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import org.xapps.apps.weatherx.services.models.Location
+import org.xapps.apps.weatherx.services.models.Place
 
 
 @Dao
-interface LocationDao {
+interface PlaceDao {
 
     @Insert
-    suspend fun insertAsync(location: Location): Long
+    suspend fun insertAsync(place: Place): Long
 
     @Insert
-    fun insert(location: Location): Long
+    fun insert(place: Place): Long
 
     @Insert
-    suspend fun insertAsync(locations: List<Location>): List<Long>
+    suspend fun insertAsync(places: List<Place>): List<Long>
 
     @Insert
-    fun insert(locations: List<Location>): List<Long>
+    fun insert(places: List<Place>): List<Long>
 
-    @Query("SELECT * FROM locations")
-    fun locationsAsync(): Flow<List<Location>>
+    @Query("SELECT * FROM places")
+    fun placesAsync(): Flow<List<Place>>
 
-    @Query("SELECT * FROM locations")
-    fun locations(): List<Location>
+    @Query("SELECT * FROM places")
+    fun places(): List<Place>
 
-    @Query("SELECT * FROM locations WHERE id = :id")
-    fun locationAsync(id: Long): Flow<Location>
+    @Query("SELECT * FROM places WHERE id = :id")
+    fun placeAsync(id: Long): Flow<Place>
 
-    @Query("SELECT * FROM locations WHERE id = :id")
-    fun location(id: Long): Location
-
-    @Update
-    suspend fun updateAsync(location: Location): Int
+    @Query("SELECT * FROM places WHERE id = :id")
+    fun place(id: Long): Place
 
     @Update
-    fun update(location: Location): Int
+    suspend fun updateAsync(place: Place): Int
 
     @Update
-    suspend fun updateAsync(locations: List<Location>): Int
+    fun update(place: Place): Int
 
     @Update
-    fun update(locations: List<Location>): Int
+    suspend fun updateAsync(places: List<Place>): Int
+
+    @Update
+    fun update(places: List<Place>): Int
 
     @Delete
-    suspend fun deleteAsync(location: Location): Int
+    suspend fun deleteAsync(place: Place): Int
 
     @Delete
-    fun delete(location: Location): Int
+    fun delete(place: Place): Int
 
     @Delete
-    suspend fun deleteAsync(locations: List<Location>): Int
+    suspend fun deleteAsync(places: List<Place>): Int
 
     @Delete
-    fun delete(locations: List<Location>): Int
+    fun delete(places: List<Place>): Int
 
 }

@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 
 @JsonClass(generateAdapter = true)
-data class WeatherInfo(
+data class Weather(
 
     @Json(name = "lat")
     val latitude: Double,
@@ -20,15 +20,15 @@ data class WeatherInfo(
     val timezoneOffset: Int,
 
     @Json(name = "current")
-    val current: Current,
+    val current: Current? = null,
 
     @Json(name = "minutely")
-    val minutely: List<Minutely>,
+    var minutely: List<Minutely>? = null,
 
     @Json(name = "daily")
-    val daily: List<Daily>,
+    var daily: List<Daily>? = null,
 
     @Json(name = "hourly")
-    val hourly: List<Hourly>
+    var hourly: List<Hourly>? = null
 
 )

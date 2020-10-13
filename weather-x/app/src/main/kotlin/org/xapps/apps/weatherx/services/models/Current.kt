@@ -5,15 +5,16 @@ import com.squareup.moshi.JsonClass
 
 
 @JsonClass(generateAdapter = true)
-data class CurrentInfo(
+data class Current(
+
     @Json(name = "dt")
-    val datetime: Int,
+    var datetime: Long,
 
     @Json(name = "sunrise")
-    val sunrise: Long,
+    var sunrise: Long,
 
     @Json(name = "sunset")
-    val sunset: Long,
+    var sunset: Long,
 
     @Json(name = "temp")
     val temperature: Double,
@@ -45,6 +46,26 @@ data class CurrentInfo(
     @Json(name = "wind_speed")
     val windSpeed: Double,
 
+    @Json(name = "wind_gust")
+    val windGust: Double? = null,
+
+    @Json(name = "rain")
+    val rain: Rain? = null,
+
+    @Json(name = "snow")
+    val snow: Snow? = null,
+
     @Json(name = "weather")
-    val weather: List<Weather>
-)
+    val conditions: List<Condition>,
+
+    @Transient
+    var useMetric: Boolean = true
+
+) {
+
+    // Helper fields for UI
+    var minimumTemperature: Double = 0.0
+    var maximumTemperature: Double = 0.0
+    var probabilityOfPrecipitation: Double = 0.0
+
+}

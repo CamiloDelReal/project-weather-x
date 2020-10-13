@@ -7,8 +7,9 @@
     <data>
 
         <variable
-            name="location"
-            type="org.xapps.apps.weatherx.services.models.Location" />
+            name="viewModel"
+            type="org.xapps.apps.weatherx.viewmodels.HomeViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,9 +45,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:shape_arc_height="@dimen/_minus20sdp"
-                app:shape_arc_position="top">
+                app:layout_constraintTop_toBottomOf="parent">
 
                 <View
                     android:layout_width="match_parent"
@@ -121,6 +120,13 @@
                 app:layout_constraintGuide_percent="0.04" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,11 +134,11 @@
                 app:layout_constraintGuide_percent="0.2" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/h26"
+                android:id="@+id/h28"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.26" />
+                app:layout_constraintGuide_percent="0.28" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h41"
@@ -147,6 +153,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.53" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h60"
@@ -193,7 +206,7 @@
                 android:layout_height="0dp"
                 android:gravity="center_vertical"
                 android:paddingBottom="@dimen/_4sdp"
-                android:text="@{location.city}"
+                android:text="@{viewModel.place != null ? viewModel.place.city : @string/empty}"
                 android:textColor="?attr/colorOnPrimarySurface"
                 android:textSize="@dimen/_20ssp"
                 tools:text="Belgrade" />
@@ -203,7 +216,7 @@
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{location.name}"
+                android:text="@{viewModel.place != null ? viewModel.place.country : @string/empty}"
                 android:textColor="?attr/colorOnPrimarySurface"
                 tools:text="Serbia" />
 
@@ -236,28 +249,18 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_84sdp"
-                android:gravity="end|center_vertical"
-                android:text="@{String.valueOf(location.temperature)}"
+                android:gravity="bottom|center_horizontal"
+                app:temperatureWithUnit="@{viewModel.currentInfo}"
                 android:textColor="?attr/colorOnPrimarySurface"
-                tools:text="28" />
-
-            <TextView
-                android:id="@+id/txvTemperatureScale"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="@dimen/_38sdp"
-                android:gravity="start|center_vertical"
-                android:text="@{location.useCelsius ? @string/celsius : @string/fahrenheit}"
-                android:textColor="?attr/colorOnPrimarySurface"
-                tools:text="°C" />
+                tools:text="28 °C" />
 
             <TextView
                 android:id="@+id/txvCondition"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_42sdp"
-                android:gravity="start|center_vertical"
-                android:text="@{location.condition}"
+                android:gravity="top|center_horizontal"
+                app:condition="@{viewModel.currentInfo}"
                 android:textColor="?attr/colorOnPrimarySurface"
                 tools:text="Clear" />
 
@@ -283,7 +286,8 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="22°"
+                app:minimumTemperature="@{viewModel.currentInfo}"
+                tools:text="22°"
                 android:textColor="?attr/colorOnPrimarySurface" />
 
             <TextView
@@ -291,65 +295,16 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="28°"
-                android:textColor="?attr/colorOnPrimarySurface" />
-
-
-            <TextView
-                android:id="@+id/txvTomorrowSeparatorMinMax"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_2sdp"
-                android:layout_marginEnd="@dimen/_2sdp"
-                android:text="@string/slash"
-                android:textColor="?attr/colorOnPrimarySurface" />
-
-            <TextView
-                android:id="@+id/txvTomorrowMinTemp"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="22°"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintEnd_toStartOf="@id/txvTomorrowSeparatorMinMax"
-                app:layout_constraintTop_toBottomOf="@id/txvTodayMinTemp" />
-
-            <TextView
-                android:id="@+id/txvTomorrowMaxTemp"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="28°"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintStart_toEndOf="@id/txvTomorrowSeparatorMinMax"
-                app:layout_constraintTop_toBottomOf="@id/txvTodayMaxTemp" />
-
-            <TextView
-                android:id="@+id/tvxTomorrow"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/tomorrow"
-                android:textColor="?attr/colorOnPrimarySurface" />
-
-            <TextView
-                android:id="@+id/tvxTomorrowCondition"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="Rainy"
+                app:maximumTemperature="@{viewModel.currentInfo}"
+                tools:text="28°"
                 android:textColor="?attr/colorOnPrimarySurface" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotConditionImage"
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_140sdp"
-                android:transitionName="@string/transition_weather_condition"
                 app:lottie_autoPlay="true"
-                app:lottie_fileName="lottie-clear-sky-day.json"
+                app:weatherAnimation="@{viewModel.currentInfo}"
                 app:lottie_loop="true"
                 app:lottie_speed="1" />
 
@@ -358,11 +313,190 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/ic_bg_card"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
+
+                <org.xapps.apps.weatherx.views.custom.DayNightView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:drawable="@drawable/ic_sun_with_background"
+                    app:progress="@{viewModel.currentInfo}"
+                    app:progressColor="@color/sunrise" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_4sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:src="@drawable/ic_sunrise"
+                            app:tint="@color/sunrise" />
+
+                        <Space
+                            android:layout_width="@dimen/_6sdp"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_11ssp"
+                                app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunrise : 0}"
+                                tools:text="19:45" />
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sunrise"
+                                android:textSize="@dimen/_9ssp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:src="@drawable/ic_sunset"
+                            app:tint="@color/sunset" />
+
+                        <Space
+                            android:layout_width="@dimen/_6sdp"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_11ssp"
+                                app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunset : 0}"
+                                tools:text="19:45" />
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sunset"
+                                android:textSize="@dimen/_9ssp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/_18sdp"-->
+<!--                        android:layout_height="@dimen/_18sdp"-->
+<!--                        android:src="@drawable/ic_sunrise"-->
+<!--                        app:tint="@color/sunrise" />-->
+
+<!--                    <Space-->
+<!--                        android:layout_width="@dimen/_4sdp"-->
+<!--                        android:layout_height="wrap_content" />-->
+
+<!--                    <TextView-->
+<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/sunrise"-->
+<!--                        android:textSize="@dimen/_12ssp" />-->
+
+<!--                    <Space-->
+<!--                        android:layout_width="@dimen/_4sdp"-->
+<!--                        android:layout_height="wrap_content" />-->
+
+<!--                    <TextView-->
+<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunrise : 0}"-->
+<!--                        android:textSize="@dimen/_12ssp" />-->
+
+<!--                    <Space-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1" />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/_18sdp"-->
+<!--                        android:layout_height="@dimen/_18sdp"-->
+<!--                        android:src="@drawable/ic_sunset"-->
+<!--                        app:tint="@color/sunset" />-->
+
+<!--                    <Space-->
+<!--                        android:layout_width="@dimen/_4sdp"-->
+<!--                        android:layout_height="wrap_content" />-->
+
+<!--                    <TextView-->
+<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/sunset"-->
+<!--                        android:textSize="@dimen/_12ssp" />-->
+
+<!--                    <Space-->
+<!--                        android:layout_width="@dimen/_4sdp"-->
+<!--                        android:layout_height="wrap_content" />-->
+
+<!--                    <TextView-->
+<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunset : 0}"-->
+<!--                        android:textSize="@dimen/_12ssp" />-->
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <org.xapps.apps.weatherx.views.custom.ForecastCard
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/popCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="@string/precipitation"
+                app:fc_icon="@drawable/ic_rain"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/rain"
+                app:precipitation="@{viewModel.currentInfo}" />
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/pressureCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -370,19 +504,19 @@
                 app:fc_icon="@drawable/ic_gauge"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/pressure"
-                app:fc_value="1024mb" />
+                app:pressure="@{viewModel.currentInfo}" />
 
-            <org.xapps.apps.weatherx.views.custom.ForecastCard
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/windCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:fc_description="East"
                 app:fc_icon="@drawable/ic_wind"
                 app:fc_iconSize="@dimen/_10sdp"
-                app:fc_iconTint="@color/wind"
-                app:fc_value="14 km/h" />
+                app:fc_iconTint="@color/windSpeed"
+                app:windSpeed="@{viewModel.currentInfo}"/>
 
-            <org.xapps.apps.weatherx.views.custom.ForecastCard
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/realFeelCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -390,9 +524,9 @@
                 app:fc_icon="@drawable/ic_thermometer"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/realFeel"
-                app:fc_value="28" />
+                app:realFeel="@{viewModel.currentInfo}" />
 
-            <org.xapps.apps.weatherx.views.custom.ForecastCard
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/uvIndexCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -400,9 +534,9 @@
                 app:fc_icon="@drawable/ic_sun"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/uvIndex"
-                app:fc_value="0.1" />
+                app:uvindex="@{viewModel.currentInfo}" />
 
-            <org.xapps.apps.weatherx.views.custom.ForecastCard
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/humidityCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -410,9 +544,9 @@
                 app:fc_icon="@drawable/ic_water"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/humidity"
-                app:fc_value="48%" />
+                app:humidity="@{viewModel.currentInfo}" />
 
-            <org.xapps.apps.weatherx.views.custom.ForecastCard
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/visibilityCard"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -420,19 +554,82 @@
                 app:fc_icon="@drawable/ic_eye_off"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/visibility"
-                app:fc_value="18 km" />
+                app:visibility="@{viewModel.currentInfo}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listHourlySimple"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:orientation="horizontal"
+                tools:itemCount="10"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_hourly_simple_info" />
+
+            <TextView
+                android:id="@+id/txvNextTwentyFourHours"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/next_24_hours"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/_20ssp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listHourly"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_height="@dimen/_120sdp"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 tools:itemCount="10"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_hourly_info" />
+
+            <LinearLayout
+                android:id="@+id/layoutOpenSettings"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/alert_amount_days_from_settings"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <Space
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btnOpenSettings"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:text="Open Settings" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txvNextSevenDays"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/next_7_days"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/_20ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listDaily"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                tools:itemCount="7"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_daily_info" />
 
             <View
                 android:id="@+id/draggerEnd"

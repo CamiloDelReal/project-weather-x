@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ForecastCard">
-        <attr name="fc_value" format="string"/>
-        <attr name="fc_description" format="string"/>
-        <attr name="fc_iconTint" format="color"/>
-        <attr name="fc_clickable" format="boolean"/>
+    <declare-styleable name="ForecastCardView">
+        <attr name="fc_value" format="string" />
+        <attr name="fc_description" format="string" />
+        <attr name="fc_iconTint" format="color" />
+        <attr name="fc_clickable" format="boolean" />
         <attr name="fc_iconSize" format="dimension" />
         <attr name="fc_icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DayNightView">
+        <attr name="drawable" format="reference" />
+        <attr name="progress" format="integer" />
+        <attr name="maxProgress" format="integer" />
+        <attr name="progressColor" format="color" />
+        <attr name="progressWidth" format="dimension" />
+        <attr name="progressBackgroundColor" format="color" />
+        <attr name="progressBackgroundWidth" format="dimension" />
+        <attr name="roundEdges" format="boolean" />
     </declare-styleable>
 
 </resources>

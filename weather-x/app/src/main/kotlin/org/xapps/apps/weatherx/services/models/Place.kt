@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "locations")
-data class Location (
+@Entity(tableName = "places")
+data class Place (
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -25,6 +25,12 @@ data class Location (
     var longitude: Double,
 
     @ColumnInfo(name = "code")
-    var code: Int
+    var code: String
 
-)
+) {
+
+    companion object {
+        const val CURRENT_PLACE_ID = 0L
+    }
+
+}

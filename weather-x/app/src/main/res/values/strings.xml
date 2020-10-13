@@ -2,8 +2,7 @@
 <resources>
     <string name="app_name">WeatherX</string>
     <string name="empty">"   "</string>
-    <string name="transition_weather_condition">weather condition image transition id</string>
-
+    <string name="not_available">"Not available"</string>
     <string name="celsius">°C</string>
     <string name="fahrenheit">°F</string>
     <string name="today">Today</string>
@@ -14,4 +13,27 @@
     <string name="uv_index">UV Index</string>
     <string name="pressure">Pressure</string>
     <string name="visibility">Visibility</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="next_7_days">Next 7 days</string>
+    <string name="alert_amount_days_from_settings">The amount of days shown here can be customize from settings</string>
+    <string name="next_24_hours">Next 24 hours</string>
+    <string name="north">North</string>
+    <string name="north_northeast">North Northeast</string>
+    <string name="northeast">Northeast</string>
+    <string name="east_northeast">East Northeast</string>
+    <string name="east">East</string>
+    <string name="east_southeast">East Southeast</string>
+    <string name="southeast">Southeast</string>
+    <string name="south_southeast">South Southeast</string>
+    <string name="south">South</string>
+    <string name="south_southwest">South Southwest</string>
+    <string name="southwest">Southwest</string>
+    <string name="west_southwest">West Southwest</string>
+    <string name="west">West</string>
+    <string name="west_northwest">West Northwest</string>
+    <string name="northwest">Northwest</string>
+    <string name="north_northwest">North Northwest</string>
+    <string name="probability_of_rain">Prob. of rain</string>
+    <string name="precipitation">Precipitation</string>
 </resources>

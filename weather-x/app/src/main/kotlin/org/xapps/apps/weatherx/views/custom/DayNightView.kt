@@ -1,57 +1,65 @@
 package org.xapps.apps.weatherx.views.custom
 
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import androidx.databinding.BindingAdapter
 import org.xapps.apps.weatherx.R
+import org.xapps.apps.weatherx.services.models.Current
+import java.util.*
 
 
-class ArcView @JvmOverloads constructor(
+class DayNightView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0,
     defStyleRes: Int = 0
 ) : View(context, attrs, defStyle) {
 
-    private val a = attrs?.let { context.obtainStyledAttributes(
-        attrs,
-        R.styleable.ArcView,
-        defStyle,
-        defStyleRes
-    ) }
+    private val a = attrs?.let {
+        context.obtainStyledAttributes(
+            attrs,
+            R.styleable.DayNightView,
+            defStyle,
+            defStyleRes
+        )
+    }
 
-    var maxProgress = a.useOrDefault(100) { getInteger(R.styleable.ArcView_maxProgress, it) }
+    var maxProgress = a.useOrDefault(100) { getInteger(R.styleable.DayNightView_maxProgress, it) }
         set(progress) {
             field = bound(0, progress, Int.MAX_VALUE)
             drawData?.let { drawData = it.copy(maxProgress = progress) }
             invalidate()
         }
 
-    var progress: Int = a.useOrDefault(0) { getInteger(R.styleable.ArcView_progress, it) }
+    var progress: Int = a.useOrDefault(0) { getInteger(R.styleable.DayNightView_progress, it) }
         set(progress) {
             field = bound(0, progress, maxProgress)
             drawData?.let { drawData = it.copy(progress = progress) }
             invalidate()
         }
 
-    var progressWidth: Float = a.useOrDefault(4 * context.resources.displayMetrics.density) { getDimension(
-        R.styleable.ArcView_progressWidth,
-        it
-    ) }
+    var progressWidth: Float = a.useOrDefault(4 * context.resources.displayMetrics.density) {
+        getDimension(
+            R.styleable.DayNightView_progressWidth,
+            it
+        )
+    }
         set(value) {
             field = value
             progressPaint.strokeWidth = value
         }
 
-    var progressBackgroundWidth: Float = a.useOrDefault(2F) { getDimension(
-        R.styleable.ArcView_progressBackgroundWidth,
-        it
-    ) }
+    var progressBackgroundWidth: Float = a.useOrDefault(2F) {
+        getDimension(
+            R.styleable.DayNightView_progressBackgroundWidth,
+            it
+        )
+    }
         set(mArcWidth) {
             field = mArcWidth
             progressBackgroundPaint.strokeWidth = mArcWidth
@@ -71,12 +79,14 @@ class ArcView @JvmOverloads constructor(
             invalidate()
         }
 
-    private val thumb: Drawable = a?.getDrawable(R.styleable.ArcView_drawable) ?: context.getDrawable(R.drawable.ic_sun)!!
+    private val thumb: Drawable = a?.getDrawable(R.styleable.DayNightView_drawable)!!
 
-    private var roundedEdges = a.useOrDefault(true) { getBoolean(
-        R.styleable.ArcView_roundEdges,
-        it
-    ) }
+    private var roundedEdges = a.useOrDefault(true) {
+        getBoolean(
+            R.styleable.DayNightView_roundEdges,
+            it
+        )
+    }
         set(value) {
             if (value) {
                 progressBackgroundPaint.strokeCap = Paint.Cap.ROUND
@@ -91,34 +101,36 @@ class ArcView @JvmOverloads constructor(
     private var progressBackgroundPaint: Paint = makeProgressPaint(
         color = a.useOrDefault(context.getColor(android.R.color.darker_gray)) {
             getColor(
-                R.styleable.ArcView_progressBackgroundColor,
+                R.styleable.DayNightView_progressBackgroundColor,
                 it
             )
         },
-        width = progressBackgroundWidth
+        width = progressBackgroundWidth,
+        useDash = true
     )
 
     private var progressPaint: Paint = makeProgressPaint(
         color = a.useOrDefault(context.getColor(android.R.color.holo_blue_light)) {
             getColor(
-                R.styleable.ArcView_progressColor,
+                R.styleable.DayNightView_progressColor,
                 it
             )
         },
-        width = progressWidth
+        width = progressWidth,
+        useDash = false
     )
 
     init {
         a?.recycle()
     }
 
-    private var drawerDataObservers: List<(ArcViewData) -> Unit> = emptyList()
+    private var drawerDataObservers: List<(DayNightViewData) -> Unit> = emptyList()
 
-    private fun doWhenDrawerDataAreReady(f: (ArcViewData) -> Unit) {
+    private fun doWhenDrawerDataAreReady(f: (DayNightViewData) -> Unit) {
         if (drawData != null) f(drawData!!) else drawerDataObservers += f
     }
 
-    private var drawData: ArcViewData? = null
+    private var drawData: DayNightViewData? = null
         set(value) {
             field = value ?: return
             val temp = drawerDataObservers.toList()
@@ -134,7 +146,7 @@ class ArcView @JvmOverloads constructor(
         }
     }
 
-    private fun ArcViewData.drawThumb(canvas: Canvas) {
+    private fun DayNightViewData.drawThumb(canvas: Canvas) {
         val thumbHalfHeight = thumb.intrinsicHeight / 2
         val thumbHalfWidth = thumb.intrinsicWidth / 2
         thumb.setBounds(
@@ -157,7 +169,7 @@ class ArcView @JvmOverloads constructor(
             height.toFloat() - 2 * dy - paddingTop - paddingBottom,
             realWidth / 2
         )
-        drawData = ArcViewData(
+        drawData = DayNightViewData(
             dx + paddingLeft,
             dy + paddingTop,
             realWidth,
@@ -199,28 +211,47 @@ class ArcView @JvmOverloads constructor(
         invalidate()
     }
 
-    private fun makeProgressPaint(color: Int, width: Float) = Paint().apply {
+    private fun makeProgressPaint(color: Int, width: Float, useDash: Boolean = false) = Paint().apply {
         this.color = color
         isAntiAlias = true
         style = Paint.Style.STROKE
         strokeWidth = width
-        pathEffect = DashPathEffect(floatArrayOf(10f, 20f), 0f)
-        if (roundedEdges) strokeCap = Paint.Cap.ROUND
+        if(useDash)
+            pathEffect = DashPathEffect(floatArrayOf(10f, 20f), 0f)
+        if (roundedEdges)
+            strokeCap = Paint.Cap.ROUND
     }
 
-    fun <T, R> T?.useOrDefault(default: R, usage: T.(R) -> R) = if (this == null) default else usage(
-        default
-    )
+    fun <T, R> T?.useOrDefault(default: R, usage: T.(R) -> R) =
+        if (this == null) default else usage(
+            default
+        )
 
     companion object {
+
         fun <T : Number> bound(min: T, value: T, max: T) = when {
             value.toDouble() > max.toDouble() -> max
             value.toDouble() < min.toDouble() -> min
             else -> value
         }
+
+        @JvmStatic
+        @BindingAdapter("progress")
+        fun progress(view: DayNightView, value: Current?) {
+            val percent = value?.let { info ->
+                val total = info.sunset - info.sunrise
+                val part = Date().time - info.sunrise
+                val percent = (part * 100) / total
+                if (percent > 100) 100 else percent
+            } ?: run {
+                0L
+            }
+            view.progress = percent.toInt()
+        }
+
     }
 
-    data class ArcViewData(
+    data class DayNightViewData(
         val dx: Float,
         val dy: Float,
         val width: Float,
@@ -233,13 +264,22 @@ class ArcView @JvmOverloads constructor(
         val r: Float = height / 2 + width * width / 8 / height
         private val circleCenterX: Float = width / 2 + dy
         private val circleCenterY: Float = r + dx
-        private val alphaRad: Float = bound(zero, Math.acos((r - height).toDouble() / r).toFloat(), 2 * pi)
-        val arcRect: RectF = RectF(circleCenterX - r, circleCenterY - r, circleCenterX + r, circleCenterY + r)
+        private val alphaRad: Float =
+            bound(zero, Math.acos((r - height).toDouble() / r).toFloat(), 2 * pi)
+        val arcRect: RectF =
+            RectF(circleCenterX - r, circleCenterY - r, circleCenterX + r, circleCenterY + r)
         val startAngle: Float = bound(180F, 270 - alphaRad / 2 / pi * 360F, 360F)
         val sweepAngle: Float = bound(zero, (2F * alphaRad) / 2 / pi * 360F, 180F)
-        val progressSweepRad = if(maxProgress == 0) zero else bound(zero, progress.toFloat() / maxProgress * 2 * alphaRad, 2 * pi)
+        val progressSweepRad = if (maxProgress == 0) zero else bound(
+            zero,
+            progress.toFloat() / maxProgress * 2 * alphaRad,
+            2 * pi
+        )
         val progressSweepAngle: Float = progressSweepRad / 2 / pi * 360F
-        val thumbX: Int = (r * Math.cos(alphaRad + Math.PI / 2 - progressSweepRad).toFloat() + circleCenterX).toInt()
-        val thumbY: Int = (-r * Math.sin(alphaRad + Math.PI / 2 - progressSweepRad).toFloat() + circleCenterY).toInt()
+        val thumbX: Int = (r * Math.cos(alphaRad + Math.PI / 2 - progressSweepRad)
+            .toFloat() + circleCenterX).toInt()
+        val thumbY: Int = (-r * Math.sin(alphaRad + Math.PI / 2 - progressSweepRad)
+            .toFloat() + circleCenterY).toInt()
     }
+
 }

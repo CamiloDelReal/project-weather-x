@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="org.xapps.apps.weatherx.services.models.HourlyInfo" />
+            type="org.xapps.apps.weatherx.services.models.Hourly" />
     </data>
 
     <LinearLayout
@@ -21,8 +21,8 @@
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="02:00"
             android:textColor="?attr/colorOnPrimarySurface"
+            app:timestampToSimpleHour="@{data.datetime}"
             tools:text="02:00 PM" />
 
         <Space
@@ -34,7 +34,7 @@
             android:layout_width="@dimen/_28sdp"
             android:layout_height="@dimen/_28sdp"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie-clear-sky-day.json"
+            app:weatherAnimation="@{data}"
             app:lottie_loop="true"
             app:lottie_speed="1" />
 
@@ -42,33 +42,13 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_6sdp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="28°"
-                android:textColor="?attr/colorOnPrimarySurface"
-                tools:text="28°" />
-
-            <Space
-                android:layout_width="@dimen/_2sdp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clear"
-                android:textColor="?attr/colorOnPrimarySurface"
-                tools:text="Clear" />
-
-        </LinearLayout>
+            android:textColor="?attr/colorOnPrimarySurface"
+            app:temperature="@{data}"
+            tools:text="28°" />
 
     </LinearLayout>
 </layout>

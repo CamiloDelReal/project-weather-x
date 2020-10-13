@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.di.modules
+package org.xapps.apps.weatherx.services.modules
 
 import android.content.Context
 import dagger.Module

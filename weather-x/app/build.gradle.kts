@@ -92,14 +92,13 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
 
     // Kotlin
-    implementation(kotlin("stdlib-jdk8", KotlinCompilerVersion.VERSION))
+    implementation(kotlin(Libraries.Kotlin.MODULE, KotlinCompilerVersion.VERSION))
     implementation(Libraries.Kotlin.CORE)
     implementation(Libraries.Kotlin.COROUTINES_CORE)
     implementation(Libraries.Kotlin.COROUTINES_ANDROID)
 
     // Jetpack MultiDex
     implementation(Libraries.Jetpack.MultiDex.CORE)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     // Jetpack Annotations Support
     kapt(Libraries.Jetpack.AnnotationSupport.ANNOTATION)
@@ -123,11 +122,17 @@ dependencies {
     implementation(Libraries.Jetpack.SharedPreferences.CORE_KTX)
 
     // Jetpack Lifecycle
-    implementation(Libraries.Jetpack.Lifecycle.RUNTIME)
+    implementation(Libraries.Jetpack.Lifecycle.RUNTIME_KTX)
     implementation(Libraries.Jetpack.Lifecycle.EXTENSIONS)
-    implementation(Libraries.Jetpack.Lifecycle.VIEWMODEL_SAVED_STATE)
     implementation(Libraries.Jetpack.Lifecycle.VIEWMODEL_KTX)
+    implementation(Libraries.Jetpack.Lifecycle.VIEWMODEL_SAVED_STATE)
+    implementation(Libraries.Jetpack.Lifecycle.LIVEDATA_KTX)
     kapt(Libraries.Jetpack.Lifecycle.COMPILER)
+
+    // Jetpack Room
+    implementation(Libraries.Jetpack.Room.RUNTIME)
+    implementation(Libraries.Jetpack.Room.CORE_KTX)
+    kapt(Libraries.Jetpack.Room.COMPILER)
 
     // Dagger
     kapt(Libraries.Dagger.COMPILER)
@@ -139,6 +144,12 @@ dependencies {
     implementation(Libraries.Hilt.VIEWMODEL)
     kapt(Libraries.Hilt.JETPACK_COMPILER)
 
+    // Retrofit
+    implementation(Libraries.Retrofit.CORE)
+    implementation(Libraries.Retrofit.MOSHI)
+    implementation(Libraries.Retrofit.LOGGING_INTERCEPTOR)
+    implementation(Libraries.Moshi.MOSHI_KTX)
+
     // Scalable Units
     implementation(Libraries.ScalableUnits.DP)
     implementation(Libraries.ScalableUnits.SP)
@@ -147,10 +158,10 @@ dependencies {
     implementation(Libraries.Permissions.DEXTER)
 
     // Lottie
-    implementation("com.airbnb.android:lottie:3.4.1")
+    implementation(Libraries.UI.LOTTIE)
 
     // Shape of View
-    implementation("com.github.florent37:shapeofview:1.4.7")
+    implementation(Libraries.UI.SHAPE_OF_VIEW)
 
     // Logger
     implementation(Libraries.Logger.Timber.CORE)

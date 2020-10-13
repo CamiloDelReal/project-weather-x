@@ -1,19 +1,67 @@
 package org.xapps.apps.weatherx.services.models
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+
+@JsonClass(generateAdapter = true)
 data class Daily(
+
+    @Json(name = "dt")
+    var datetime: Long,
+
+    @Json(name = "sunrise")
+    var sunrise: Long,
+
+    @Json(name = "sunset")
+    var sunset: Long,
+
+    @Json(name = "temp")
+    val temperature: Temperature,
+
+    @Json(name = "feels_like")
+    val feelsLike: FeelsLike,
+
+    @Json(name = "clouds")
     val clouds: Int,
-    val dew_point: Double,
-    val dt: Int,
-    val feels_like: FeelsLike,
+
+    @Json(name = "dew_point")
+    val dewPoint: Double,
+
+    @Json(name = "humidity")
     val humidity: Int,
-    val pop: Double,
+
+    @Json(name = "visibility")
+    val visibility: Int = -1,
+
+    @Json(name = "pressure")
     val pressure: Int,
-    val rain: Double,
-    val sunrise: Int,
-    val sunset: Int,
-    val temp: Temp,
+
+    @Json(name = "uvi")
     val uvi: Double,
-    val weather: List<WeatherX>,
-    val wind_deg: Int,
-    val wind_speed: Double
+
+    @Json(name = "pop")
+    val probabilityOfPrecipitation: Double,
+
+    @Json(name = "wind_deg")
+    val windDegrees: Int,
+
+    @Json(name = "wind_speed")
+    val windSpeed: Double,
+
+    @Json(name = "wind_gust")
+    val windGust: Double? = null,
+
+    @Json(name = "rain")
+    val rain: Double? = null,
+
+    @Json(name = "snow")
+    val snow: Double? = null,
+
+    @Json(name = "weather")
+    val conditions: List<Condition>,
+
+    @Transient
+    var useMetric: Boolean = true
+
 )
