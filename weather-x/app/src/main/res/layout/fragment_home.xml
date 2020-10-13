@@ -148,6 +148,13 @@
                 app:layout_constraintGuide_percent="0.41" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.47" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h50"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -582,35 +589,6 @@
                 tools:itemCount="10"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_hourly_info" />
-
-            <LinearLayout
-                android:id="@+id/layoutOpenSettings"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/TextAppearance.MaterialComponents.Caption"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/alert_amount_days_from_settings"
-                    android:textColor="?attr/colorOnSurface" />
-
-                <Space
-                    android:layout_width="@dimen/_6sdp"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:id="@+id/btnOpenSettings"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:text="Open Settings" />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/txvNextSevenDays"

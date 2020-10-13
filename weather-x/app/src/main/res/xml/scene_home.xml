@@ -225,28 +225,15 @@
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_130sdp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
-
-        <Constraint
-            android:id="@+id/layoutOpenSettings"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
-            android:alpha="0.0"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/txvNextSevenDays"
-            app:layout_constraintEnd_toEndOf="@id/v98"
-            app:layout_constraintStart_toStartOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/listHourly" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -257,7 +244,7 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/h50" />
+            app:layout_constraintTop_toTopOf="@id/h47" />
 
         <Constraint
             android:id="@+id/txvNextSevenDays"
@@ -592,28 +579,15 @@
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_130sdp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
-
-        <Constraint
-            android:id="@+id/layoutOpenSettings"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
-            android:alpha="0.0"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/txvNextSevenDays"
-            app:layout_constraintEnd_toEndOf="@id/v98"
-            app:layout_constraintStart_toStartOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/listHourly" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -624,7 +598,7 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/h50" />
+            app:layout_constraintTop_toTopOf="@id/h47" />
 
         <Constraint
             android:id="@+id/txvNextSevenDays"
@@ -959,28 +933,15 @@
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_130sdp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
-
-        <Constraint
-            android:id="@+id/layoutOpenSettings"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
-            android:alpha="0.0"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/txvNextSevenDays"
-            app:layout_constraintEnd_toEndOf="@id/v98"
-            app:layout_constraintStart_toStartOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/listHourly" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -991,7 +952,7 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/h50" />
+            app:layout_constraintTop_toTopOf="@id/h47" />
 
         <Constraint
             android:id="@+id/txvNextSevenDays"
@@ -1326,28 +1287,15 @@
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_130sdp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="1.0"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
-
-        <Constraint
-            android:id="@+id/layoutOpenSettings"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
-            android:alpha="1.0"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@id/txvNextSevenDays"
-            app:layout_constraintEnd_toEndOf="@id/v98"
-            app:layout_constraintStart_toStartOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/listHourly" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -1358,7 +1306,7 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/h50" />
+            app:layout_constraintTop_toTopOf="@id/h47" />
 
         <Constraint
             android:id="@+id/txvNextSevenDays"
