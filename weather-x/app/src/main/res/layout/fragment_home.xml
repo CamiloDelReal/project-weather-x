@@ -323,6 +323,10 @@
                 android:orientation="vertical"
                 android:padding="@dimen/_8sdp">
 
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_2sdp" />
+
                 <org.xapps.apps.weatherx.views.custom.DayNightView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -333,7 +337,7 @@
 
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_4sdp" />
+                    android:layout_height="@dimen/_6sdp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
