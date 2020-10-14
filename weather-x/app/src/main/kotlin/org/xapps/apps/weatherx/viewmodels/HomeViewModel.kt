@@ -22,6 +22,7 @@ import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.services.utils.GpsTracker
 import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
 import timber.log.Timber
+import java.util.*
 
 
 class HomeViewModel @ViewModelInject constructor(
@@ -60,6 +61,10 @@ class HomeViewModel @ViewModelInject constructor(
 
     val hourlyList = ObservableArrayList<Hourly>()
     val dailyList = ObservableArrayList<Daily>()
+
+    init {
+        session.currentLanguage = Locale.getDefault().language
+    }
 
     fun prepareMonitoring() {
         jobGpsTracker = viewModelScope.launch {
