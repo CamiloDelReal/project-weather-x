@@ -99,13 +99,13 @@ class HomeFragment @Inject constructor() : Fragment() {
 
 
         listHourlySimple.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        listHourlySimple.adapter = HourlySimpleAdapter(viewModel.hourlyList)
+        listHourlySimple.adapter = HourlySimpleAdapter(viewModel.hourlyWeather)
 
         listHourly.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        listHourly.adapter = HourlyAdapter(viewModel.hourlyList)
+        listHourly.adapter = HourlyAdapter(viewModel.hourlyWeather)
 
         listDaily.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        listDaily.adapter = DailyInfoSimpleAdapter(viewModel.dailyList)
+        listDaily.adapter = DailyInfoSimpleAdapter(viewModel.dailyWeather)
 
 
         viewModel.watchWorking().observe(viewLifecycleOwner, Observer { isWorking ->
@@ -113,6 +113,10 @@ class HomeFragment @Inject constructor() : Fragment() {
         })
 
         viewModel.watchError().observe(viewLifecycleOwner, Observer { errorMessage ->
+
+        })
+
+        viewModel.watchConditionGroup().observe(viewLifecycleOwner, Observer { group ->
 
         })
 

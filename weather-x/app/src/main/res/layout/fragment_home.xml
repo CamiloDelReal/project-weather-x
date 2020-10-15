@@ -257,7 +257,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_84sdp"
                 android:gravity="bottom|center_horizontal"
-                app:temperatureWithUnit="@{viewModel.currentInfo}"
+                app:temperatureWithUnit="@{viewModel.currentWeather}"
                 android:textColor="?attr/colorOnPrimarySurface"
                 tools:text="28 °C" />
 
@@ -267,7 +267,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_42sdp"
                 android:gravity="top|center_horizontal"
-                app:condition="@{viewModel.currentInfo}"
+                app:condition="@{viewModel.currentWeather}"
                 android:textColor="?attr/colorOnPrimarySurface"
                 tools:text="Clear" />
 
@@ -293,7 +293,7 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:minimumTemperature="@{viewModel.currentInfo}"
+                app:minimumTemperature="@{viewModel.currentWeather}"
                 tools:text="22°"
                 android:textColor="?attr/colorOnPrimarySurface" />
 
@@ -302,7 +302,7 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:maximumTemperature="@{viewModel.currentInfo}"
+                app:maximumTemperature="@{viewModel.currentWeather}"
                 tools:text="28°"
                 android:textColor="?attr/colorOnPrimarySurface" />
 
@@ -311,7 +311,7 @@
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_140sdp"
                 app:lottie_autoPlay="true"
-                app:weatherAnimation="@{viewModel.currentInfo}"
+                app:weatherAnimation="@{viewModel.currentWeather}"
                 app:lottie_loop="true"
                 app:lottie_speed="1" />
 
@@ -332,7 +332,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     app:drawable="@drawable/ic_sun_with_background"
-                    app:progress="@{viewModel.currentInfo}"
+                    app:progress="@{viewModel.currentWeather}"
                     app:progressColor="@color/sunrise" />
 
                 <Space
@@ -372,7 +372,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/_11ssp"
-                                app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunrise : 0}"
+                                app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunrise : 0}"
                                 tools:text="19:45" />
 
                             <TextView
@@ -418,7 +418,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="@dimen/_11ssp"
-                                app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunset : 0}"
+                                app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunset : 0}"
                                 tools:text="19:45" />
 
                             <TextView
@@ -432,67 +432,6 @@
 
                     </LinearLayout>
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="@dimen/_18sdp"-->
-<!--                        android:layout_height="@dimen/_18sdp"-->
-<!--                        android:src="@drawable/ic_sunrise"-->
-<!--                        app:tint="@color/sunrise" />-->
-
-<!--                    <Space-->
-<!--                        android:layout_width="@dimen/_4sdp"-->
-<!--                        android:layout_height="wrap_content" />-->
-
-<!--                    <TextView-->
-<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/sunrise"-->
-<!--                        android:textSize="@dimen/_12ssp" />-->
-
-<!--                    <Space-->
-<!--                        android:layout_width="@dimen/_4sdp"-->
-<!--                        android:layout_height="wrap_content" />-->
-
-<!--                    <TextView-->
-<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunrise : 0}"-->
-<!--                        android:textSize="@dimen/_12ssp" />-->
-
-<!--                    <Space-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1" />-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="@dimen/_18sdp"-->
-<!--                        android:layout_height="@dimen/_18sdp"-->
-<!--                        android:src="@drawable/ic_sunset"-->
-<!--                        app:tint="@color/sunset" />-->
-
-<!--                    <Space-->
-<!--                        android:layout_width="@dimen/_4sdp"-->
-<!--                        android:layout_height="wrap_content" />-->
-
-<!--                    <TextView-->
-<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/sunset"-->
-<!--                        android:textSize="@dimen/_12ssp" />-->
-
-<!--                    <Space-->
-<!--                        android:layout_width="@dimen/_4sdp"-->
-<!--                        android:layout_height="wrap_content" />-->
-
-<!--                    <TextView-->
-<!--                        style="@style/TextAppearance.MaterialComponents.Body1"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:timestampToSimpleHour="@{viewModel.currentInfo != null ? viewModel.currentInfo.sunset : 0}"-->
-<!--                        android:textSize="@dimen/_12ssp" />-->
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -505,7 +444,7 @@
                 app:fc_icon="@drawable/ic_rain"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/rain"
-                app:precipitation="@{viewModel.currentInfo}" />
+                app:precipitation="@{viewModel.currentWeather}" />
 
             <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/pressureCard"
@@ -515,7 +454,7 @@
                 app:fc_icon="@drawable/ic_gauge"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/pressure"
-                app:pressure="@{viewModel.currentInfo}" />
+                app:pressure="@{viewModel.currentWeather}" />
 
             <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/windCard"
@@ -525,7 +464,7 @@
                 app:fc_icon="@drawable/ic_wind"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/windSpeed"
-                app:windSpeed="@{viewModel.currentInfo}"/>
+                app:windSpeed="@{viewModel.currentWeather}"/>
 
             <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/realFeelCard"
@@ -535,7 +474,7 @@
                 app:fc_icon="@drawable/ic_thermometer"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/realFeel"
-                app:realFeel="@{viewModel.currentInfo}" />
+                app:realFeel="@{viewModel.currentWeather}" />
 
             <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/uvIndexCard"
@@ -545,7 +484,7 @@
                 app:fc_icon="@drawable/ic_sun"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/uvIndex"
-                app:uvindex="@{viewModel.currentInfo}" />
+                app:uvindex="@{viewModel.currentWeather}" />
 
             <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/humidityCard"
@@ -555,7 +494,7 @@
                 app:fc_icon="@drawable/ic_water"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/humidity"
-                app:humidity="@{viewModel.currentInfo}" />
+                app:humidity="@{viewModel.currentWeather}" />
 
             <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/visibilityCard"
@@ -565,7 +504,7 @@
                 app:fc_icon="@drawable/ic_eye_off"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/visibility"
-                app:visibility="@{viewModel.currentInfo}" />
+                app:visibility="@{viewModel.currentWeather}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listHourlySimple"

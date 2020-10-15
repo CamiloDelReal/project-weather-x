@@ -2,13 +2,10 @@ package org.xapps.apps.weatherx.viewmodels
 
 import android.location.Geocoder
 import androidx.databinding.Bindable
-import androidx.databinding.Observable
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.PropertyChangeRegistry
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
@@ -36,14 +33,14 @@ class HomeViewModel @ViewModelInject constructor(
 
     private val workingEmitter: MutableLiveData<Boolean> = MutableLiveData()
     private val errorEmitter: MutableLiveData<String> = MutableLiveData()
+    private val conditionGroupEmitter: MutableLiveData<Condition.Group> = MutableLiveData()
 
     private var jobGpsTracker: Job? = null
     private var jobWeatherInfo: Job? = null
 
     fun watchWorking(): LiveData<Boolean> = workingEmitter
     fun watchError(): LiveData<String> = errorEmitter
-
-    var test = "Value"
+    fun watchConditionGroup(): LiveData<Condition.Group> = conditionGroupEmitter
 
     @get:Bindable
     var place: Place? = null
@@ -53,14 +50,14 @@ class HomeViewModel @ViewModelInject constructor(
         }
 
     @get:Bindable
-    var currentInfo: Current? = null
+    var currentWeather: Current? = null
         private set(value) {
             field = value
-            notifyPropertyChanged(BR.currentInfo)
+            notifyPropertyChanged(BR.currentWeather)
         }
 
-    val hourlyList = ObservableArrayList<Hourly>()
-    val dailyList = ObservableArrayList<Daily>()
+    val hourlyWeather = ObservableArrayList<Hourly>()
+    val dailyWeather = ObservableArrayList<Daily>()
 
     init {
         session.currentLanguage = Locale.getDefault().language
@@ -133,15 +130,22 @@ class HomeViewModel @ViewModelInject constructor(
                             Timber.e(exception, "Exception captured")
                         }
                         .collect { weather ->
-                            currentInfo = weather?.current
+                            conditionGroupEmitter.postValue(Condition.Group.fromName(
+                                weather?.current?.let {
+                                    if(it.conditions.isNotEmpty())
+                                        it.conditions[0].main
+                                    else
+                                        null
+                                }
+                            ))
+                            currentWeather = weather?.current
                             weather?.hourly?.let {
-                                hourlyList.clear()
-                                hourlyList.addAll(it)
+                                hourlyWeather.clear()
+                                hourlyWeather.addAll(it)
                             }
-                            Timber.i("Daily size ${weather?.daily?.size}")
                             weather?.daily?.let {
-                                dailyList.clear()
-                                dailyList.addAll(it)
+                                dailyWeather.clear()
+                                dailyWeather.addAll(it)
                             }
                         }
                 }
