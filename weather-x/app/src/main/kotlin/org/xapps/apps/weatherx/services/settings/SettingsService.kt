@@ -2,6 +2,7 @@ package org.xapps.apps.weatherx.services.settings
 
 import android.content.Context
 import androidx.core.content.edit
+import org.xapps.apps.weatherx.services.models.Condition
 import javax.inject.Inject
 
 
@@ -18,6 +19,8 @@ class SettingsService @Inject constructor(private val context: Context) {
         private const val ATTR_HOURLY_VISIBLE_ITEMS_SIZE = "attrHourlyVisibleItemsSize"
         private const val ATTR_DAILY_VISIBLE_ITEMS_SIZE = "attrDailyVisibleItemsSize"
         private const val ATTR_USE_METRIC = "attrUseMetric"
+        private const val ATTR_LAST_CONDITION_CODE = "attrLastConditionCode"
+        private const val ATTR_LAST_WAS_DAY_LIGHT = "attrLastWasDayLight"
     }
 
     private val sharedPreferences = context.getSharedPreferences(PREFERENCE_FILENAME, Context.MODE_PRIVATE)
@@ -63,5 +66,17 @@ class SettingsService @Inject constructor(private val context: Context) {
 
     fun setUseMetric(useMetric: Boolean) =
         sharedPreferences.edit { putBoolean(ATTR_USE_METRIC, useMetric) }
+
+    fun lastConditionCode(): Int =
+        sharedPreferences.getInt(ATTR_LAST_CONDITION_CODE, Condition.Group.DEFAULT_CODE)
+
+    fun setLastConditionCode(code: Int) =
+        sharedPreferences.edit { putInt(ATTR_LAST_CONDITION_CODE, code) }
+
+    fun lastWasDayLight(): Boolean =
+        sharedPreferences.getBoolean(ATTR_LAST_WAS_DAY_LIGHT, true)
+
+    fun setLastWasDayLight(dayLight: Boolean) =
+        sharedPreferences.edit { putBoolean(ATTR_LAST_WAS_DAY_LIGHT, dayLight) }
 
 }

@@ -16,7 +16,8 @@
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_gradient_clear_sky_day">
+        app:conditionBackground="@{viewModel.currentWeather"
+        tools:background="@drawable/ic_gradient_night">
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motionBg"
