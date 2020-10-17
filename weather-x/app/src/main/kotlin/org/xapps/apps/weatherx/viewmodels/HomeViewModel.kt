@@ -16,6 +16,7 @@ import org.xapps.apps.weatherx.services.local.PlaceDao
 import org.xapps.apps.weatherx.services.models.*
 import org.xapps.apps.weatherx.services.repositories.WeatherRepository
 import org.xapps.apps.weatherx.services.settings.SettingsService
+import org.xapps.apps.weatherx.services.utils.DateUtils
 import org.xapps.apps.weatherx.services.utils.GpsTracker
 import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
 import timber.log.Timber
@@ -34,6 +35,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val workingEmitter: MutableLiveData<Boolean> = MutableLiveData()
     private val errorEmitter: MutableLiveData<String> = MutableLiveData()
     private val conditionGroupEmitter: MutableLiveData<Condition.Group> = MutableLiveData()
+    private val readyEmitter: MutableLiveData<Boolean> = MutableLiveData()
 
     private var jobGpsTracker: Job? = null
     private var jobWeatherInfo: Job? = null
@@ -41,6 +43,7 @@ class HomeViewModel @ViewModelInject constructor(
     fun watchWorking(): LiveData<Boolean> = workingEmitter
     fun watchError(): LiveData<String> = errorEmitter
     fun watchConditionGroup(): LiveData<Condition.Group> = conditionGroupEmitter
+    fun watchReady(): LiveData<Boolean> = readyEmitter
 
     @get:Bindable
     var place: Place? = null
@@ -128,12 +131,16 @@ class HomeViewModel @ViewModelInject constructor(
                     weatherRepository.currentHourlyDaily()
                         .catch { exception ->
                             Timber.e(exception, "Exception captured")
+                            readyEmitter.postValue(false)
                         }
                         .collect { weather ->
                             conditionGroupEmitter.postValue(Condition.Group.fromName(
                                 weather?.current?.let {
-                                    if(it.conditions.isNotEmpty())
+                                    settings.setLastWasDayLight(DateUtils.isDayLight(sunrise = it.sunrise, sunset = it.sunset, datetime = it.datetime))
+                                    if(it.conditions.isNotEmpty()) {
+                                        settings.setLastConditionCode(it.conditions[0].id)
                                         it.conditions[0].main
+                                    }
                                     else
                                         null
                                 }
@@ -147,6 +154,7 @@ class HomeViewModel @ViewModelInject constructor(
                                 dailyWeather.clear()
                                 dailyWeather.addAll(it)
                             }
+                            readyEmitter.postValue(true)
                         }
                 }
             }
@@ -166,5 +174,9 @@ class HomeViewModel @ViewModelInject constructor(
             jobGpsTracker = null
         }
     }
+
+    fun lastConditionCode(): Int = settings.lastConditionCode()
+
+    fun lastWasDayLight(): Boolean = settings.lastWasDayLight()
 
 }

@@ -2,7 +2,6 @@ package org.xapps.apps.weatherx.views.fragments
 
 import android.Manifest
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieDrawable
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -23,13 +23,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
-import org.xapps.apps.weatherx.services.models.Place
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.adapters.DailyInfoSimpleAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
-import timber.log.Timber
+import org.xapps.apps.weatherx.views.binding.ConstraintLayoutBindings
+import org.xapps.apps.weatherx.views.binding.LottieAnimationViewBindings
 import javax.inject.Inject
 
 
@@ -58,6 +58,8 @@ class HomeFragment @Inject constructor() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        prepareForLoading()
 
         motionFg.setTransitionListener(object: MotionLayout.TransitionListener {
 
@@ -120,6 +122,14 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         })
 
+        viewModel.watchReady().observe(viewLifecycleOwner, Observer { isReady ->
+            if(isReady) {
+                motionFg.transitionToEnd()
+            } else {
+                // Get back to the loading view
+            }
+        })
+
         Dexter.withContext(requireContext())
             .withPermissions(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -148,10 +158,17 @@ class HomeFragment @Inject constructor() : Fragment() {
                 Toast.makeText(requireContext(), "${it.name}", Toast.LENGTH_LONG).show()
             }
             .check()
+    }
 
-        Handler().postDelayed({
-            motionFg.transitionToEnd()
-        }, 2000)
+    fun prepareForLoading() {
+        val lastAnimation = LottieAnimationViewBindings.weatherAnimation(viewModel.lastConditionCode(), viewModel.lastWasDayLight())
+        lotConditionImage.setAnimation(lastAnimation)
+        lotConditionImage.speed = 1.0f
+        lotConditionImage.repeatCount = LottieDrawable.INFINITE
+        lotConditionImage.repeatMode = LottieDrawable.RESTART
+        lotConditionImage.playAnimation()
+        val lastBackground = ConstraintLayoutBindings.conditionBackground(viewModel.lastConditionCode(), viewModel.lastWasDayLight())
+        rootLayout.setBackgroundResource(lastBackground)
     }
 
 }

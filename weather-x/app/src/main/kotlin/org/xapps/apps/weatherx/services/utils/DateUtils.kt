@@ -16,4 +16,9 @@ object DateUtils {
         }
     }
 
+    fun isDayLight(sunrise: Long = 0L, sunset: Long = 0L, datetime: Long = 0L): Boolean {
+        val current = if(datetime == 0L) Date().time else datetime
+        return ((sunrise == 0L && sunset == 0L) || (sunrise <= current && current <= sunset))
+    }
+
 }
