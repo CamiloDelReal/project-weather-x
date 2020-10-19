@@ -21,7 +21,7 @@ object Build {
     const val APPLICATION_ID = "org.xapps.apps.weatherx"
     const val APP_NAME = "WeatherX"
     const val MAJOR_VERSION = 0
-    const val MINOR_VERSION = 1
+    const val MINOR_VERSION = 8
     const val PATH_VERSION = 0
     const val STATUS_VERSION = ""
 }
