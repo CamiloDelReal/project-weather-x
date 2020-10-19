@@ -162,12 +162,13 @@ class HomeFragment @Inject constructor() : Fragment() {
 
     fun prepareForLoading() {
         val lastAnimation = LottieAnimationViewBindings.weatherAnimation(viewModel.lastConditionCode(), viewModel.lastWasDayLight())
+        lotConditionImage.tag = lastAnimation
         lotConditionImage.setAnimation(lastAnimation)
         lotConditionImage.speed = 1.0f
         lotConditionImage.repeatCount = LottieDrawable.INFINITE
         lotConditionImage.repeatMode = LottieDrawable.RESTART
         lotConditionImage.playAnimation()
-        val lastBackground = ConstraintLayoutBindings.conditionBackground(viewModel.lastConditionCode(), viewModel.lastWasDayLight())
+        val lastBackground = ConstraintLayoutBindings.conditionBackground(viewModel.lastConditionCode(), viewModel.lastWasDayLight(), viewModel.lastTemperature(), viewModel.useMetric())
         rootLayout.setBackgroundResource(lastBackground)
     }
 

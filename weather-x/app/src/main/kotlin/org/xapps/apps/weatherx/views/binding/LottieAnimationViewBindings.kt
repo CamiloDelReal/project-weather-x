@@ -1,5 +1,7 @@
 package org.xapps.apps.weatherx.views.binding
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
@@ -20,7 +22,8 @@ object LottieAnimationViewBindings {
             condition = value?.let { if (it.conditions.isNotEmpty()) it.conditions[0] else null },
             datetime = value?.datetime ?: 0L,
             sunrise = value?.sunrise ?: 0L,
-            sunset = value?.sunset ?: 0L
+            sunset = value?.sunset ?: 0L,
+            animate = true
         )
     }
 
@@ -28,11 +31,12 @@ object LottieAnimationViewBindings {
     @BindingAdapter("weatherAnimation")
     fun weatherAnimation(view: LottieAnimationView, value: Hourly?) {
         weatherAnimation(
-            view =  view,
+            view = view,
             condition = value?.let { if (it.conditions.isNotEmpty()) it.conditions[0] else null },
             datetime = value?.datetime ?: 0L,
             sunrise = value?.sunrise ?: 0L,
-            sunset = value?.sunset ?: 0L
+            sunset = value?.sunset ?: 0L,
+            animate = false
         )
     }
 
@@ -41,7 +45,8 @@ object LottieAnimationViewBindings {
     fun weatherAnimation(view: LottieAnimationView, value: Daily?) {
         weatherAnimation(
             view = view,
-            condition = value?.let { if (it.conditions.isNotEmpty()) it.conditions[0] else null }
+            condition = value?.let { if (it.conditions.isNotEmpty()) it.conditions[0] else null },
+            animate = false
         )
     }
 
@@ -50,17 +55,41 @@ object LottieAnimationViewBindings {
         condition: Condition?,
         datetime: Long = 0L,
         sunrise: Long = 0L,
-        sunset: Long = 0L
+        sunset: Long = 0L,
+        animate: Boolean = false
     ) {
         condition?.let {
             val isDayLight = DateUtils.isDayLight(sunrise = sunrise, sunset = sunset, datetime = datetime)
             val animation = weatherAnimation(it.id, isDayLight)
-
-            view.setAnimation(animation)
-            view.speed = 1.0f
-            view.repeatCount = LottieDrawable.INFINITE
-            view.repeatMode = LottieDrawable.RESTART
-            view.playAnimation()
+            if(animate) {
+                if (view.tag == null || view.tag as String != animation) {
+                    view.tag = animation
+                    view.animate().alpha(0.0f).setDuration(250)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(alphaAnimation: Animator?) {
+                                view.alpha = 0.0f
+                                view.setAnimation(animation)
+                                view.speed = 1.0f
+                                view.repeatCount = LottieDrawable.INFINITE
+                                view.repeatMode = LottieDrawable.RESTART
+                                view.playAnimation()
+                                view.animate().alpha(1.0f).setDuration(250)
+                                    .setListener(object : AnimatorListenerAdapter() {
+                                        override fun onAnimationEnd(animation: Animator?) {
+                                            view.alpha = 1.0f
+                                        }
+                                    })
+                            }
+                        })
+                }
+            } else {
+                view.tag = animation
+                view.setAnimation(animation)
+                view.speed = 1.0f
+                view.repeatCount = LottieDrawable.INFINITE
+                view.repeatMode = LottieDrawable.RESTART
+                view.playAnimation()
+            }
         }
     }
 

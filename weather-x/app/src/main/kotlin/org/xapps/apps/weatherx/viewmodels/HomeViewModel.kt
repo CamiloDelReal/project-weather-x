@@ -136,6 +136,7 @@ class HomeViewModel @ViewModelInject constructor(
                         .collect { weather ->
                             conditionGroupEmitter.postValue(Condition.Group.fromName(
                                 weather?.current?.let {
+                                    settings.setLastTemperature(it.temperature)
                                     settings.setLastWasDayLight(DateUtils.isDayLight(sunrise = it.sunrise, sunset = it.sunset, datetime = it.datetime))
                                     if(it.conditions.isNotEmpty()) {
                                         settings.setLastConditionCode(it.conditions[0].id)
@@ -178,5 +179,9 @@ class HomeViewModel @ViewModelInject constructor(
     fun lastConditionCode(): Int = settings.lastConditionCode()
 
     fun lastWasDayLight(): Boolean = settings.lastWasDayLight()
+
+    fun lastTemperature(): Double = settings.lastTemperature()
+
+    fun useMetric(): Boolean = settings.useMetric()
 
 }

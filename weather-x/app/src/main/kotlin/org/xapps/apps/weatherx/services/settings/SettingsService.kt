@@ -20,6 +20,7 @@ class SettingsService @Inject constructor(private val context: Context) {
         private const val ATTR_DAILY_VISIBLE_ITEMS_SIZE = "attrDailyVisibleItemsSize"
         private const val ATTR_USE_METRIC = "attrUseMetric"
         private const val ATTR_LAST_CONDITION_CODE = "attrLastConditionCode"
+        private const val ATTR_LAST_TEMPERATURE = "attrLastTemperature"
         private const val ATTR_LAST_WAS_DAY_LIGHT = "attrLastWasDayLight"
     }
 
@@ -72,6 +73,12 @@ class SettingsService @Inject constructor(private val context: Context) {
 
     fun setLastConditionCode(code: Int) =
         sharedPreferences.edit { putInt(ATTR_LAST_CONDITION_CODE, code) }
+
+    fun lastTemperature(): Double =
+        sharedPreferences.getFloat(ATTR_LAST_TEMPERATURE, 0.0f).toDouble()
+
+    fun setLastTemperature(temperature: Double) =
+        sharedPreferences.edit { putFloat(ATTR_LAST_TEMPERATURE, temperature.toFloat()) }
 
     fun lastWasDayLight(): Boolean =
         sharedPreferences.getBoolean(ATTR_LAST_WAS_DAY_LIGHT, true)

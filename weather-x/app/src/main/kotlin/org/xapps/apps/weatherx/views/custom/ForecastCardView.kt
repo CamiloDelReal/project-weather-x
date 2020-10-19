@@ -14,6 +14,7 @@ import androidx.databinding.BindingAdapter
 import kotlinx.android.synthetic.main.content_card_forecast.view.*
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.models.Current
+import timber.log.Timber
 import java.util.*
 import kotlin.math.min
 
@@ -202,7 +203,7 @@ class ForecastCardView(context: Context, attrs: AttributeSet) :
             }
             val descriptionStr = value?.let { info ->
                 when {
-                    info.windDegrees >= 348.75 && info.windDegrees < 11.25 -> view.context.getString(R.string.north)
+                    info.windDegrees >= 348.75 || info.windDegrees < 11.25 -> view.context.getString(R.string.north)
                     info.windDegrees >= 11.25 && info.windDegrees < 33.75 -> view.context.getString(R.string.north_northeast)
                     info.windDegrees >= 33.75 && info.windDegrees < 56.25 -> view.context.getString(R.string.northeast)
                     info.windDegrees >= 56.25 && info.windDegrees < 78.75 -> view.context.getString(R.string.east_northeast)
@@ -224,6 +225,7 @@ class ForecastCardView(context: Context, attrs: AttributeSet) :
                 view.context.getString(R.string.not_available)
             }
             view.setValue(valueStr)
+            Timber.i("Description $descriptionStr")
             view.setDescription(descriptionStr)
         }
 

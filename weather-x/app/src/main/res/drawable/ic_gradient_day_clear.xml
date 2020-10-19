@@ -4,7 +4,7 @@
 
     <gradient
         android:angle="90"
-        android:endColor="@color/clearSkyDay1"
-        android:startColor="@color/clearSkyDay2" />
+        android:endColor="@color/dayClear1"
+        android:startColor="@color/dayClear2" />
 
 </shape>
