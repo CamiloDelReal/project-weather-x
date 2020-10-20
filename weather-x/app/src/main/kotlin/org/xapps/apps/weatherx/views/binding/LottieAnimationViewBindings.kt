@@ -10,6 +10,7 @@ import org.xapps.apps.weatherx.services.models.Current
 import org.xapps.apps.weatherx.services.models.Daily
 import org.xapps.apps.weatherx.services.models.Hourly
 import org.xapps.apps.weatherx.services.utils.DateUtils
+import timber.log.Timber
 
 
 object LottieAnimationViewBindings {
@@ -135,16 +136,16 @@ object LottieAnimationViewBindings {
             620 -> if (isDayLight) "620-light-shower-snow-day.json" else "620-light-shower-snow-night.json"
             621 -> "621-shower-snow.json"
             622 -> "622-heavy-shower-snow.json"
-            701 -> ""
-            711 -> ""
-            721 -> ""
-            731 -> ""
-            741 -> ""
-            751 -> ""
-            761 -> ""
-            762 -> ""
-            771 -> ""
-            781 -> ""
+//            701 -> ""
+//            711 -> ""
+//            721 -> ""
+//            731 -> ""
+//            741 -> ""
+//            751 -> ""
+//            761 -> ""
+//            762 -> ""
+//            771 -> ""
+//            781 -> ""
             800 -> if (isDayLight) "800-clear-sky-day.json" else "800-clear-sky-night.json"
             801 -> if (isDayLight) "801-few-clouds-day.json" else "801-few-clouds-night.json"
             802 -> if (isDayLight) "802-scattered-clouds-day.json" else "802-scattered-clouds-night.json"
