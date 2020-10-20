@@ -22,7 +22,7 @@ object Build {
     const val APP_NAME = "WeatherX"
     const val MAJOR_VERSION = 0
     const val MINOR_VERSION = 8
-    const val PATH_VERSION = 0
+    const val PATH_VERSION = 1
     const val STATUS_VERSION = ""
 }
 
