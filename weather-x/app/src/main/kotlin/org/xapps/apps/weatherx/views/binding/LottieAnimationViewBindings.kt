@@ -10,6 +10,7 @@ import org.xapps.apps.weatherx.services.models.Current
 import org.xapps.apps.weatherx.services.models.Daily
 import org.xapps.apps.weatherx.services.models.Hourly
 import org.xapps.apps.weatherx.services.utils.DateUtils
+import org.xapps.apps.weatherx.views.utils.Utilities
 import timber.log.Timber
 
 
@@ -24,6 +25,7 @@ object LottieAnimationViewBindings {
             datetime = value?.datetime ?: 0L,
             sunrise = value?.sunrise ?: 0L,
             sunset = value?.sunset ?: 0L,
+            visibility = value?.visibility ?: 2000,
             animate = true
         )
     }
@@ -37,6 +39,7 @@ object LottieAnimationViewBindings {
             datetime = value?.datetime ?: 0L,
             sunrise = value?.sunrise ?: 0L,
             sunset = value?.sunset ?: 0L,
+            visibility = value?.visibility ?: 2000,
             animate = false
         )
     }
@@ -47,6 +50,7 @@ object LottieAnimationViewBindings {
         weatherAnimation(
             view = view,
             condition = value?.let { if (it.conditions.isNotEmpty()) it.conditions[0] else null },
+            visibility = value?.visibility ?: 2000,
             animate = false
         )
     }
@@ -57,11 +61,12 @@ object LottieAnimationViewBindings {
         datetime: Long = 0L,
         sunrise: Long = 0L,
         sunset: Long = 0L,
+        visibility: Int = 2000,
         animate: Boolean = false
     ) {
         condition?.let {
             val isDayLight = DateUtils.isDayLight(sunrise = sunrise, sunset = sunset, datetime = datetime)
-            val animation = weatherAnimation(it.id, isDayLight)
+            val animation = weatherAnimation(it.id, isDayLight, Utilities.isVisible(visibility))
             if(animate) {
                 if (view.tag == null || view.tag as String != animation) {
                     view.tag = animation
@@ -94,7 +99,7 @@ object LottieAnimationViewBindings {
         }
     }
 
-    fun weatherAnimation(code: Int, isDayLight: Boolean): String {
+    fun weatherAnimation(code: Int, isDayLight: Boolean, isThereVisibility: Boolean): String {
         return when (code) {
             200 -> "200-thunderstorm-with-light-rain.json"
             201 -> "201-thunderstorm-with-rain.json"
@@ -136,16 +141,16 @@ object LottieAnimationViewBindings {
             620 -> if (isDayLight) "620-light-shower-snow-day.json" else "620-light-shower-snow-night.json"
             621 -> "621-shower-snow.json"
             622 -> "622-heavy-shower-snow.json"
-//            701 -> ""
-//            711 -> ""
-//            721 -> ""
-//            731 -> ""
-//            741 -> ""
-//            751 -> ""
-//            761 -> ""
-//            762 -> ""
-//            771 -> ""
-//            781 -> ""
+            701 -> if(!isThereVisibility) "701-mist-no-visibility.json" else { if (isDayLight) "701-mist-day.json" else "701-mist-night.json" }
+            711 -> if(!isThereVisibility) "711-smoke-no-visibility.json" else { if (isDayLight) "711-smoke-day.json" else "711-smoke-night.json" }
+            721 -> if(!isThereVisibility) "721-haze-no-visibility.json" else { if (isDayLight) "721-haze-day.json" else "721-haze-night.json" }
+            731 -> if(!isThereVisibility) "731-dust-no-visibility.json" else { if (isDayLight) "731-dust-day.json" else "731-dust-night.json" }
+            741 -> if(!isThereVisibility) "741-fog-no-visibility.json" else { if (isDayLight) "741-fog-day.json" else "741-fog-night.json" }
+            751 -> if(!isThereVisibility) "751-sand-no-visibility.json" else { if (isDayLight) "751-sand-day.json" else "751-sand-night.json" }
+            761 -> if(!isThereVisibility) "761-dust-no-visibility.json" else { if (isDayLight) "761-dust-day.json" else "761-dust-night.json" }
+            762 -> if(!isThereVisibility) "762-ash-no-visibility.json" else { if (isDayLight) "762-ash-day.json" else "762-ash-night.json" }
+            771 -> if(!isThereVisibility) "771-squall-no-visibility.json" else { if (isDayLight) "771-squall-day.json" else "771-squall-night.json" }
+            781 -> if(!isThereVisibility) "781-tornado-no-visibility.json" else { if (isDayLight) "781-tornado-day.json" else "781-tornado-night.json" }
             800 -> if (isDayLight) "800-clear-sky-day.json" else "800-clear-sky-night.json"
             801 -> if (isDayLight) "801-few-clouds-day.json" else "801-few-clouds-night.json"
             802 -> if (isDayLight) "802-scattered-clouds-day.json" else "802-scattered-clouds-night.json"

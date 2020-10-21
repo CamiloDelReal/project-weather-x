@@ -161,7 +161,7 @@ class HomeFragment @Inject constructor() : Fragment() {
     }
 
     fun prepareForLoading() {
-        val lastAnimation = LottieAnimationViewBindings.weatherAnimation(viewModel.lastConditionCode(), viewModel.lastWasDayLight())
+        val lastAnimation = LottieAnimationViewBindings.weatherAnimation(viewModel.lastConditionCode(), viewModel.lastWasDayLight(), viewModel.lastWasThereVisibility())
         lotConditionImage.tag = lastAnimation
         lotConditionImage.setAnimation(lastAnimation)
         lotConditionImage.speed = 1.0f

@@ -19,6 +19,7 @@ import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.services.utils.DateUtils
 import org.xapps.apps.weatherx.services.utils.GpsTracker
 import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
+import org.xapps.apps.weatherx.views.utils.Utilities
 import timber.log.Timber
 import java.util.*
 
@@ -137,6 +138,7 @@ class HomeViewModel @ViewModelInject constructor(
                             conditionGroupEmitter.postValue(Condition.Group.fromName(
                                 weather?.current?.let {
                                     settings.setLastTemperature(it.temperature)
+                                    settings.setLastWasVisible(Utilities.isVisible(it.visibility))
                                     settings.setLastWasDayLight(DateUtils.isDayLight(sunrise = it.sunrise, sunset = it.sunset, datetime = it.datetime))
                                     if(it.conditions.isNotEmpty()) {
                                         settings.setLastConditionCode(it.conditions[0].id)
@@ -183,5 +185,7 @@ class HomeViewModel @ViewModelInject constructor(
     fun lastTemperature(): Double = settings.lastTemperature()
 
     fun useMetric(): Boolean = settings.useMetric()
+
+    fun lastWasThereVisibility(): Boolean = settings.lastWasThereVisibility()
 
 }
