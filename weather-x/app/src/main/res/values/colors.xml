@@ -6,14 +6,54 @@
 
     <color name="dayClear1">#04befe</color>
     <color name="dayClear2">#4481eb</color>
+
     <color name="dayClearHot1">#ef473a</color>
     <color name="dayClearHot2">#cb2d3e</color>
+
+    <color name="dayRain1">#8b939a</color>
+    <color name="dayRain2">#5b6467</color>
+
+    <color name="dayDrizzle1">#8b939a</color>
+    <color name="dayDrizzle2">#5b6467</color>
+
+    <color name="daySnow1">#c5c6cf</color>
+    <color name="daySnow2">#757f9a</color>
+
+    <color name="dayClouds1">#6dd5ed</color>
+    <color name="dayClouds2">#2193b0</color>
+
+    <color name="dayCloudsIntense1">#4ca1af</color>
+    <color name="dayCloudsIntense2">#2193b0</color>
+
+    <color name="dayThunderstorm1">#89253e</color>
+    <color name="dayThunderstorm2">#3a6186</color>
+
+    <color name="dayAsh1">#dd1818</color>
+    <color name="dayAsh2">#333333</color>
 
     <color name="daySand1">#ffd194</color>
     <color name="daySand2">#d1913c</color>
 
     <color name="dayTornado1">#b3957f</color>
     <color name="dayTornado2">#33323a</color>
+
+    <color name="daySquall1">#7bc6cc</color>
+    <color name="daySquall2">#be93c5</color>
+
+    <color name="dayMist1">#e8cbc0</color>
+    <color name="dayMist2">#636fa4</color>
+
+    <color name="dayFog1">#e8cbc0</color>
+    <color name="dayFog2">#636fa4</color>
+
+    <color name="dayHaze1">#b3957f</color>
+    <color name="dayHaze2">#636fa4</color>
+
+    <color name="daySmoke1">#cbcaa5</color>
+    <color name="daySmoke2">#334d50</color>
+
+    <color name="dayDust1">#e8cbc0</color>
+    <color name="dayDust2">#b3957f</color>
     
     <color name="clearSkyNight1">#485563</color>
     <color name="clearSkyNight2">#29323c</color>

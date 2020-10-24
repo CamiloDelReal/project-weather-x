@@ -40,27 +40,28 @@ object ConstraintLayoutBindings {
             R.drawable.ic_gradient_night
         } else {
             when (code) {
-                200, 201, 202, 210, 211, 212, 221, 230, 231, 232 -> R.drawable.ic_gradient_day_clear // TODO
-                300, 301, 302, 310, 311, 312, 313, 314, 321 -> R.drawable.ic_gradient_day_clear // TODO
-                500, 501, 502, 503, 504, 511, 520, 521, 522, 531 -> R.drawable.ic_gradient_day_clear // TODO
-                600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622 -> R.drawable.ic_gradient_day_clear // TODO
-                701 -> R.drawable.ic_gradient_day_clear // TODO
-                711 -> R.drawable.ic_gradient_day_clear // TODO
-                721 -> R.drawable.ic_gradient_day_clear // TODO
-                731, 761 -> R.drawable.ic_gradient_day_clear // TODO
-                741 -> R.drawable.ic_gradient_day_clear // TODO
-                751 -> R.drawable.ic_gradient_day_clear // TODO
-                762 -> R.drawable.ic_gradient_day_clear // TODO
-                771 -> R.drawable.ic_gradient_day_clear // TODO
-                781 -> R.drawable.ic_gradient_day_clear // TODO
+                200, 201, 202, 210, 211, 212, 221, 230, 231, 232 -> R.drawable.ic_gradient_day_thunderstorm
+                300, 301, 302, 310, 311, 312, 313, 314, 321 -> R.drawable.ic_gradient_day_drizzle
+                500, 501, 502, 503, 504, 511, 520, 521, 522, 531 -> R.drawable.ic_gradient_day_rain
+                600, 601, 602, 611, 612, 613, 615, 616, 620, 621, 622 -> R.drawable.ic_gradient_day_snow
+                701 -> R.drawable.ic_gradient_day_mist
+                711 -> R.drawable.ic_gradient_day_smoke
+                721 -> R.drawable.ic_gradient_day_haze
+                731, 761 -> R.drawable.ic_gradient_day_dust
+                741 -> R.drawable.ic_gradient_day_fog
+                751 -> R.drawable.ic_gradient_day_sand
+                762 -> R.drawable.ic_gradient_day_ash
+                771 -> R.drawable.ic_gradient_day_squall
+                781 -> R.drawable.ic_gradient_day_tornado
                 800 -> {
-                    if ((useMetric && temperature >= 30.0f) || (!useMetric && temperature >= 86.0f)) {
+                    if ((useMetric && temperature >= 35.0f) || (!useMetric && temperature >= 95.0f)) {
                         R.drawable.ic_gradient_day_clear_hot
                     } else {
                         R.drawable.ic_gradient_day_clear
                     }
                 }
-                801, 802, 803, 804 -> R.drawable.ic_gradient_day_clear // TODO
+                801, 802 -> R.drawable.ic_gradient_day_clouds
+                803, 804 -> R.drawable.ic_gradient_day_clouds_intense
                 else -> R.drawable.ic_gradient_day_clear
             }
         }
