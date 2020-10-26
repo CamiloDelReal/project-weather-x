@@ -36,4 +36,19 @@
     <string name="north_northwest">North Northwest</string>
     <string name="probability_of_rain">Prob. of rain</string>
     <string name="precipitation">Precipitation</string>
+    <string name="weather_service">Weather Service</string>
+    <string name="animated_icons">Animated icons</string>
+    <string name="gradients">Gradients</string>
+    <string name="open_weather">Open Weather</string>
+    <string name="openweathermap_url">https://openweathermap.org</string>
+    <string name="lottiefiles_jochang_url">https://lottiefiles.com/user/26177</string>
+    <string name="designed_by_jochang">Designed by jochang from LottieFiles</string>
+    <string name="inspiration_from_uigradients">Inspiration from uiGradients</string>
+    <string name="uigradients_url">https://uigradients.com</string>
+    <string name="about">About</string>
+    <string name="add_place">Add place</string>
+    <string name="comming_soon">Comming soon</string>
+    <string name="material_design_icons_url">https://materialdesignicons.com/</string>
+    <string name="material_design_icons">Material Design Icons</string>
+    <string name="icons">Icons</string>
 </resources>

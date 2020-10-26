@@ -1,16 +1,17 @@
 package org.xapps.apps.weatherx.views.fragments
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieDrawable
@@ -30,6 +31,8 @@ import org.xapps.apps.weatherx.views.adapters.HourlyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
 import org.xapps.apps.weatherx.views.binding.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.binding.LottieAnimationViewBindings
+import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -52,7 +55,6 @@ class HomeFragment @Inject constructor() : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        ViewCompat.setTranslationZ(binding.root, 1f)
         return binding.root
     }
 
@@ -140,8 +142,6 @@ class HomeFragment @Inject constructor() : Fragment() {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
                         if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(requireContext(), "OK", Toast.LENGTH_LONG).show()
-
                             viewModel.prepareMonitoring()
                         }
                     }
@@ -158,6 +158,13 @@ class HomeFragment @Inject constructor() : Fragment() {
                 Toast.makeText(requireContext(), "${it.name}", Toast.LENGTH_LONG).show()
             }
             .check()
+
+        btnAdd.setOnClickListener {
+            val moreOptionPopup = MoreOptionsPopup()
+            moreOptionPopup.setTargetFragment(this@HomeFragment, MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE)
+            val fragmentManager = parentFragmentManager.beginTransaction()
+            moreOptionPopup.show(fragmentManager, "MoreOptionsPopup")
+        }
     }
 
     fun prepareForLoading() {
@@ -172,4 +179,14 @@ class HomeFragment @Inject constructor() : Fragment() {
         rootLayout.setBackgroundResource(lastBackground)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE) {
+            if(resultCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_ACCEPTED_CODE) {
+                Timber.i("Accept code")
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 }

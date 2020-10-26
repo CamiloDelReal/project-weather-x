@@ -99,6 +99,10 @@ dependencies {
 
     // Jetpack MultiDex
     implementation(Libraries.Jetpack.MultiDex.CORE)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+    implementation("androidx.wear:wear:1.0.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    compileOnly("com.google.android.wearable:wearable:2.6.0")
 
     // Jetpack Annotations Support
     kapt(Libraries.Jetpack.AnnotationSupport.ANNOTATION)
