@@ -47,7 +47,7 @@
                     android:layout_width="@dimen/_64sdp"
                     android:layout_height="@dimen/_64sdp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/ic_launcher_rounded_corners" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -183,7 +183,7 @@
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_gravity="top"
-                            android:src="@drawable/ic_lottiefiles" />
+                            android:src="@drawable/ic_googlematerialdesign" />
 
                         <Space
                             android:layout_width="@dimen/_12sdp"
