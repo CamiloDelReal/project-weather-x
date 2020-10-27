@@ -51,4 +51,5 @@
     <string name="material_design_icons_url">https://materialdesignicons.com/</string>
     <string name="material_design_icons">Material Design Icons</string>
     <string name="icons">Icons</string>
+    <string name="dark_mode">Dark mode</string>
 </resources>

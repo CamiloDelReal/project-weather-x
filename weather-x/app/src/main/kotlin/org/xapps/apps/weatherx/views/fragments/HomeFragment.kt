@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,7 +33,6 @@ import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
 import org.xapps.apps.weatherx.views.binding.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.binding.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -155,7 +155,7 @@ class HomeFragment @Inject constructor() : Fragment() {
                 }
             })
             .withErrorListener {
-                Toast.makeText(requireContext(), "${it.name}", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
             }
             .check()
 
@@ -182,8 +182,15 @@ class HomeFragment @Inject constructor() : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE) {
             if(resultCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_ACCEPTED_CODE) {
-                Timber.i("Accept code")
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
+                val option = data?.getIntExtra(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION, -1) ?: -1
+                when (option) {
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
+                        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW -> {
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
+                    }
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

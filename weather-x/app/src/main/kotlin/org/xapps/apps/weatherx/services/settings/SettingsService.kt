@@ -34,7 +34,7 @@ class SettingsService @Inject constructor(private val context: Context) {
         sharedPreferences.edit { putBoolean(ATTR_IS_FIRST_TIME, isFirstTime) }
 
     fun isDarkModeOn(): Boolean =
-        sharedPreferences.getBoolean(ATTR_DARK_MODE_ON, true)
+        sharedPreferences.getBoolean(ATTR_DARK_MODE_ON, false)
 
     fun setIsDarkModeOn(darkModeOn: Boolean) =
         sharedPreferences.edit { putBoolean(ATTR_DARK_MODE_ON, darkModeOn) }
