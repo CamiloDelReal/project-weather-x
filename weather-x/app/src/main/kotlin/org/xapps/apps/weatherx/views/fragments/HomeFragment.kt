@@ -120,10 +120,6 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         })
 
-        viewModel.watchConditionGroup().observe(viewLifecycleOwner, Observer { group ->
-
-        })
-
         viewModel.watchReady().observe(viewLifecycleOwner, Observer { isReady ->
             if(isReady) {
                 if(motionFg.currentState == R.id.setLoading) {

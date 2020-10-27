@@ -35,7 +35,6 @@ class HomeViewModel @ViewModelInject constructor(
 
     private val workingEmitter: MutableLiveData<Boolean> = MutableLiveData()
     private val errorEmitter: MutableLiveData<String> = MutableLiveData()
-    private val conditionGroupEmitter: MutableLiveData<Condition.Group> = MutableLiveData()
     private val readyEmitter: MutableLiveData<Boolean> = MutableLiveData()
 
     private var jobGpsTracker: Job? = null
@@ -43,7 +42,6 @@ class HomeViewModel @ViewModelInject constructor(
 
     fun watchWorking(): LiveData<Boolean> = workingEmitter
     fun watchError(): LiveData<String> = errorEmitter
-    fun watchConditionGroup(): LiveData<Condition.Group> = conditionGroupEmitter
     fun watchReady(): LiveData<Boolean> = readyEmitter
 
     @get:Bindable
@@ -135,19 +133,14 @@ class HomeViewModel @ViewModelInject constructor(
                             readyEmitter.postValue(false)
                         }
                         .collect { weather ->
-                            conditionGroupEmitter.postValue(Condition.Group.fromName(
-                                weather?.current?.let {
-                                    settings.setLastTemperature(it.temperature)
-                                    settings.setLastWasVisible(Utilities.isVisible(it.visibility))
-                                    settings.setLastWasDayLight(DateUtils.isDayLight(sunrise = it.sunrise, sunset = it.sunset, datetime = it.datetime))
-                                    if(it.conditions.isNotEmpty()) {
-                                        settings.setLastConditionCode(it.conditions[0].id)
-                                        it.conditions[0].main
-                                    }
-                                    else
-                                        null
+                            weather?.current?.let {
+                                settings.setLastTemperature(it.temperature)
+                                settings.setLastWasVisible(Utilities.isVisible(it.visibility))
+                                settings.setLastWasDayLight(DateUtils.isDayLight(sunrise = it.sunrise, sunset = it.sunset, datetime = it.datetime))
+                                if(it.conditions.isNotEmpty()) {
+                                    settings.setLastConditionCode(it.conditions[0].id)
                                 }
-                            ))
+                            }
                             currentWeather = weather?.current
                             weather?.hourly?.let {
                                 hourlyWeather.clear()
