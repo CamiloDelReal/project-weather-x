@@ -3,10 +3,10 @@ import org.gradle.kotlin.dsl.maven
 
 
 object Plugins {
-    private const val GRADLE_VERSION = "4.0.0"
-    private const val KOTLIN_VERSION = "1.3.72"
-    private const val HILT_VERSION = "2.28-alpha"
-    private const val NAVIGATION_SAFE_ARGS_VERSION = "2.3.0-rc01"
+    private const val GRADLE_VERSION = "4.1.0"
+    private const val KOTLIN_VERSION = "1.4.10"
+    private const val HILT_VERSION = "2.29.1-alpha"
+    private const val NAVIGATION_SAFE_ARGS_VERSION = "2.3.1"
 
     const val GRADLE = "com.android.tools.build:gradle:$GRADLE_VERSION"
     const val KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
@@ -52,8 +52,8 @@ object Repositories {
 
 object Libraries {
     object Kotlin {
-        private const val CORE_VERSION = "1.3.0"
-        private const val COROUTINES_VERSION = "1.3.5"
+        private const val CORE_VERSION = "1.3.2"
+        private const val COROUTINES_VERSION = "1.4.0-M1"
 
         const val MODULE = "stdlib-jdk8"
         const val CORE = "androidx.core:core-ktx:$CORE_VERSION"
@@ -69,9 +69,9 @@ object Libraries {
         }
 
         object UI {
-            private const val CONSTRAINT_LAYOUT_VERSION = "2.0.1"
+            private const val CONSTRAINT_LAYOUT_VERSION = "2.0.2"
             private const val MATERIAL_VERSION = "1.2.1"
-            private const val APP_COMPAT_VERSION = "1.1.0"
+            private const val APP_COMPAT_VERSION = "1.2.0"
 
             const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:$CONSTRAINT_LAYOUT_VERSION"
             const val MATERIAL = "com.google.android.material:material:$MATERIAL_VERSION"
@@ -80,14 +80,14 @@ object Libraries {
         
         object Extensions {
             private const val ACTIVITY_KOTLIN_EXT_VERSION = "1.1.0"
-            private const val FRAGMENT_KOTLIN_EXT_VERSION = "1.2.4"
+            private const val FRAGMENT_KOTLIN_EXT_VERSION = "1.2.5"
 
             const val ACTIVITY_KOTLIN_EXT = "androidx.activity:activity-ktx:$ACTIVITY_KOTLIN_EXT_VERSION"
             const val FRAGMENT_KOTLIN_EXT = "androidx.fragment:fragment-ktx:$FRAGMENT_KOTLIN_EXT_VERSION"
         }
 
         object Navigation {
-            private const val VERSION = "2.2.2"
+            private const val VERSION = "2.3.1"
 
             const val UI_KTX = "androidx.navigation:navigation-ui-ktx:$VERSION"
             const val FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:$VERSION"
@@ -129,15 +129,15 @@ object Libraries {
     }
 
     object Dagger {
-        private const val VERSION = "2.27"
+        private const val VERSION = "2.29.1"
 
         const val COMPILER = "com.google.dagger:dagger-compiler:$VERSION"
         const val ANDROID = "com.google.dagger:dagger-android:$VERSION"
     }
 
     object Hilt {
-        private const val VERSION = "2.28-alpha"
-        private const val JETPACK_VERSION = "1.0.0-alpha01"
+        private const val VERSION = "2.29.1-alpha"
+        private const val JETPACK_VERSION = "1.0.0-alpha02"
 
         const val CORE = "com.google.dagger:hilt-android:$VERSION"
         const val COMPILER = "com.google.dagger:hilt-android-compiler:$VERSION"
@@ -146,8 +146,8 @@ object Libraries {
     }
 
     object Retrofit {
-        private const val VERSION = "2.8.1"
-        private const val LOGGING_INTERCEPTOR_VERSION = "4.5.0"
+        private const val VERSION = "2.9.0"
+        private const val LOGGING_INTERCEPTOR_VERSION = "4.9.0"
 
         const val CORE = "com.squareup.retrofit2:retrofit:$VERSION"
         const val MOSHI = "com.squareup.retrofit2:converter-moshi:$VERSION"
@@ -156,7 +156,7 @@ object Libraries {
     }
 
     object Moshi {
-        private const val VERSION = "1.9.2"
+        private const val VERSION = "1.11.0"
 
         const val MOSHI_KTX = "com.squareup.moshi:moshi-kotlin:$VERSION"
     }
@@ -207,11 +207,6 @@ object Test {
         const val CORE = "androidx.test.espresso:espresso-core:$VERSION"
         const val CONTRIB = "androidx.test.espresso:espresso-contrib:$VERSION"
         const val INTENTS = "androidx.test.espresso:espresso-intents:$VERSION"
-    }
-
-    object Gson {
-        private const val VERSION = "2.8.5"
-        const val  GSON = "com.google.code.gson:gson:$VERSION"
     }
 
     object Coroutines {

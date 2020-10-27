@@ -118,7 +118,6 @@ dependencies {
     implementation(Libraries.Jetpack.Navigation.FRAGMENT_KTX)
 
     // Jetpack Shared Preferences
-    implementation(Libraries.Jetpack.SharedPreferences.CORE)
     implementation(Libraries.Jetpack.SharedPreferences.CORE_KTX)
 
     // Jetpack Lifecycle

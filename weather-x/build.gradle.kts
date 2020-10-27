@@ -1,5 +1,4 @@
 buildscript {
-    val kotlin_version by extra("1.4.10")
     Repositories.addBuildScriptRepositories(repositories)
 
     dependencies {
@@ -7,7 +6,6 @@ buildscript {
         classpath(Plugins.KOTLIN)
         classpath(Plugins.HILT)
         classpath(Plugins.NAVIGATION_SAFE_ARGS)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
 
