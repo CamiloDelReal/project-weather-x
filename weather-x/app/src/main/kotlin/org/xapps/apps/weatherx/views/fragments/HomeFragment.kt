@@ -126,7 +126,9 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         viewModel.watchReady().observe(viewLifecycleOwner, Observer { isReady ->
             if(isReady) {
-                motionFg.transitionToEnd()
+                if(motionFg.currentState == R.id.setLoading) {
+                    motionFg.transitionToEnd()
+                }
             } else {
                 // Get back to the loading view
             }
