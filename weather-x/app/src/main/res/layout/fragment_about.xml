@@ -24,6 +24,7 @@
             android:layout_marginEnd="@dimen/_4sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:elevation="2dp"
+            android:tint="?attr/colorOnSurface"
             android:fitsSystemWindows="true"
             android:src="@drawable/ic_arrow_left"
             app:layout_constraintStart_toStartOf="parent"
