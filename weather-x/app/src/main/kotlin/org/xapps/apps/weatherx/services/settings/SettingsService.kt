@@ -6,12 +6,14 @@ import org.xapps.apps.weatherx.services.models.Condition
 import javax.inject.Inject
 
 
-class SettingsService @Inject constructor(private val context: Context) {
+class SettingsService @Inject constructor(
+    private val context: Context,
+    private val filename: String
+) {
 
     companion object {
-        const val PREFERENCE_FILENAME = "application_preferences.xml"
-
         private const val ATTR_IS_FIRST_TIME = "attrIsFirstTime"
+        private const val ATTR_ON_BOARDING_FINISHED = "attrOnBoardingFinished"
         private const val ATTR_DARK_MODE_ON = "attrDarkModeOn"
 
         private const val ATTR_LAST_PLACE_MONITORED = "attrLastPlaceMonitored"
@@ -25,13 +27,19 @@ class SettingsService @Inject constructor(private val context: Context) {
         private const val ATTR_LAST_WAS_THERE_VISIBILITY = "attrLastWasThereVisibility"
     }
 
-    private val sharedPreferences = context.getSharedPreferences(PREFERENCE_FILENAME, Context.MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences(filename, Context.MODE_PRIVATE)
 
     fun isFirstTime(): Boolean =
         sharedPreferences.getBoolean(ATTR_IS_FIRST_TIME, true)
 
     fun setIsFirstTime(isFirstTime: Boolean) =
         sharedPreferences.edit { putBoolean(ATTR_IS_FIRST_TIME, isFirstTime) }
+
+    fun isOnBoardingFinished(): Boolean =
+        sharedPreferences.getBoolean(ATTR_ON_BOARDING_FINISHED, false)
+
+    fun setOnBoardingFinished(onBoardingFinished: Boolean) =
+        sharedPreferences.edit { putBoolean(ATTR_ON_BOARDING_FINISHED, onBoardingFinished) }
 
     fun isDarkModeOn(): Boolean =
         sharedPreferences.getBoolean(ATTR_DARK_MODE_ON, false)

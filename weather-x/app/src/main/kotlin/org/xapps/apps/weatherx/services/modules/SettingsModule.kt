@@ -14,9 +14,13 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class SettingsModule {
 
+    companion object {
+        const val PREFERENCE_FILENAME = "application_preferences.xml"
+    }
+
     @Singleton
     @Provides
-    fun provideApplicationSettings(@ApplicationContext context: Context): SettingsService =
-        SettingsService(context)
+    fun provideSettingsService(@ApplicationContext context: Context): SettingsService =
+        SettingsService(context, PREFERENCE_FILENAME)
 
 }
