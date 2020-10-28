@@ -154,7 +154,7 @@
                     app:ar_icon="@drawable/ic_lottiefiles"
                     app:ar_text="@string/designed_by_jochang"
                     app:ar_link="@string/lottiefiles_jochang_url" />
-                
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_18sdp" />
