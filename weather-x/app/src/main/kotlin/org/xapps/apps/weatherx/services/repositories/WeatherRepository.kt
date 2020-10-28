@@ -216,7 +216,7 @@ class WeatherRepository @Inject constructor(
     private fun findNextMinuteIndex(minutely: List<Minutely>?): Int {
         val currentTimestamp = Date().time
         return minutely?.firstOrNull { it -> (it.datetime >= currentTimestamp) }?.let {
-            minutely?.indexOf(it) ?: 0
+            minutely.indexOf(it)
         } ?: run {
             0
         }
