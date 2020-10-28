@@ -171,6 +171,7 @@
                     android:layout_width="@dimen/_12sdp"
                     android:layout_height="@dimen/_12sdp"
                     app:windDirection="@{data}"
+                    app:tint="?attr/colorOnSurface"
                     android:src="@drawable/ic_direction_north" />
 
                 <Space
