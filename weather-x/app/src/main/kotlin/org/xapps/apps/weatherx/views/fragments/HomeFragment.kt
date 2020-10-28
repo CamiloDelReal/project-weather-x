@@ -27,7 +27,7 @@ import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
-import org.xapps.apps.weatherx.views.adapters.DailyInfoSimpleAdapter
+import org.xapps.apps.weatherx.views.adapters.DailyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
 import org.xapps.apps.weatherx.views.binding.ConstraintLayoutBindings
@@ -109,7 +109,7 @@ class HomeFragment @Inject constructor() : Fragment() {
         listHourly.adapter = HourlyAdapter(viewModel.hourlyWeather)
 
         listDaily.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        listDaily.adapter = DailyInfoSimpleAdapter(viewModel.dailyWeather)
+        listDaily.adapter = DailyAdapter(viewModel.dailyWeather)
 
 
         viewModel.watchWorking().observe(viewLifecycleOwner, Observer { isWorking ->

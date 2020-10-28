@@ -91,63 +91,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_6sdp" />
 
-                <FrameLayout
+                <org.xapps.apps.weatherx.views.custom.AboutReference
                     android:id="@+id/btnLinkOpenWeather"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:padding="@dimen/_4sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_gravity="top"
-                            android:src="@drawable/ic_openweather" />
-
-                        <Space
-                            android:layout_width="@dimen/_12sdp"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/open_weather" />
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/openweathermap_url" />
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="@dimen/_4sdp"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_16sdp"
-                            android:layout_height="@dimen/_16sdp"
-                            android:layout_gravity="center_vertical"
-                            app:tint="?attr/colorOnSurface"
-                            android:alpha="0.5"
-                            android:src="@drawable/ic_chevron_right" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
+                    app:ar_icon="@drawable/ic_openweather"
+                    app:ar_text="@string/open_weather"
+                    app:ar_link="@string/openweathermap_url" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -169,63 +119,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_6sdp" />
 
-                <FrameLayout
+                <org.xapps.apps.weatherx.views.custom.AboutReference
                     android:id="@+id/btnLinkMaterialDesignIcons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:padding="@dimen/_4sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_gravity="top"
-                            android:src="@drawable/ic_googlematerialdesign" />
-
-                        <Space
-                            android:layout_width="@dimen/_12sdp"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/material_design_icons" />
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/material_design_icons_url" />
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="@dimen/_4sdp"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_16sdp"
-                            android:layout_height="@dimen/_16sdp"
-                            android:layout_gravity="center_vertical"
-                            app:tint="?attr/colorOnSurface"
-                            android:alpha="0.5"
-                            android:src="@drawable/ic_chevron_right" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
+                    app:ar_icon="@drawable/ic_googlematerialdesign"
+                    app:ar_text="@string/material_design_icons"
+                    app:ar_link="@string/material_design_icons_url" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -247,64 +147,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_6sdp" />
 
-                <FrameLayout
+                <org.xapps.apps.weatherx.views.custom.AboutReference
                     android:id="@+id/btnLinkLottieFiles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:padding="@dimen/_4sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_gravity="top"
-                            android:src="@drawable/ic_lottiefiles" />
-
-                        <Space
-                            android:layout_width="@dimen/_12sdp"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/designed_by_jochang" />
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/lottiefiles_jochang_url" />
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="@dimen/_4sdp"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_16sdp"
-                            android:layout_height="@dimen/_16sdp"
-                            android:layout_gravity="center_vertical"
-                            app:tint="?attr/colorOnSurface"
-                            android:alpha="0.5"
-                            android:src="@drawable/ic_chevron_right" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
+                    app:ar_icon="@drawable/ic_lottiefiles"
+                    app:ar_text="@string/designed_by_jochang"
+                    app:ar_link="@string/lottiefiles_jochang_url" />
+                
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_18sdp" />
@@ -325,63 +175,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_6sdp" />
 
-                <FrameLayout
+                <org.xapps.apps.weatherx.views.custom.AboutReference
                     android:id="@+id/btnLinkUiGradients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:padding="@dimen/_4sdp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_gravity="top"
-                            android:src="@drawable/ic_uigradients" />
-
-                        <Space
-                            android:layout_width="@dimen/_12sdp"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/inspiration_from_uigradients" />
-
-                            <TextView
-                                style="@style/TextAppearance.MaterialComponents.Caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/uigradients_url" />
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="@dimen/_4sdp"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:layout_width="@dimen/_16sdp"
-                            android:layout_height="@dimen/_16sdp"
-                            android:layout_gravity="center_vertical"
-                            app:tint="?attr/colorOnSurface"
-                            android:alpha="0.5"
-                            android:src="@drawable/ic_chevron_right" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
+                    app:ar_icon="@drawable/ic_uigradients"
+                    app:ar_text="@string/inspiration_from_uigradients"
+                    app:ar_link="@string/uigradients_url" />
 
             </LinearLayout>
 

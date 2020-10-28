@@ -6,7 +6,7 @@ import org.xapps.apps.weatherx.databinding.ItemDailyInfoBinding
 import org.xapps.apps.weatherx.services.models.Daily
 
 
-class DailyInfoSimpleAdapter(items: List<Daily>) : ListBindingAdapter<Daily>(items) {
+class DailyAdapter(items: List<Daily>) : ListBindingAdapter<Daily>(items) {
 
     override val itemLayout: Int = R.layout.item_daily_info
 

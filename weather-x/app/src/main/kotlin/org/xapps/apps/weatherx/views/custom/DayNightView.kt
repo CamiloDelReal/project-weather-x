@@ -29,14 +29,14 @@ class DayNightView @JvmOverloads constructor(
         )
     }
 
-    var maxProgress = a.useOrDefault(100) { getInteger(R.styleable.DayNightView_maxProgress, it) }
+    var maxProgress = a.useOrDefault(100) { getInteger(R.styleable.DayNightView_dnv_maxProgress, it) }
         set(progress) {
             field = bound(0, progress, Int.MAX_VALUE)
             drawData?.let { drawData = it.copy(maxProgress = progress) }
             invalidate()
         }
 
-    var progress: Int = a.useOrDefault(0) { getInteger(R.styleable.DayNightView_progress, it) }
+    var progress: Int = a.useOrDefault(0) { getInteger(R.styleable.DayNightView_dnv_progress, it) }
         set(progress) {
             field = bound(0, progress, maxProgress)
             drawData?.let { drawData = it.copy(progress = progress) }
@@ -45,7 +45,7 @@ class DayNightView @JvmOverloads constructor(
 
     var progressWidth: Float = a.useOrDefault(4 * context.resources.displayMetrics.density) {
         getDimension(
-            R.styleable.DayNightView_progressWidth,
+            R.styleable.DayNightView_dnv_progressWidth,
             it
         )
     }
@@ -56,7 +56,7 @@ class DayNightView @JvmOverloads constructor(
 
     var progressBackgroundWidth: Float = a.useOrDefault(2F) {
         getDimension(
-            R.styleable.DayNightView_progressBackgroundWidth,
+            R.styleable.DayNightView_dnv_progressBackgroundWidth,
             it
         )
     }
@@ -79,11 +79,11 @@ class DayNightView @JvmOverloads constructor(
             invalidate()
         }
 
-    private val thumb: Drawable = a?.getDrawable(R.styleable.DayNightView_drawable)!!
+    private val thumb: Drawable = a?.getDrawable(R.styleable.DayNightView_dnv_drawable)!!
 
     private var roundedEdges = a.useOrDefault(true) {
         getBoolean(
-            R.styleable.DayNightView_roundEdges,
+            R.styleable.DayNightView_dnv_roundEdges,
             it
         )
     }
@@ -101,7 +101,7 @@ class DayNightView @JvmOverloads constructor(
     private var progressBackgroundPaint: Paint = makeProgressPaint(
         color = a.useOrDefault(context.getColor(android.R.color.darker_gray)) {
             getColor(
-                R.styleable.DayNightView_progressBackgroundColor,
+                R.styleable.DayNightView_dnv_progressBackgroundColor,
                 it
             )
         },
@@ -112,7 +112,7 @@ class DayNightView @JvmOverloads constructor(
     private var progressPaint: Paint = makeProgressPaint(
         color = a.useOrDefault(context.getColor(android.R.color.holo_blue_light)) {
             getColor(
-                R.styleable.DayNightView_progressColor,
+                R.styleable.DayNightView_dnv_progressColor,
                 it
             )
         },
