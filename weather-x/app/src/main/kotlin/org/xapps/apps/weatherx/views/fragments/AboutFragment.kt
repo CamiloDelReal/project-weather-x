@@ -45,6 +45,18 @@ class AboutFragment @Inject constructor() : Fragment() {
             launchUri(getString(R.string.openweathermap_url))
         }
 
+        btnWeatherAppHarishVishwakarma.setOnClickListener {
+            launchUri(getString(R.string.weather_app_harish_vishwakarma_url))
+        }
+
+        btnWeatherAppAnnaGrenn.setOnClickListener {
+            launchUri(getString(R.string.weather_app_anna_grenn_url))
+        }
+
+        btnLinkGoogleFonts.setOnClickListener {
+            launchUri(getString(R.string.quicksand_url))
+        }
+
         btnLinkMaterialDesignIcons.setOnClickListener {
             launchUri(getString(R.string.material_design_icons_url))
         }
