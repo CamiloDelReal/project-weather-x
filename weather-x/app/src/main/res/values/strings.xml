@@ -53,7 +53,7 @@
     <string name="quicksand_url">https://fonts.google.com/specimen/Quicksand</string>
     <string name="user_interface">User Interface</string>
     <string name="inspiration_from_weather_app_by_harish_vishwakarma_from_uplabs">Inspiration from Weather App by Harish Vishwakarma from UpLabs</string>
-    <string name="weather_app_harish_vishwakarma_url">https://www.uplabs.com/posts/weather–app-6618236e-d929-4eb3-94de-d353a014a3f5</string>
+    <string name="weather_app_harish_vishwakarma_url">https://www.uplabs.com/posts/weather-app-6618236e-d929-4eb3-94de-d353a014a3f5</string>
     <string name="inspiration_from_weather_app_by_anna_grenn_from_uxplanet">Inspiration from Weather App by Anna Grenn from UX Planet</string>
     <string name="weather_app_anna_grenn_url">https://uxplanet.org/sky-inspired-weather-app-concept-4f1775ce4571</string>
 </resources>
