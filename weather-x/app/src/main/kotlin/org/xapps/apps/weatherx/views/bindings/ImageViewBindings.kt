@@ -1,8 +1,7 @@
-package org.xapps.apps.weatherx.views.binding
+package org.xapps.apps.weatherx.views.bindings
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.models.Hourly
 
 

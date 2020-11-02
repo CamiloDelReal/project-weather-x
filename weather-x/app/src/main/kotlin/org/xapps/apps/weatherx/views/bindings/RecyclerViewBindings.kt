@@ -1,12 +1,8 @@
-package org.xapps.apps.weatherx.views.binding
+package org.xapps.apps.weatherx.views.bindings
 
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.xapps.apps.weatherx.services.models.Hourly
-import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
-import timber.log.Timber
 
 
 object RecyclerViewBindings {

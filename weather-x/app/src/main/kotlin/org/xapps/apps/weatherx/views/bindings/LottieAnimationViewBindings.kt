@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.views.binding
+package org.xapps.apps.weatherx.views.bindings
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -11,7 +11,6 @@ import org.xapps.apps.weatherx.services.models.Daily
 import org.xapps.apps.weatherx.services.models.Hourly
 import org.xapps.apps.weatherx.services.utils.DateUtils
 import org.xapps.apps.weatherx.views.utils.Utilities
-import timber.log.Timber
 
 
 object LottieAnimationViewBindings {

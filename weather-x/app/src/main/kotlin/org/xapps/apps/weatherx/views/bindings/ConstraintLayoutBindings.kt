@@ -1,14 +1,12 @@
-package org.xapps.apps.weatherx.views.binding
+package org.xapps.apps.weatherx.views.bindings
 
 import android.graphics.drawable.AnimationDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import org.xapps.apps.weatherx.R
-import org.xapps.apps.weatherx.services.models.Condition
 import org.xapps.apps.weatherx.services.models.Current
 import org.xapps.apps.weatherx.services.utils.DateUtils
-import timber.log.Timber
 
 
 object ConstraintLayoutBindings {

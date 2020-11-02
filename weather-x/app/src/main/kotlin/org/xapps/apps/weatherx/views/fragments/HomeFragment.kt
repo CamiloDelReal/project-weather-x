@@ -30,8 +30,8 @@ import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.adapters.DailyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
-import org.xapps.apps.weatherx.views.binding.ConstraintLayoutBindings
-import org.xapps.apps.weatherx.views.binding.LottieAnimationViewBindings
+import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
+import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
 import javax.inject.Inject
 

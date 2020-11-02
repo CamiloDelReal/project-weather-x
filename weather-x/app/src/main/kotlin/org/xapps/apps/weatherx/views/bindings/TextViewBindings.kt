@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.views.binding
+package org.xapps.apps.weatherx.views.bindings
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
