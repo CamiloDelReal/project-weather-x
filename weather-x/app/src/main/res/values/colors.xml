@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#2196f3</color>
-    <color name="primaryDark">#1976d2</color>
-    <color name="accent">#f44336</color>
+    <color name="blue_500">#2196f3</color>
+    <color name="blue_700">#1976d2</color>
+    <color name="red_500">#f44336</color>
+    <color name="red_700">#d32f2f</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
     <color name="dayClear1">#04befe</color>
     <color name="dayClear2">#4481eb</color>
@@ -57,8 +61,6 @@
     
     <color name="clearSkyNight1">#485563</color>
     <color name="clearSkyNight2">#29323c</color>
-<!--    <color name="clearSkyNight1">#485563</color>-->
-<!--    <color name="clearSkyNight2">#29323c</color>-->
 
     <color name="sunrise">#ffc107</color>
     <color name="sunset">#ffc107</color>

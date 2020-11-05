@@ -1,14 +1,23 @@
 package org.xapps.apps.weatherx.views.fragments
 
 import android.Manifest
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,6 +32,8 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
 import org.xapps.apps.weatherx.services.settings.SettingsService
@@ -33,6 +44,7 @@ import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -47,6 +59,8 @@ class HomeFragment @Inject constructor() : Fragment() {
     lateinit var settings: SettingsService
 
     private var lastCompletedConstraint: Int? = null
+    private var lastConditionBottomColor: Int? = null
+    private lateinit var navigationBarColorAnimation: ValueAnimator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,16 +77,30 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         prepareForLoading()
 
-        motionFg.setTransitionListener(object: MotionLayout.TransitionListener {
+        motionFg.setTransitionListener(object : MotionLayout.TransitionListener {
 
-            override fun onTransitionTrigger(layout: MotionLayout?, triggerId: Int, positive: Boolean, progress: Float) {}
+            override fun onTransitionTrigger(
+                layout: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {
+            }
 
             override fun onTransitionStarted(layout: MotionLayout?, startId: Int, endId: Int) {}
 
-            override fun onTransitionChange(layout: MotionLayout?, startId: Int, endId: Int, progress: Float) {
-                if(startId == R.id.setBegin && endId == R.id.setHalf) {
+            override fun onTransitionChange(
+                layout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
+                if (startId == R.id.setBegin && endId == R.id.setHalf) {
                     motionBg.setTransition(R.id.setBegin, R.id.setHalf)
                     motionBg.progress = progress
+                    Handler(Looper.getMainLooper()).post( Runnable {
+                        navigationBarColorAnimation.setCurrentFraction(progress)
+                    })
                 } else if (startId == R.id.setHalf && endId == R.id.setEnd) {
                     motionBg.setTransition(R.id.setHalf, R.id.setEnd)
                     motionBg.progress = progress
@@ -80,7 +108,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             }
 
             override fun onTransitionCompleted(layout: MotionLayout?, currentId: Int) {
-                if(lastCompletedConstraint != null) {
+                if (lastCompletedConstraint != null) {
                     when {
                         (currentId == R.id.setBegin && (lastCompletedConstraint == R.id.setBegin || lastCompletedConstraint == R.id.setHalf)) -> {
                             motionBg.progress = 0.0f
@@ -102,13 +130,25 @@ class HomeFragment @Inject constructor() : Fragment() {
         })
 
 
-        listHourlySimple.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        listHourlySimple.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.HORIZONTAL,
+            false
+        )
         listHourlySimple.adapter = HourlySimpleAdapter(viewModel.hourlyWeather)
 
-        listHourly.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        listHourly.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.HORIZONTAL,
+            false
+        )
         listHourly.adapter = HourlyAdapter(viewModel.hourlyWeather)
 
-        listDaily.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        listDaily.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.HORIZONTAL,
+            false
+        )
         listDaily.adapter = DailyAdapter(viewModel.dailyWeather)
 
 
@@ -121,8 +161,9 @@ class HomeFragment @Inject constructor() : Fragment() {
         })
 
         viewModel.watchReady().observe(viewLifecycleOwner, Observer { isReady ->
-            if(isReady) {
-                if(motionFg.currentState == R.id.setLoading) {
+            if (isReady) {
+                updateNavigationBarColor(false, true)
+                if (motionFg.currentState == R.id.setLoading) {
                     motionFg.transitionToEnd()
                 }
             } else {
@@ -159,27 +200,81 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         btnAdd.setOnClickListener {
             val moreOptionPopup = MoreOptionsPopup()
-            moreOptionPopup.setTargetFragment(this@HomeFragment, MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE)
+            moreOptionPopup.setTargetFragment(
+                this@HomeFragment,
+                MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE
+            )
             val fragmentManager = parentFragmentManager.beginTransaction()
             moreOptionPopup.show(fragmentManager, "MoreOptionsPopup")
         }
     }
 
     fun prepareForLoading() {
-        val lastAnimation = LottieAnimationViewBindings.weatherAnimation(viewModel.lastConditionCode(), viewModel.lastWasDayLight(), viewModel.lastWasThereVisibility())
+        val lastAnimation = LottieAnimationViewBindings.weatherAnimation(
+            viewModel.lastConditionCode(),
+            viewModel.lastWasDayLight(),
+            viewModel.lastWasThereVisibility()
+        )
         lotConditionImage.tag = lastAnimation
         lotConditionImage.setAnimation(lastAnimation)
         lotConditionImage.speed = 1.0f
         lotConditionImage.repeatCount = LottieDrawable.INFINITE
         lotConditionImage.repeatMode = LottieDrawable.RESTART
         lotConditionImage.playAnimation()
-        val lastBackground = ConstraintLayoutBindings.conditionBackground(viewModel.lastConditionCode(), viewModel.lastWasDayLight(), viewModel.lastTemperature(), viewModel.useMetric())
+        val lastBackground = ConstraintLayoutBindings.conditionBackground(
+            viewModel.lastConditionCode(),
+            viewModel.lastWasDayLight(),
+            viewModel.lastTemperature(),
+            viewModel.useMetric()
+        )
         rootLayout.setBackgroundResource(lastBackground)
+        updateNavigationBarColor()
+    }
+
+    private fun updateNavigationBarColor(useSurface: Boolean = true, animate: Boolean = false) {
+        val previousBottomColor = lastConditionBottomColor
+        lastConditionBottomColor = ConstraintLayoutBindings.conditionBottomColor(
+            viewModel.lastConditionCode(),
+            viewModel.lastWasDayLight(),
+            viewModel.lastTemperature(),
+            viewModel.useMetric()
+        )
+        if (motionFg.currentState in arrayOf(R.id.setLoading, R.id.setBegin)) {
+            if (animate) {
+                val typedValue = TypedValue()
+                val theme = requireContext().theme
+                theme.resolveAttribute(R.attr.colorSurface, typedValue, true)
+                val colorSurface = typedValue.data
+                val colorFrom = if (useSurface) {
+                    colorSurface
+                } else {
+                    ContextCompat.getColor(requireContext(), previousBottomColor!!)
+                }
+                val colorTo = ContextCompat.getColor(requireContext(), lastConditionBottomColor!!)
+                val colorAnimation = ValueAnimator.ofArgb(colorFrom, colorTo)
+                colorAnimation.startDelay = 400
+                colorAnimation.duration = 300
+                colorAnimation.addUpdateListener { animator ->
+                    requireActivity().window.navigationBarColor = animator.animatedValue as Int
+                }
+                navigationBarColorAnimation = ValueAnimator.ofArgb(colorTo, colorSurface)
+                navigationBarColorAnimation.duration = 250
+                navigationBarColorAnimation.addUpdateListener { animator ->
+                    requireActivity().window.navigationBarColor = animator.animatedValue as Int
+                }
+                colorAnimation.start()
+            } else {
+                requireActivity().window.navigationBarColor = ContextCompat.getColor(
+                    requireContext(),
+                    lastConditionBottomColor!!
+                )
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE) {
-            if(resultCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_ACCEPTED_CODE) {
+        if (requestCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE) {
+            if (resultCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_ACCEPTED_CODE) {
                 val option = data?.getIntExtra(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION, -1) ?: -1
                 when (option) {
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {

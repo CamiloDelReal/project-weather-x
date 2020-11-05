@@ -143,7 +143,7 @@ object TextViewBindings {
     @BindingAdapter("condition")
     fun condition(textView: TextView, value: Current?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ",") { it.description.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.description.capitalize() }
         } ?: run {
             textView.context.getString(R.string.empty)
         }
@@ -154,7 +154,7 @@ object TextViewBindings {
     @BindingAdapter("condition")
     fun condition(textView: TextView, value: Daily?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ",") { it.description.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.description.capitalize() }
         } ?: run {
             textView.context.getString(R.string.empty)
         }
@@ -165,7 +165,7 @@ object TextViewBindings {
     @BindingAdapter("condition")
     fun condition(textView: TextView, value: Hourly?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ",") { it.description.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.description.capitalize() }
         } ?: run {
             textView.context.getString(R.string.empty)
         }
@@ -176,7 +176,7 @@ object TextViewBindings {
     @BindingAdapter("conditionSimple")
     fun conditionSimple(textView: TextView, value: Hourly?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ",") { it.main.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.main.capitalize() }
         } ?: run {
             textView.context.getString(R.string.empty)
         }

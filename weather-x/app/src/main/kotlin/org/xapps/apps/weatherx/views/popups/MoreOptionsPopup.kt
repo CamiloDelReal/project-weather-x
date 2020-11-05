@@ -22,7 +22,7 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
         super.onCreate(savedInstanceState)
 
         val style = STYLE_NO_FRAME
-        val theme = R.style.BasicPopupStyle
+        val theme = R.style.PopupStyle
         setStyle(style, theme)
     }
 

@@ -42,11 +42,7 @@
             <com.github.florent37.shapeofview.shapes.ArcView
                 android:id="@+id/itemBackground"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent">
+                android:layout_height="0dp">
 
                 <View
                     android:layout_width="match_parent"
@@ -266,7 +262,9 @@
                 android:id="@+id/txvCondition"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_42sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
                 android:gravity="top|center_horizontal"
                 app:condition="@{viewModel.currentWeather}"
                 android:textColor="?attr/colorOnPrimarySurface"

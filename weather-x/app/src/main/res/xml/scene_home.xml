@@ -132,7 +132,7 @@
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_42sdp"
+            android:layout_height="@dimen/_80sdp"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -486,7 +486,7 @@
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_42sdp"
+            android:layout_height="@dimen/_80sdp"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -840,7 +840,7 @@
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_19sdp"
+            android:layout_height="@dimen/_38sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1195,7 +1195,7 @@
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_19sdp"
+            android:layout_height="@dimen/_38sdp"
             android:layout_marginStart="@dimen/_6sdp"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="parent"
