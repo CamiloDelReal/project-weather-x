@@ -69,7 +69,7 @@ object Libraries {
         }
 
         object UI {
-            private const val CONSTRAINT_LAYOUT_VERSION = "2.0.2"
+            private const val CONSTRAINT_LAYOUT_VERSION = "2.0.4"
             private const val MATERIAL_VERSION = "1.2.1"
             private const val APP_COMPAT_VERSION = "1.2.0"
 
@@ -171,9 +171,13 @@ object Libraries {
     object UI {
         private const val SHAPE_OF_VIEW_VERSION = "1.4.7"
         private const val LOTTIE_VERSION = "3.4.1"
+        private const val MATERIAL_PROGRESS_BAR_VERSION = "1.6.1"
+        private const val TOASTY_VERSION = "1.5.0"
 
         const val SHAPE_OF_VIEW = "com.github.florent37:shapeofview:$SHAPE_OF_VIEW_VERSION"
         const val LOTTIE = "com.airbnb.android:lottie:$LOTTIE_VERSION"
+        const val MATERIAL_PROGRESS_BAR = "me.zhanghai.android.materialprogressbar:library:$MATERIAL_PROGRESS_BAR_VERSION"
+        const val TOASTY = "com.github.GrenderG:Toasty:$TOASTY_VERSION"
     }
 
     object Permissions {

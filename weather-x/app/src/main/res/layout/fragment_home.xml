@@ -254,8 +254,8 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_84sdp"
                 android:gravity="bottom|center_horizontal"
-                app:temperatureWithUnit="@{viewModel.currentWeather}"
                 android:textColor="?attr/colorOnPrimarySurface"
+                app:temperatureWithUnit="@{viewModel.currentWeather}"
                 tools:text="28 °C" />
 
             <TextView
@@ -263,11 +263,11 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_80sdp"
+                android:gravity="top|center_horizontal"
                 android:paddingStart="@dimen/_12sdp"
                 android:paddingEnd="@dimen/_12sdp"
-                android:gravity="top|center_horizontal"
-                app:condition="@{viewModel.currentWeather}"
                 android:textColor="?attr/colorOnPrimarySurface"
+                app:condition="@{viewModel.currentWeather}"
                 tools:text="Clear" />
 
             <TextView
@@ -292,27 +292,27 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnPrimarySurface"
                 app:minimumTemperature="@{viewModel.currentWeather}"
-                tools:text="22°"
-                android:textColor="?attr/colorOnPrimarySurface" />
+                tools:text="22°" />
 
             <TextView
                 android:id="@+id/txvTodayMaxTemp"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnPrimarySurface"
                 app:maximumTemperature="@{viewModel.currentWeather}"
-                tools:text="28°"
-                android:textColor="?attr/colorOnPrimarySurface" />
+                tools:text="28°" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotConditionImage"
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_140sdp"
                 app:lottie_autoPlay="true"
-                app:weatherAnimation="@{viewModel.currentWeather}"
                 app:lottie_loop="true"
-                app:lottie_speed="1" />
+                app:lottie_speed="1"
+                app:weatherAnimation="@{viewModel.currentWeather}" />
 
             <LinearLayout
                 android:id="@+id/layoutDayNight"
@@ -331,8 +331,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     app:dnv_drawable="@drawable/ic_sun_with_background"
-                    app:progress="@{viewModel.currentWeather}"
-                    app:dnv_progressColor="@color/sunrise" />
+                    app:dnv_progressColor="@color/sunrise"
+                    app:progress="@{viewModel.currentWeather}" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -463,7 +463,7 @@
                 app:fc_icon="@drawable/ic_wind"
                 app:fc_iconSize="@dimen/_10sdp"
                 app:fc_iconTint="@color/windSpeed"
-                app:windSpeed="@{viewModel.currentWeather}"/>
+                app:windSpeed="@{viewModel.currentWeather}" />
 
             <org.xapps.apps.weatherx.views.custom.ForecastCardView
                 android:id="@+id/realFeelCard"
@@ -551,6 +551,39 @@
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_daily_info" />
 
+            <TextView
+                android:id="@+id/txvError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:visibility="invisible"
+                android:gravity="center_horizontal"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:textColor="?attr/colorOnPrimarySurface"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTryAgain"
+                style="@style/Theme.Application.TryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="@string/try_again" />
+
+<!--            <me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
+<!--                android:id="@+id/progressIndicator"-->
+<!--                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="@dimen/_5sdp"-->
+<!--                android:indeterminate="true"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/btnAdd"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/v98"-->
+<!--                app:layout_constraintStart_toEndOf="@id/v2"-->
+<!--                app:mpb_progressStyle="horizontal"-->
+<!--                app:mpb_indeterminateTint="@color/white"-->
+<!--                app:mpb_progressTint="?attr/colorOnPrimarySurface"-->
+<!--                app:mpb_progressBackgroundTint="?attr/colorOnPrimarySurface"/>-->
+
             <View
                 android:id="@+id/draggerEnd"
                 android:layout_width="0dp"
@@ -570,4 +603,5 @@
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

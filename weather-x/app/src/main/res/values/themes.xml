@@ -24,6 +24,13 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="Theme.Application.TryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/white</item>
+        <item name="android:textColor">?attr/colorOnPrimarySurface</item>
+        <item name="strokeColor">?attr/colorOnPrimarySurface</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
     <style name="PopupStyle">
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorPrimaryVariant">@color/blue_700</item>

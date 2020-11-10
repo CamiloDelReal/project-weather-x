@@ -1,5 +1,6 @@
 package org.xapps.apps.weatherx.viewmodels
 
+import android.content.Context
 import android.location.Geocoder
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
@@ -7,13 +8,16 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.xapps.apps.weatherx.BR
+import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.local.PlaceDao
 import org.xapps.apps.weatherx.services.models.*
+import org.xapps.apps.weatherx.services.utils.NetworkUtils
 import org.xapps.apps.weatherx.services.repositories.WeatherRepository
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.services.utils.DateUtils
@@ -25,7 +29,9 @@ import java.util.*
 
 
 class HomeViewModel @ViewModelInject constructor(
-    val settings: SettingsService,
+    @ApplicationContext private val context: Context,
+    private val settings: SettingsService,
+    private val network: NetworkUtils,
     private val session: Session,
     private val gpsTracker: GpsTracker,
     private val geocoder: Geocoder,
@@ -66,15 +72,22 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun prepareMonitoring() {
-        jobGpsTracker = viewModelScope.launch {
-            gpsTracker.watchUpdater()
-                .collect { location ->
-                    monitorSessionPlace(ignoreCustomPlaces = true)
-                }
+        if(network.isConnectedToInternet()) {
+            Timber.i("AppLogger - Internet true")
+            jobGpsTracker = viewModelScope.launch {
+                gpsTracker.watchUpdater()
+                    .collect { location ->
+                        monitorSessionPlace(ignoreCustomPlaces = true)
+                    }
+            }
+            gpsTracker.validateUpdates = true
+            gpsTracker.start()
+            monitorSessionPlace(ignoreCurrentPlace = true)
+        } else {
+            Timber.i("AppLogger - Internet false")
+            errorEmitter.postValue(context.getString(R.string.internet_not_detected))
+            readyEmitter.postValue(false)
         }
-        gpsTracker.validateUpdates = true
-        gpsTracker.start()
-        monitorSessionPlace(ignoreCurrentPlace = true)
     }
 
     private fun monitorSessionPlace(
@@ -129,7 +142,8 @@ class HomeViewModel @ViewModelInject constructor(
                 viewModelScope.launch {
                     weatherRepository.currentHourlyDaily()
                         .catch { exception ->
-                            Timber.e(exception, "Exception captured")
+                            Timber.e(exception)
+                            errorEmitter.postValue(exception.localizedMessage)
                             readyEmitter.postValue(false)
                         }
                         .collect { weather ->

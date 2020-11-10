@@ -162,6 +162,12 @@ dependencies {
     // Shape of View
     implementation(Libraries.UI.SHAPE_OF_VIEW)
 
+    // Material Progress Bar
+    implementation(Libraries.UI.MATERIAL_PROGRESS_BAR)
+
+    // Toasty
+    implementation(Libraries.UI.TOASTY)
+
     // Logger
     implementation(Libraries.Logger.Timber.CORE)
 }

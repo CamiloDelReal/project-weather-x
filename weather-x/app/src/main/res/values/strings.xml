@@ -51,4 +51,6 @@
     <string name="quicksand">Quicksand</string>
     <string name="quicksand_url">https://fonts.google.com/specimen/Quicksand</string>
     <string name="colors">Colors</string>
+    <string name="try_again">Try Again</string>
+    <string name="internet_not_detected">An Internet connection is not detected</string>
 </resources>

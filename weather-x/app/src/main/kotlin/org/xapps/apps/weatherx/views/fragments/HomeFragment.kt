@@ -1,11 +1,8 @@
 package org.xapps.apps.weatherx.views.fragments
 
 import android.Manifest
-import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Intent
-import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,14 +10,14 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,9 +28,8 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
 import org.xapps.apps.weatherx.services.settings.SettingsService
@@ -98,7 +94,7 @@ class HomeFragment @Inject constructor() : Fragment() {
                 if (startId == R.id.setBegin && endId == R.id.setHalf) {
                     motionBg.setTransition(R.id.setBegin, R.id.setHalf)
                     motionBg.progress = progress
-                    Handler(Looper.getMainLooper()).post( Runnable {
+                    Handler(Looper.getMainLooper()).post(Runnable {
                         navigationBarColorAnimation.setCurrentFraction(progress)
                     })
                 } else if (startId == R.id.setHalf && endId == R.id.setEnd) {
@@ -112,9 +108,11 @@ class HomeFragment @Inject constructor() : Fragment() {
                     when {
                         (currentId == R.id.setBegin && (lastCompletedConstraint == R.id.setBegin || lastCompletedConstraint == R.id.setHalf)) -> {
                             motionBg.progress = 0.0f
+                            navigationBarColorAnimation.setCurrentFraction(0.0f)
                         }
                         (currentId == R.id.setHalf && lastCompletedConstraint == R.id.setBegin) -> {
                             motionBg.progress = 1.0f
+                            navigationBarColorAnimation.setCurrentFraction(1.0f)
                         }
                         (currentId == R.id.setHalf && lastCompletedConstraint == R.id.setEnd) -> {
                             motionBg.progress = 0.0f
@@ -152,36 +150,63 @@ class HomeFragment @Inject constructor() : Fragment() {
         listDaily.adapter = DailyAdapter(viewModel.dailyWeather)
 
 
-        viewModel.watchWorking().observe(viewLifecycleOwner, Observer { isWorking ->
+        viewModel.watchWorking().observe(viewLifecycleOwner, { isWorking ->
 
         })
 
-        viewModel.watchError().observe(viewLifecycleOwner, Observer { errorMessage ->
-
+        viewModel.watchError().observe(viewLifecycleOwner, { errorMessage ->
+            Timber.i("AppLogger - Error received $errorMessage")
+            if (motionFg.currentState == R.id.setLoading) {
+                Timber.i("AppLogger - Estamos en loading")
+                txvError.text = errorMessage
+                txvError.visibility = View.VISIBLE
+                btnTryAgain.visibility = View.VISIBLE
+            } else {
+                Timber.i("AppLogger - no loading")
+                Toasty.error(requireContext(), errorMessage, Toast.LENGTH_LONG, true).show()
+                Toasty.custom(
+                    requireContext(),
+                    errorMessage,
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_information_outline
+                    ),
+                    ContextCompat.getColor(requireContext(), R.color.red_500),
+                    ContextCompat.getColor(requireContext(), R.color.white),
+                    Toasty.LENGTH_LONG,
+                    true,
+                    true
+                ).show()
+            }
         })
 
-        viewModel.watchReady().observe(viewLifecycleOwner, Observer { isReady ->
+        viewModel.watchReady().observe(viewLifecycleOwner, { isReady ->
             if (isReady) {
+                Timber.i("AppLogger - Ready true")
                 updateNavigationBarColor(false, true)
                 if (motionFg.currentState == R.id.setLoading) {
+                    Timber.i("AppLogger - ready in loading")
+                    txvError.visibility = View.INVISIBLE
+                    btnTryAgain.visibility = View.INVISIBLE
                     motionFg.transitionToEnd()
                 }
-            } else {
-                // Get back to the loading view
             }
         })
 
         Dexter.withContext(requireContext())
             .withPermissions(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.INTERNET,
+                Manifest.permission.ACCESS_NETWORK_STATE,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.INTERNET
+                Manifest.permission.ACCESS_COARSE_LOCATION
             )
             .withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    report?.let {
-                        if (report.areAllPermissionsGranted()) {
-                            viewModel.prepareMonitoring()
+                    lifecycleScope.launchWhenResumed {
+                        report?.let {
+                            if (report.areAllPermissionsGranted()) {
+                                viewModel.prepareMonitoring()
+                            }
                         }
                     }
                 }
@@ -206,6 +231,10 @@ class HomeFragment @Inject constructor() : Fragment() {
             )
             val fragmentManager = parentFragmentManager.beginTransaction()
             moreOptionPopup.show(fragmentManager, "MoreOptionsPopup")
+        }
+
+        btnTryAgain.setOnClickListener {
+            viewModel.prepareMonitoring()
         }
     }
 
@@ -288,5 +317,11 @@ class HomeFragment @Inject constructor() : Fragment() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.stopJobGpsTrackerScheduler()
+        viewModel.stopJobWeatherScheduler()
     }
 }

@@ -230,10 +230,10 @@
             android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0.0"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
-            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -281,10 +281,10 @@
             android:layout_marginBottom="@dimen/_6sdp"
             android:alpha="0.0"
             android:translationX="@dimen/_25sdp"
-            app:layout_constraintTop_toTopOf="@id/h41"
             app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
             app:layout_constraintStart_toStartOf="@+id/v66"
-            app:layout_constraintEnd_toEndOf="@+id/v98" />
+            app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
             android:id="@+id/pressureCard"
@@ -379,6 +379,25 @@
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
             app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50" />
 
     </ConstraintSet>
 
@@ -584,10 +603,10 @@
             android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0.0"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
-            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -635,10 +654,10 @@
             android:layout_marginBottom="@dimen/_6sdp"
             android:alpha="0.0"
             android:translationX="@dimen/_25sdp"
-            app:layout_constraintTop_toTopOf="@id/h41"
             app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
             app:layout_constraintStart_toStartOf="@+id/v66"
-            app:layout_constraintEnd_toEndOf="@+id/v98" />
+            app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
             android:id="@+id/pressureCard"
@@ -733,6 +752,26 @@
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
             app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50" />
 
     </ConstraintSet>
 
@@ -938,10 +977,10 @@
             android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="0.0"
             android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
-            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -988,12 +1027,12 @@
             android:layout_marginEnd="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_6sdp"
             android:alpha="1.0"
-            android:translationY="0dp"
             android:translationX="0dp"
-            app:layout_constraintTop_toTopOf="@id/h41"
+            android:translationY="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
             app:layout_constraintStart_toStartOf="@+id/v66"
-            app:layout_constraintEnd_toEndOf="@+id/v98" />
+            app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
             android:id="@+id/pressureCard"
@@ -1090,6 +1129,26 @@
             app:layout_constraintStart_toStartOf="@id/v66"
             app:layout_constraintTop_toTopOf="@id/h79" />
 
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50" />
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/setEnd">
@@ -1184,9 +1243,9 @@
             android:layout_height="@dimen/_19sdp"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/h4"
-            app:layout_constraintTop_toTopOf="@id/h4"
             app:layout_constraintEnd_toStartOf="@id/centerDotMarker"
-            app:layout_constraintStart_toEndOf="@id/lotConditionImage">
+            app:layout_constraintStart_toEndOf="@id/lotConditionImage"
+            app:layout_constraintTop_toTopOf="@id/h4">
             <CustomAttribute
                 app:attributeName="textSize"
                 app:customDimension="@dimen/_5ssp" />
@@ -1292,10 +1351,10 @@
             android:layout_marginBottom="@dimen/_12sdp"
             android:alpha="1.0"
             android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours"
-            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays" />
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
 
         <Constraint
             android:id="@+id/listDaily"
@@ -1327,8 +1386,8 @@
             android:layout_marginEnd="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_6sdp"
             android:alpha="0.0"
-            android:translationY="@dimen/_minus25sdp"
             android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_minus25sdp"
             app:layout_constraintBottom_toBottomOf="@id/h60"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -1344,12 +1403,12 @@
             android:layout_marginEnd="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_6sdp"
             android:alpha="0.0"
-            android:translationY="@dimen/_minus25sdp"
             android:translationX="@dimen/_25sdp"
-            app:layout_constraintTop_toTopOf="@id/h41"
+            android:translationY="@dimen/_minus25sdp"
             app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
             app:layout_constraintStart_toStartOf="@+id/v66"
-            app:layout_constraintEnd_toEndOf="@+id/v98" />
+            app:layout_constraintTop_toTopOf="@id/h41" />
 
         <Constraint
             android:id="@+id/pressureCard"
@@ -1446,6 +1505,26 @@
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
             app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50" />
 
     </ConstraintSet>
 

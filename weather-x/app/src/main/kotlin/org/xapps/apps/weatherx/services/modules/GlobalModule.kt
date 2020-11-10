@@ -9,6 +9,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.xapps.apps.weatherx.services.models.Session
 import org.xapps.apps.weatherx.services.utils.GpsTracker
+import org.xapps.apps.weatherx.services.utils.NetworkUtils
 import java.util.*
 import javax.inject.Singleton
 
@@ -31,5 +32,10 @@ class GlobalModule {
     @Provides
     fun providesGeocoder(@ApplicationContext context: Context): Geocoder =
         Geocoder(context, Locale.getDefault())
+
+    @Singleton
+    @Provides
+    fun provideNetworkUtils(@ApplicationContext context: Context): NetworkUtils =
+        NetworkUtils(context)
 
 }
