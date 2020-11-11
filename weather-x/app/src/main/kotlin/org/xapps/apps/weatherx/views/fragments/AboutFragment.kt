@@ -58,6 +58,50 @@ class AboutFragment @Inject constructor() : Fragment() {
         btnLinkUiGradients.setOnClickListener {
             launchUri(getString(R.string.uigradients_url))
         }
+
+        btnLinkAndroidJetpack.setOnClickListener {
+            launchUri(getString(R.string.android_jetpack_url))
+        }
+
+        btnLinkAndroidKotlin.setOnClickListener {
+            launchUri(getString(R.string.android_kotlin_url))
+        }
+
+        btnLinkDexterPermissions.setOnClickListener {
+            launchUri(getString(R.string.dexter_url))
+        }
+
+        btnLinkSDP.setOnClickListener {
+            launchUri(getString(R.string.sdp_url))
+        }
+
+        btnLinkSSP.setOnClickListener {
+            launchUri(getString(R.string.ssp_url))
+        }
+
+        btnLinkRetrofit.setOnClickListener {
+            launchUri(getString(R.string.retrofit_url))
+        }
+
+        btnLinkMoshi.setOnClickListener {
+            launchUri(getString(R.string.moshi_url))
+        }
+
+        btnLinkShapeOfView.setOnClickListener {
+            launchUri(getString(R.string.shape_of_view_url))
+        }
+
+        btnLinkLottieForAndroid.setOnClickListener {
+            launchUri(getString(R.string.lottie_for_android_url))
+        }
+
+        btnLinkToasty.setOnClickListener {
+            launchUri(getString(R.string.toasty_url))
+        }
+
+        btnLinkTimber.setOnClickListener {
+            launchUri(getString(R.string.timber_url))
+        }
     }
 
     private fun launchUri(uri: String) {
