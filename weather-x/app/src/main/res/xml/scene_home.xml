@@ -387,7 +387,8 @@
             android:layout_marginBottom="@dimen/_6sdp"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
-            app:layout_constraintStart_toEndOf="@id/v2" />
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
 
 
         <Constraint
@@ -397,7 +398,8 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50" />
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
 
     </ConstraintSet>
 
@@ -758,20 +760,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_6sdp"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
-            app:layout_constraintStart_toEndOf="@id/v2" />
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
 
         <Constraint
             android:id="@+id/btnTryAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50" />
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
 
     </ConstraintSet>
 
@@ -1134,20 +1136,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_6sdp"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
-            app:layout_constraintStart_toEndOf="@id/v2" />
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
 
         <Constraint
             android:id="@+id/btnTryAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50" />
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
 
     </ConstraintSet>
 
@@ -1511,20 +1513,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_6sdp"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
-            app:layout_constraintStart_toEndOf="@id/v2" />
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
 
         <Constraint
             android:id="@+id/btnTryAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50" />
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
 
     </ConstraintSet>
 
