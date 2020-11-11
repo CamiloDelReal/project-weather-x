@@ -191,7 +191,7 @@ class HomeViewModel @ViewModelInject constructor(
 
     fun lastTemperature(): Double = settings.lastTemperature()
 
-    fun useMetric(): Boolean = settings.useMetric()
+    fun useMetricSystem(): Boolean = settings.useMetricSystem()
 
     fun lastWasThereVisibility(): Boolean = settings.lastWasThereVisibility()
 

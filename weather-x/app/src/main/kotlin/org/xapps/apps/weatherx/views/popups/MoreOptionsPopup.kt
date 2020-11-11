@@ -35,8 +35,17 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        btnUseMetric.isChecked = settings.useMetricSystem()
+        btnUseMetric.addOnCheckedChangeListener { _, isChecked ->
+            settings.setUseMetricSystem(isChecked)
+            val data = Intent().apply {
+                putExtra(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED)
+            }
+            close(MORE_OPTIONS_POPUP_ACCEPTED_CODE, data)
+        }
+
         btnDarkMode.isChecked = settings.isDarkModeOn()
-        btnDarkMode.addOnCheckedChangeListener { button, isChecked ->
+        btnDarkMode.addOnCheckedChangeListener { _, isChecked ->
             settings.setIsDarkModeOn(isChecked)
             val data = Intent().apply {
                 putExtra(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_DARK_MODE_UPDATED)
@@ -91,7 +100,8 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
         const val MORE_OPTIONS_POPUP_ACCEPTED_CODE = 201
         const val MORE_OPTIONS_POPUP_NOT_ACCEPTED_CODE = 202
         const val MORE_OPTIONS_POPUP_OPTION = "moreOptionsPopupOption"
-        const val MORE_OPTIONS_POPUP_DARK_MODE_UPDATED = 203
-        const val MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW = 204
+        const val MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED = 210
+        const val MORE_OPTIONS_POPUP_DARK_MODE_UPDATED = 211
+        const val MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW = 212
     }
 }

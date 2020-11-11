@@ -53,7 +53,7 @@ object TextViewBindings {
     @BindingAdapter("temperature")
     fun temperature(textView: TextView, value: Current?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f°", info.temperature)
             } else {
                 String.format(Locale.US, "%.1f°", info.temperature)
@@ -68,7 +68,7 @@ object TextViewBindings {
     @BindingAdapter("temperatureWithUnit")
     fun temperatureWithUnit(textView: TextView, value: Current?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f°C", info.temperature)
             } else {
                 String.format(Locale.US, "%.1f°F", info.temperature)
@@ -83,7 +83,7 @@ object TextViewBindings {
     @BindingAdapter("minimumTemperature")
     fun minimumTemperature(textView: TextView, value: Current?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f°", info.minimumTemperature)
             } else {
                 String.format(Locale.US, "%.1f°", info.minimumTemperature)
@@ -98,7 +98,7 @@ object TextViewBindings {
     @BindingAdapter("maximumTemperature")
     fun maximumTemperature(textView: TextView, value: Current?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f°", info.maximumTemperature)
             } else {
                 String.format(Locale.US, "%.1f°", info.maximumTemperature)
@@ -113,7 +113,7 @@ object TextViewBindings {
     @BindingAdapter("temperature")
     fun temperature(textView: TextView, value: Daily?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f°", info.temperature.average())
             } else {
                 String.format(Locale.US, "%.1f°", info.temperature.average())
@@ -128,7 +128,7 @@ object TextViewBindings {
     @BindingAdapter("temperature")
     fun temperature(textView: TextView, value: Hourly?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f°", info.temperature)
             } else {
                 String.format(Locale.US, "%.1f°", info.temperature)
@@ -198,7 +198,7 @@ object TextViewBindings {
     @BindingAdapter("windSpeed")
     fun windSpeed(textView: TextView, value: Daily?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f km/h", info.windSpeed * 3.6)
             } else {
                 String.format(Locale.US, "%.1f mph", info.windSpeed)
@@ -213,7 +213,7 @@ object TextViewBindings {
     @BindingAdapter("windSpeed")
     fun windSpeed(textView: TextView, value: Hourly?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f km/h", info.windSpeed * 3.6)
             } else {
                 String.format(Locale.US, "%.1f mph", info.windSpeed)
@@ -289,7 +289,7 @@ object TextViewBindings {
     @BindingAdapter("realFeel")
     fun realFeel(textView: TextView, value: Daily?) {
         val valueStr = value?.let { info ->
-            if (info.useMetric) {
+            if (info.useMetricSystem) {
                 String.format(Locale.US, "%.1f°", info.feelsLike.average())
             } else {
                 String.format(Locale.US, "%.1f°", info.feelsLike.average())

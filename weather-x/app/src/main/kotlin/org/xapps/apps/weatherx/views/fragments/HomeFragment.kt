@@ -254,7 +254,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             viewModel.lastConditionCode(),
             viewModel.lastWasDayLight(),
             viewModel.lastTemperature(),
-            viewModel.useMetric()
+            viewModel.useMetricSystem()
         )
         rootLayout.setBackgroundResource(lastBackground)
         updateNavigationBarColor()
@@ -266,7 +266,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             viewModel.lastConditionCode(),
             viewModel.lastWasDayLight(),
             viewModel.lastTemperature(),
-            viewModel.useMetric()
+            viewModel.useMetricSystem()
         )
         if (motionFg.currentState in arrayOf(R.id.setLoading, R.id.setBegin)) {
             if (animate) {
@@ -306,6 +306,9 @@ class HomeFragment @Inject constructor() : Fragment() {
             if (resultCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_ACCEPTED_CODE) {
                 val option = data?.getIntExtra(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION, -1) ?: -1
                 when (option) {
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
+                        viewModel.prepareMonitoring()
+                    }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
                         AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
                     }

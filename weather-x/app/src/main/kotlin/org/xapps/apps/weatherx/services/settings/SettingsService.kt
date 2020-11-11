@@ -20,7 +20,7 @@ class SettingsService @Inject constructor(
         private const val ATTR_MINUTELY_VISIBLE_ITEMS_SIZE = "attrMinutelyVisibleItemsSize"
         private const val ATTR_HOURLY_VISIBLE_ITEMS_SIZE = "attrHourlyVisibleItemsSize"
         private const val ATTR_DAILY_VISIBLE_ITEMS_SIZE = "attrDailyVisibleItemsSize"
-        private const val ATTR_USE_METRIC = "attrUseMetric"
+        private const val ATTR_USE_METRIC_SYSTEM = "attrUseMetricSystem"
         private const val ATTR_LAST_CONDITION_CODE = "attrLastConditionCode"
         private const val ATTR_LAST_TEMPERATURE = "attrLastTemperature"
         private const val ATTR_LAST_WAS_DAY_LIGHT = "attrLastWasDayLight"
@@ -71,11 +71,11 @@ class SettingsService @Inject constructor(
     fun setDailyVisibleItemsSize(size: Int) =
         sharedPreferences.edit { putInt(ATTR_DAILY_VISIBLE_ITEMS_SIZE, size) }
 
-    fun useMetric(): Boolean =
-        sharedPreferences.getBoolean(ATTR_USE_METRIC, true)
+    fun useMetricSystem(): Boolean =
+        sharedPreferences.getBoolean(ATTR_USE_METRIC_SYSTEM, true)
 
-    fun setUseMetric(useMetric: Boolean) =
-        sharedPreferences.edit { putBoolean(ATTR_USE_METRIC, useMetric) }
+    fun setUseMetricSystem(useMetricSystem: Boolean) =
+        sharedPreferences.edit { putBoolean(ATTR_USE_METRIC_SYSTEM, useMetricSystem) }
 
     fun lastConditionCode(): Int =
         sharedPreferences.getInt(ATTR_LAST_CONDITION_CODE, Condition.Group.DEFAULT_CODE)

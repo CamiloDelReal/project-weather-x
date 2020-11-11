@@ -118,7 +118,7 @@ class ForecastCardView @JvmOverloads constructor(
         @BindingAdapter("windSpeed")
         fun windSpeed(view: ForecastCardView, value: Current?) {
             val valueStr = value?.let{info ->
-                if(info.useMetric) {
+                if(info.useMetricSystem) {
                     String.format(Locale.US, "%.1f km/h", info.windSpeed * 3.6)
                 } else {
                     String.format(Locale.US, "%.1f mph", info.windSpeed)
@@ -158,10 +158,10 @@ class ForecastCardView @JvmOverloads constructor(
         @BindingAdapter("realFeel")
         fun realFeel(view: ForecastCardView, value: Current?) {
             val valueStr = value?.let{info ->
-                if(info.useMetric) {
-                    String.format(Locale.US, "%.1f °C", info.feelsLike)
+                if(info.useMetricSystem) {
+                    String.format(Locale.US, "%.1f°C", info.feelsLike)
                 } else {
-                    String.format(Locale.US, "%.1f °F", info.feelsLike)
+                    String.format(Locale.US, "%.1f°F", info.feelsLike)
                 }
             } ?: run {
                 view.context.getString(R.string.not_available)

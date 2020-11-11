@@ -25,10 +25,10 @@ class WeatherRepository @Inject constructor(
                 session.currentPlace!!.latitude,
                 session.currentPlace!!.longitude,
                 session.currentLanguage!!,
-                if (settings.useMetric()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
             )
             fixDatetime(weather)
-            weather.current?.useMetric = settings.useMetric()
+            weather.current?.useMetricSystem = settings.useMetricSystem()
             emit(weather.current)
         }.flowOn(Dispatchers.Main)
     }
@@ -40,7 +40,7 @@ class WeatherRepository @Inject constructor(
                 session.currentPlace!!.latitude,
                 session.currentPlace!!.longitude,
                 session.currentLanguage!!,
-                if (settings.useMetric()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
             )
             fixDatetime(weather)
             val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
@@ -59,7 +59,7 @@ class WeatherRepository @Inject constructor(
                 session.currentPlace!!.latitude,
                 session.currentPlace!!.longitude,
                 session.currentLanguage!!,
-                if (settings.useMetric()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
             )
             fixDatetime(weather)
             val startHourlyIndex = findNextHourIndex(weather.hourly)
@@ -69,7 +69,7 @@ class WeatherRepository @Inject constructor(
             )
                 ?.apply {
                     forEach {
-                        it.useMetric = settings.useMetric()
+                        it.useMetricSystem = settings.useMetricSystem()
                     }
                 }
             emit(weather.hourly)
@@ -83,7 +83,7 @@ class WeatherRepository @Inject constructor(
                 session.currentPlace!!.latitude,
                 session.currentPlace!!.longitude,
                 session.currentLanguage!!,
-                if (settings.useMetric()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
             )
             fixDatetime(weather)
             val startDailyIndex = findNextDayIndex(weather.daily)
@@ -91,7 +91,7 @@ class WeatherRepository @Inject constructor(
                 startDailyIndex,
                 startDailyIndex + settings.dailyVisibleItemsSize()
             )
-                ?.apply { forEach { it.useMetric = settings.useMetric() } }
+                ?.apply { forEach { it.useMetricSystem = settings.useMetricSystem() } }
             emit(weather.daily)
         }.flowOn(Dispatchers.Main)
     }
@@ -103,8 +103,9 @@ class WeatherRepository @Inject constructor(
                 session.currentPlace!!.latitude,
                 session.currentPlace!!.longitude,
                 session.currentLanguage!!,
-                if (settings.useMetric()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
             )
+            weather.current?.useMetricSystem = settings.useMetricSystem()
             fixDatetime(weather)
             val currentDay = findCurrentDay(weather.daily)
             var index = currentDay?.let { day ->
@@ -123,7 +124,7 @@ class WeatherRepository @Inject constructor(
             )
                 ?.apply {
                     forEach {
-                        it.useMetric = settings.useMetric()
+                        it.useMetricSystem = settings.useMetricSystem()
                         val hourlyCalendar =
                             Calendar.getInstance().apply { timeInMillis = it.datetime }
                         if (calendar != null && (calendar.get(Calendar.DAY_OF_YEAR) != hourlyCalendar.get(Calendar.DAY_OF_YEAR))) {
@@ -139,7 +140,8 @@ class WeatherRepository @Inject constructor(
                 startDailyIndex,
                 startDailyIndex + settings.dailyVisibleItemsSize()
             )
-                ?.apply { forEach { it.useMetric = settings.useMetric() } }
+                ?.apply { forEach { it.useMetricSystem = settings.useMetricSystem() } }
+            Timber.i("AppLogger - Checking current ${weather.current?.useMetricSystem}")
             emit(weather)
         }.flowOn(Dispatchers.Main)
     }
@@ -151,8 +153,9 @@ class WeatherRepository @Inject constructor(
                 session.currentPlace!!.latitude,
                 session.currentPlace!!.longitude,
                 session.currentLanguage!!,
-                if (settings.useMetric()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
             )
+            weather.current?.useMetricSystem = settings.useMetricSystem()
             fixDatetime(weather)
             val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
             weather.minutely = weather.minutely?.subList(
@@ -175,7 +178,7 @@ class WeatherRepository @Inject constructor(
             )
                 ?.apply {
                     forEach {
-                        it.useMetric = settings.useMetric()
+                        it.useMetricSystem = settings.useMetricSystem()
                         val hourlyCalendar =
                             Calendar.getInstance().apply { timeInMillis = it.datetime }
                         if (calendar != null && (calendar.get(Calendar.DAY_OF_YEAR) != hourlyCalendar.get(Calendar.DAY_OF_YEAR))) {
@@ -191,7 +194,7 @@ class WeatherRepository @Inject constructor(
                 startDailyIndex,
                 startDailyIndex + settings.dailyVisibleItemsSize()
             )
-                ?.apply { forEach { it.useMetric = settings.useMetric() } }
+                ?.apply { forEach { it.useMetricSystem = settings.useMetricSystem() } }
             emit(weather)
         }.flowOn(Dispatchers.Main)
     }

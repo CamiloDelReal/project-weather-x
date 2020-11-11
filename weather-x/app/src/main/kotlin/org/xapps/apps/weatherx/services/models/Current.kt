@@ -59,7 +59,7 @@ data class Current(
     val conditions: List<Condition>,
 
     @Transient
-    var useMetric: Boolean = true
+    var useMetricSystem: Boolean = true
 
 ) {
 

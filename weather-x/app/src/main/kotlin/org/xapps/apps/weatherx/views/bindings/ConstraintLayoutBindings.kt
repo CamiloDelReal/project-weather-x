@@ -28,7 +28,7 @@ object ConstraintLayoutBindings {
                 if (it.conditions.isNotEmpty()) it.conditions[0].id else 0,
                 isDayLight,
                 it.temperature,
-                it.useMetric
+                it.useMetricSystem
             )
             val anim = AnimationDrawable()
             anim.addFrame(currentDrawable, 500)
