@@ -19,8 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieDrawable
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -34,9 +32,6 @@ import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
-import org.xapps.apps.weatherx.views.adapters.DailyAdapter
-import org.xapps.apps.weatherx.views.adapters.HourlyAdapter
-import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
@@ -126,29 +121,6 @@ class HomeFragment @Inject constructor() : Fragment() {
             }
 
         })
-
-
-        listHourlySimple.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.HORIZONTAL,
-            false
-        )
-        listHourlySimple.adapter = HourlySimpleAdapter(viewModel.hourlyWeather)
-
-        listHourly.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.HORIZONTAL,
-            false
-        )
-        listHourly.adapter = HourlyAdapter(viewModel.hourlyWeather)
-
-        listDaily.layoutManager = LinearLayoutManager(
-            requireContext(),
-            RecyclerView.HORIZONTAL,
-            false
-        )
-        listDaily.adapter = DailyAdapter(viewModel.dailyWeather)
-
 
         viewModel.watchWorking().observe(viewLifecycleOwner, { isWorking ->
 

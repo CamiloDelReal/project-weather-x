@@ -150,7 +150,6 @@ class ForecastCardView @JvmOverloads constructor(
                 view.context.getString(R.string.not_available)
             }
             view.setValue(valueStr)
-            Timber.i("Description $descriptionStr")
             view.setDescription(descriptionStr)
         }
 

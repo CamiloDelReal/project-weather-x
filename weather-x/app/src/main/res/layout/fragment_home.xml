@@ -510,6 +510,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_100sdp"
                 android:orientation="horizontal"
+                app:hourlySimple="@{viewModel.hourlyWeather}"
                 tools:itemCount="10"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_hourly_simple_info" />
@@ -528,6 +529,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_120sdp"
                 android:orientation="horizontal"
+                app:hourly="@{viewModel.hourlyWeather}"
                 tools:itemCount="10"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_hourly_info" />
@@ -547,42 +549,43 @@
                 android:layout_height="0dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
+                app:daily="@{viewModel.dailyWeather}"
                 tools:itemCount="7"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_daily_info" />
 
             <TextView
                 android:id="@+id/txvError"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:visibility="invisible"
                 android:gravity="center_horizontal"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_6sdp"
-                android:textColor="?attr/colorOnPrimarySurface"/>
+                android:textColor="?attr/colorOnPrimarySurface"
+                android:visibility="invisible" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTryAgain"
                 style="@style/Theme.Application.TryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:text="@string/try_again" />
+                android:text="@string/try_again"
+                android:visibility="invisible" />
 
-<!--            <me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
-<!--                android:id="@+id/progressIndicator"-->
-<!--                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/_5sdp"-->
-<!--                android:indeterminate="true"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/btnAdd"-->
-<!--                app:layout_constraintEnd_toStartOf="@id/v98"-->
-<!--                app:layout_constraintStart_toEndOf="@id/v2"-->
-<!--                app:mpb_progressStyle="horizontal"-->
-<!--                app:mpb_indeterminateTint="@color/white"-->
-<!--                app:mpb_progressTint="?attr/colorOnPrimarySurface"-->
-<!--                app:mpb_progressBackgroundTint="?attr/colorOnPrimarySurface"/>-->
+            <!--            <me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
+            <!--                android:id="@+id/progressIndicator"-->
+            <!--                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="@dimen/_5sdp"-->
+            <!--                android:indeterminate="true"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/btnAdd"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/v98"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/v2"-->
+            <!--                app:mpb_progressStyle="horizontal"-->
+            <!--                app:mpb_indeterminateTint="@color/white"-->
+            <!--                app:mpb_progressTint="?attr/colorOnPrimarySurface"-->
+            <!--                app:mpb_progressBackgroundTint="?attr/colorOnPrimarySurface"/>-->
 
             <View
                 android:id="@+id/draggerEnd"

@@ -16,11 +16,9 @@ class NetworkUtils @Inject constructor(
     fun isConnectedToInternet(): Boolean {
         val connectivity = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-            Timber.i("Using for target api <= 28")
             val activeNetwork = connectivity.activeNetworkInfo
             activeNetwork?.isConnected ?: false
         } else {
-            Timber.i("Using for target api >= 29")
             val activeNetwork = connectivity.activeNetwork
             val capabilities = connectivity.getNetworkCapabilities(activeNetwork)
             return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
