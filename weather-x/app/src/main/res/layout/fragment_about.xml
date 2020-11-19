@@ -17,19 +17,6 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:elevation="2dp"
-            android:tint="?attr/colorOnSurface"
-            android:fitsSystemWindows="true"
-            android:src="@drawable/ic_arrow_left"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,8 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/app_name"
                     android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/app_name"
                     android:textColor="?attr/colorOnSurface" />
 
                 <TextView
@@ -97,8 +84,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_openweather"
-                    app:ar_text="@string/open_weather"
-                    app:ar_link="@string/openweathermap_url" />
+                    app:ar_link="@string/openweathermap_url"
+                    app:ar_text="@string/open_weather" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -125,8 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_googlefonts"
-                    app:ar_text="@string/quicksand"
-                    app:ar_link="@string/quicksand_url" />
+                    app:ar_link="@string/quicksand_url"
+                    app:ar_text="@string/quicksand" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -153,8 +140,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_googlematerialdesign"
-                    app:ar_text="@string/material_design_icons"
-                    app:ar_link="@string/material_design_icons_url" />
+                    app:ar_link="@string/material_design_icons_url"
+                    app:ar_text="@string/material_design_icons" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -181,8 +168,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_lottiefiles"
-                    app:ar_text="@string/designed_by_jochang"
-                    app:ar_link="@string/lottiefiles_jochang_url" />
+                    app:ar_link="@string/lottiefiles_jochang_url"
+                    app:ar_text="@string/designed_by_jochang" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -209,8 +196,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_uigradients"
-                    app:ar_text="@string/uigradients"
-                    app:ar_link="@string/uigradients_url" />
+                    app:ar_link="@string/uigradients_url"
+                    app:ar_text="@string/uigradients" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -237,8 +224,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_androidjetpack"
-                    app:ar_text="@string/android_jetpack"
-                    app:ar_link="@string/android_jetpack_url" />
+                    app:ar_link="@string/android_jetpack_url"
+                    app:ar_text="@string/android_jetpack" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -249,8 +236,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_androidkotlin"
-                    app:ar_text="@string/android_kotlin"
-                    app:ar_link="@string/android_kotlin_url" />
+                    app:ar_link="@string/android_kotlin_url"
+                    app:ar_text="@string/android_kotlin" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -260,8 +247,9 @@
                     android:id="@+id/btnLinkDexterPermissions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ar_text="@string/dexter"
-                    app:ar_link="@string/dexter_url" />
+                    app:ar_icon="@drawable/ic_dexter"
+                    app:ar_link="@string/dexter_url"
+                    app:ar_text="@string/dexter" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -271,8 +259,8 @@
                     android:id="@+id/btnLinkSDP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ar_text="@string/sdp"
-                    app:ar_link="@string/sdp_url" />
+                    app:ar_link="@string/sdp_url"
+                    app:ar_text="@string/sdp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -282,8 +270,8 @@
                     android:id="@+id/btnLinkSSP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ar_text="@string/ssp"
-                    app:ar_link="@string/ssp_url" />
+                    app:ar_link="@string/ssp_url"
+                    app:ar_text="@string/ssp" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -293,8 +281,8 @@
                     android:id="@+id/btnLinkLottieForAndroid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ar_text="@string/lottie_for_android"
-                    app:ar_link="@string/lottie_for_android_url" />
+                    app:ar_link="@string/lottie_for_android_url"
+                    app:ar_text="@string/lottie_for_android" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -305,8 +293,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_square"
-                    app:ar_text="@string/retrofit"
-                    app:ar_link="@string/retrofit_url" />
+                    app:ar_link="@string/retrofit_url"
+                    app:ar_text="@string/retrofit" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -317,8 +305,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_square"
-                    app:ar_text="@string/moshi"
-                    app:ar_link="@string/moshi_url" />
+                    app:ar_link="@string/moshi_url"
+                    app:ar_text="@string/moshi" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -328,8 +316,8 @@
                     android:id="@+id/btnLinkShapeOfView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ar_text="@string/shape_of_view"
-                    app:ar_link="@string/shape_of_view_url" />
+                    app:ar_link="@string/shape_of_view_url"
+                    app:ar_text="@string/shape_of_view" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -339,8 +327,9 @@
                     android:id="@+id/btnLinkToasty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ar_text="@string/toasty"
-                    app:ar_link="@string/toasty_url" />
+                    app:ar_icon="@drawable/ic_toasty"
+                    app:ar_link="@string/toasty_url"
+                    app:ar_text="@string/toasty" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -350,12 +339,32 @@
                     android:id="@+id/btnLinkTimber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ar_text="@string/timber"
-                    app:ar_link="@string/timber_url" />
+                    app:ar_link="@string/timber_url"
+                    app:ar_text="@string/timber" />
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/ic_bg_back_btn_about"
+            android:fitsSystemWindows="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_left"
+                android:tint="?attr/colorOnSurface" />
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

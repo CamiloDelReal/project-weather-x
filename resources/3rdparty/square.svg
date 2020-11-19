@@ -10,7 +10,7 @@
    viewBox="0 0 24 24"
    version="1.1"
    id="svg38"
-   sodipodi:docname="squareupretrofit.svg"
+   sodipodi:docname="square.svg"
    width="24"
    height="24"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -47,7 +47,8 @@
      inkscape:window-x="0"
      inkscape:window-y="28"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg38" />
+     inkscape:current-layer="svg38"
+     inkscape:document-rotation="0" />
   <rect
      style="opacity:1;fill:#f1f1f1;fill-opacity:1;stroke-width:8;stroke-linecap:round"
      id="rect869"
@@ -64,8 +65,8 @@
      height="16.615387"
      x="3.6923084"
      y="3.6923065"
-     rx="2.7692306"
-     ry="2.7692311" />
+     rx="1.7690001"
+     ry="1.7690001" />
   <rect
      style="opacity:1;fill:#383838;fill-opacity:1;stroke:none;stroke-width:1.08333;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
      id="rect973"

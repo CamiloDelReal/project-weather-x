@@ -35,7 +35,6 @@ import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -127,14 +126,11 @@ class HomeFragment @Inject constructor() : Fragment() {
         })
 
         viewModel.watchError().observe(viewLifecycleOwner, { errorMessage ->
-            Timber.i("AppLogger - Error received $errorMessage")
             if (motionFg.currentState == R.id.setLoading) {
-                Timber.i("AppLogger - Estamos en loading")
                 txvError.text = errorMessage
                 txvError.visibility = View.VISIBLE
                 btnTryAgain.visibility = View.VISIBLE
             } else {
-                Timber.i("AppLogger - no loading")
                 Toasty.error(requireContext(), errorMessage, Toast.LENGTH_LONG, true).show()
                 Toasty.custom(
                     requireContext(),
@@ -154,10 +150,8 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         viewModel.watchReady().observe(viewLifecycleOwner, { isReady ->
             if (isReady) {
-                Timber.i("AppLogger - Ready true")
                 updateNavigationBarColor(false, true)
                 if (motionFg.currentState == R.id.setLoading) {
-                    Timber.i("AppLogger - ready in loading")
                     txvError.visibility = View.INVISIBLE
                     btnTryAgain.visibility = View.INVISIBLE
                     motionFg.transitionToEnd()
