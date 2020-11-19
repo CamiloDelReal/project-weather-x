@@ -11,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/_220sdp"
+        android:layout_width="@dimen/_230sdp"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/_6sdp"
         android:paddingEnd="@dimen/_6sdp">

@@ -347,24 +347,24 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:src="@drawable/ic_sunrise"
-                            app:tint="@color/sunrise" />
-
-                        <Space
-                            android:layout_width="@dimen/_6sdp"
-                            android:layout_height="wrap_content" />
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:src="@drawable/ic_sunrise"
+                                app:tint="@color/sunrise" />
+
+                            <Space
+                                android:layout_width="@dimen/_6sdp"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 style="@style/TextAppearance.MaterialComponents.Body1"
@@ -374,14 +374,14 @@
                                 app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunrise : 0}"
                                 tools:text="19:45" />
 
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Body1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/sunrise"
-                                android:textSize="@dimen/_9ssp" />
-
                         </LinearLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sunrise"
+                            android:textSize="@dimen/_9ssp" />
 
                     </LinearLayout>
 
@@ -393,24 +393,24 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:src="@drawable/ic_sunset"
-                            app:tint="@color/sunset" />
-
-                        <Space
-                            android:layout_width="@dimen/_6sdp"
-                            android:layout_height="wrap_content" />
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:src="@drawable/ic_sunset"
+                                app:tint="@color/sunset" />
+
+                            <Space
+                                android:layout_width="@dimen/_6sdp"
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 style="@style/TextAppearance.MaterialComponents.Body1"
@@ -420,14 +420,14 @@
                                 app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunset : 0}"
                                 tools:text="19:45" />
 
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Body1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/sunset"
-                                android:textSize="@dimen/_9ssp" />
-
                         </LinearLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sunset"
+                            android:textSize="@dimen/_9ssp" />
 
                     </LinearLayout>
 

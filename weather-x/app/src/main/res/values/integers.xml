@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <integer name="activity_transition_duration">500</integer>
+    <integer name="activity_transition_duration">350</integer>
     <integer name="popup_transition_duration">200</integer>
     
 </resources>
