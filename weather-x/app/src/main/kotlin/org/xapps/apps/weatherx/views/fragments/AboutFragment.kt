@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.xapps.apps.weatherx.BuildConfig
@@ -21,6 +21,8 @@ class AboutFragment @Inject constructor() : Fragment() {
 
     private lateinit var binding: FragmentAboutBinding
 
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,12 +33,22 @@ class AboutFragment @Inject constructor() : Fragment() {
         return binding.root
     }
 
+    private fun back() {
+        requireActivity().finish()
+        requireActivity().overridePendingTransition(R.anim.activity_enter_pop, R.anim.activity_exit_pop)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        onBackPressedCallback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                back()
+            }
+        }
+
         btnBack.setOnClickListener {
-            findNavController().navigateUp()
-            requireActivity().finish()
+            back()
         }
 
         btnAboutLink.setOnClickListener {
@@ -113,4 +125,8 @@ class AboutFragment @Inject constructor() : Fragment() {
         startActivity(intent)
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+    }
 }
