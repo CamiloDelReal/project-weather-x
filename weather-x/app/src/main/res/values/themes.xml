@@ -18,11 +18,16 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:activityOpenEnterAnimation">@anim/activity_enter</item>
     </style>
 
     <style name="Theme.Application.About" parent="Theme.Application">
         <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:activityOpenEnterAnimation">@anim/activity_enter</item>
     </style>
 
     <style name="Theme.Application.TryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_commonActivity"
-            app:destination="@id/commonActivity" />
+            app:destination="@id/commonActivity"
+            app:enterAnim="@anim/activity_enter"
+            app:exitAnim="@anim/activity_exit"
+            app:popEnterAnim="@anim/activity_enter_pop"
+            app:popExitAnim="@anim/activity_exit_pop" />
     </fragment>
     <activity
         android:id="@+id/commonActivity"

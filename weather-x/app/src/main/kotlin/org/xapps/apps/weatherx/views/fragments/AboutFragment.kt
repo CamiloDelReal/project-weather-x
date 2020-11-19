@@ -39,6 +39,10 @@ class AboutFragment @Inject constructor() : Fragment() {
             requireActivity().finish()
         }
 
+        btnAboutLink.setOnClickListener {
+            launchUri(getString(R.string.project_github))
+        }
+
         btnLinkOpenWeather.setOnClickListener {
             launchUri(getString(R.string.openweathermap_url))
         }
