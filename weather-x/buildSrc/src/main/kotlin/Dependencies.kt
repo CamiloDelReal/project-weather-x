@@ -24,7 +24,7 @@ object Build {
     const val MAJOR_VERSION = 1
     const val MINOR_VERSION = 0
     const val PATH_VERSION = 0
-    const val STATUS_VERSION = "-alpha"
+    const val STATUS_VERSION = ""
 }
 
 object Repositories {

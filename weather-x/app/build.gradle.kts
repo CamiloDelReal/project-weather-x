@@ -58,10 +58,14 @@ android {
 
     buildTypes["debug"].apply {
         isMinifyEnabled = false
+        val openWeatherMapApiKey: String by System.getProperties()
+        buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", openWeatherMapApiKey)
     }
 
     buildTypes["release"].apply {
         isMinifyEnabled = true
+        val openWeatherMapApiKey: String by System.getProperties()
+        buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", openWeatherMapApiKey)
 
         proguardFiles(
             getDefaultProguardFile("proguard-android-optimize.txt"),

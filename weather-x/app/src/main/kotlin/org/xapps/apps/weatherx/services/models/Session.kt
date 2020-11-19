@@ -1,9 +1,11 @@
 package org.xapps.apps.weatherx.services.models
 
+import org.xapps.apps.weatherx.BuildConfig
+
 
 class Session {
 
-    var apiKey: String = "8eb0abbbf60ef5486b0e62726e0cdc5f"
+    var apiKey: String = BuildConfig.OPEN_WEATHER_MAP_API_KEY
 
     var currentLanguage: String? = null
 
