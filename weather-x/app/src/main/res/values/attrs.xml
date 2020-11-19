@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ForecastCardView">
+        <attr name="fc_value" format="string" />
+        <attr name="fc_description" format="string" />
+        <attr name="fc_iconTint" format="color" />
+        <attr name="fc_clickable" format="boolean" />
+        <attr name="fc_iconSize" format="dimension" />
+        <attr name="fc_icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DayNightView">
+        <attr name="dnv_drawable" format="reference" />
+        <attr name="dnv_progress" format="integer" />
+        <attr name="dnv_maxProgress" format="integer" />
+        <attr name="dnv_progressColor" format="color" />
+        <attr name="dnv_progressWidth" format="dimension" />
+        <attr name="dnv_progressBackgroundColor" format="color" />
+        <attr name="dnv_progressBackgroundWidth" format="dimension" />
+        <attr name="dnv_roundEdges" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="AboutReference">
+        <attr name="ar_text" format="string" />
+        <attr name="ar_link" format="string" />
+        <attr name="ar_icon" format="reference" />
+    </declare-styleable>
+
+</resources>

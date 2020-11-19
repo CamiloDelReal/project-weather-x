@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import dagger.hilt.android.HiltAndroidApp
 import org.xapps.apps.weatherx.BuildConfig
+import org.xapps.apps.weatherx.services.settings.SettingsService
 import timber.log.Timber
+import javax.inject.Inject
 
 
 @HiltAndroidApp
-class ApplicationManager: Application() {
+class ApplicationManager : Application() {
+
+    @Inject
+    lateinit var settings: SettingsService
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -18,7 +23,7 @@ class ApplicationManager: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }

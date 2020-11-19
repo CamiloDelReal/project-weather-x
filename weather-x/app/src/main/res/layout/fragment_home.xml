@@ -7,20 +7,100 @@
     <data>
 
         <variable
-            name="location"
-            type="org.xapps.apps.weatherx.services.models.Location" />
+            name="viewModel"
+            type="org.xapps.apps.weatherx.viewmodels.HomeViewModel" />
+
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_gradient_clear_sky_day"
-        android:fitsSystemWindows="true">
+        app:conditionBackground="@{viewModel.currentWeather}"
+        tools:background="@drawable/ic_gradient_night">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motionBg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/scene_home_background">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.11" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.35" />
+
+            <com.github.florent37.shapeofview.shapes.ArcView
+                android:id="@+id/itemBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorSurface" />
+
+            </com.github.florent37.shapeofview.shapes.ArcView>
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motionFg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layoutDescription="@xml/scene_home">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.14" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.02" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.34" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v66"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.66" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v98"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.98" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v82"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.82" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/v50"
@@ -30,6 +110,20 @@
                 app:layout_constraintGuide_percent="0.5" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.04" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,106 +131,480 @@
                 app:layout_constraintGuide_percent="0.2" />
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.28" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.41" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.47" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.53" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h70"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.7"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h79"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.79" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/h98"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.98" />
+
 
             <ImageButton
                 android:id="@+id/btnAdd"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_add"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:fitsSystemWindows="true"
+                android:src="@drawable/ic_add" />
 
             <TextView
                 android:id="@+id/txvCounty"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
+                style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{location.city}"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@{viewModel.place != null ? viewModel.place.city : @string/empty}"
                 android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintBottom_toBottomOf="@id/btnAdd"
-                app:layout_constraintEnd_toEndOf="@id/v50"
-                app:layout_constraintStart_toStartOf="@id/v50"
-                app:layout_constraintTop_toTopOf="@id/btnAdd"
+                android:textSize="@dimen/_20ssp"
                 tools:text="Belgrade" />
 
             <TextView
+                android:id="@+id/txvCountry"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{location.name}"
+                android:text="@{viewModel.place != null ? viewModel.place.country : @string/empty}"
                 android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintEnd_toEndOf="@id/v50"
-                app:layout_constraintStart_toStartOf="@id/v50"
-                app:layout_constraintTop_toBottomOf="@id/txvCounty"
                 tools:text="Serbia" />
+
+            <View
+                android:id="@+id/centerDotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot_marker" />
+
+            <View
+                android:id="@+id/topDotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot_marker" />
+
+            <View
+                android:id="@+id/bottomDotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot_marker" />
+
+            <View
+                android:id="@+id/dotMarker"
+                android:layout_width="@dimen/_4sdp"
+                android:layout_height="@dimen/_4sdp"
+                android:background="@drawable/ic_bg_dot" />
+
+            <TextView
+                android:id="@+id/txvTemperature"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_84sdp"
+                android:gravity="bottom|center_horizontal"
+                android:textColor="?attr/colorOnPrimarySurface"
+                app:temperatureWithUnit="@{viewModel.currentWeather}"
+                tools:text="28 °C" />
+
+            <TextView
+                android:id="@+id/txvCondition"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_80sdp"
+                android:gravity="top|center_horizontal"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:textColor="?attr/colorOnPrimarySurface"
+                app:condition="@{viewModel.currentWeather}"
+                tools:text="Clear" />
+
+            <TextView
+                android:id="@+id/txvToday"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/today"
+                android:textColor="?attr/colorOnPrimarySurface" />
+
+            <TextView
+                android:id="@+id/txvTodaySeparatorMinMax"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slash"
+                android:textColor="?attr/colorOnPrimarySurface" />
+
+            <TextView
+                android:id="@+id/txvTodayMinTemp"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnPrimarySurface"
+                app:minimumTemperature="@{viewModel.currentWeather}"
+                tools:text="22°" />
+
+            <TextView
+                android:id="@+id/txvTodayMaxTemp"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnPrimarySurface"
+                app:maximumTemperature="@{viewModel.currentWeather}"
+                tools:text="28°" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotConditionImage"
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_140sdp"
-                android:transitionName="@string/transition_item"
-                app:layout_constraintEnd_toEndOf="@id/v50"
-                app:layout_constraintStart_toStartOf="@id/v50"
-                app:layout_constraintTop_toBottomOf="@id/h20"
                 app:lottie_autoPlay="true"
-                app:lottie_fileName="lottie-clear-sky-day.json"
                 app:lottie_loop="true"
-                app:lottie_speed="1" />
+                app:lottie_speed="1"
+                app:weatherAnimation="@{viewModel.currentWeather}" />
 
-            <TextView
-                android:id="@+id/txvTemperature"
-                style="@style/TextAppearance.MaterialComponents.Headline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:text="@{String.valueOf(location.temperature)}"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintEnd_toStartOf="@id/txvTemperatureScale"
-                app:layout_constraintTop_toBottomOf="@id/lotConditionImage"
-                tools:text="28" />
-
-            <TextView
-                android:id="@+id/txvTemperatureScale"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:text="@{location.useCelsius ? @string/celsius : @string/fahrenheit}"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintEnd_toStartOf="@id/v50"
-                app:layout_constraintTop_toTopOf="@id/txvTemperature"
-                tools:text="°C" />
-
-            <TextView
-                android:id="@+id/txvCondition"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:text="@{location.condition}"
-                android:textColor="?attr/colorOnPrimarySurface"
-                app:layout_constraintStart_toEndOf="@id/v50"
-                app:layout_constraintTop_toTopOf="@id/txvTemperatureScale"
-                tools:text="Clear" />
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
+            <LinearLayout
+                android:id="@+id/layoutDayNight"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/h70"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/ic_bg_card"
+                android:orientation="vertical"
+                android:padding="@dimen/_8sdp">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_2sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.DayNightView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:dnv_drawable="@drawable/ic_sun_with_background"
+                    app:dnv_progressColor="@color/sunrise"
+                    app:progress="@{viewModel.currentWeather}" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:src="@drawable/ic_sunrise"
+                                app:tint="@color/sunrise" />
+
+                            <Space
+                                android:layout_width="@dimen/_6sdp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_11ssp"
+                                app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunrise : 0}"
+                                tools:text="19:45" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sunrise"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:src="@drawable/ic_sunset"
+                                app:tint="@color/sunset" />
+
+                            <Space
+                                android:layout_width="@dimen/_6sdp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_11ssp"
+                                app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunset : 0}"
+                                tools:text="19:45" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sunset"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/popCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="@string/precipitation"
+                app:fc_icon="@drawable/ic_rain"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/rain"
+                app:precipitation="@{viewModel.currentWeather}" />
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/pressureCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="@string/pressure"
+                app:fc_icon="@drawable/ic_gauge"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/pressure"
+                app:pressure="@{viewModel.currentWeather}" />
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/windCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="East"
+                app:fc_icon="@drawable/ic_wind"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/windSpeed"
+                app:windSpeed="@{viewModel.currentWeather}" />
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/realFeelCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="@string/real_feel"
+                app:fc_icon="@drawable/ic_thermometer"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/realFeel"
+                app:realFeel="@{viewModel.currentWeather}" />
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/uvIndexCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="@string/uv_index"
+                app:fc_icon="@drawable/ic_sun"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/uvIndex"
+                app:uvindex="@{viewModel.currentWeather}" />
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/humidityCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="@string/humidity"
+                app:fc_icon="@drawable/ic_water"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/humidity"
+                app:humidity="@{viewModel.currentWeather}" />
+
+            <org.xapps.apps.weatherx.views.custom.ForecastCardView
+                android:id="@+id/visibilityCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:fc_description="@string/visibility"
+                app:fc_icon="@drawable/ic_eye_off"
+                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconTint="@color/visibility"
+                app:visibility="@{viewModel.currentWeather}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listHourlySimple"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:orientation="horizontal"
+                app:hourlySimple="@{viewModel.hourlyWeather}"
+                tools:itemCount="10"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_hourly_simple_info" />
+
+            <TextView
+                android:id="@+id/txvNextTwentyFourHours"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/next_24_hours"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/_20ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listHourly"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_120sdp"
+                android:orientation="horizontal"
+                app:hourly="@{viewModel.hourlyWeather}"
+                tools:itemCount="10"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_hourly_info" />
+
+            <TextView
+                android:id="@+id/txvNextSevenDays"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/next_7_days"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/_20ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listDaily"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:daily="@{viewModel.dailyWeather}"
+                tools:itemCount="7"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_daily_info" />
+
+            <TextView
+                android:id="@+id/txvError"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:textColor="?attr/colorOnPrimarySurface"
+                android:visibility="invisible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTryAgain"
+                style="@style/Theme.Application.TryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/try_again"
+                android:visibility="invisible" />
+
+            <!--            <me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
+            <!--                android:id="@+id/progressIndicator"-->
+            <!--                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="@dimen/_5sdp"-->
+            <!--                android:indeterminate="true"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/btnAdd"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/v98"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/v2"-->
+            <!--                app:mpb_progressStyle="horizontal"-->
+            <!--                app:mpb_indeterminateTint="@color/white"-->
+            <!--                app:mpb_progressTint="?attr/colorOnPrimarySurface"-->
+            <!--                app:mpb_progressBackgroundTint="?attr/colorOnPrimarySurface"/>-->
+
+            <View
+                android:id="@+id/draggerEnd"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/draggerHalf"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

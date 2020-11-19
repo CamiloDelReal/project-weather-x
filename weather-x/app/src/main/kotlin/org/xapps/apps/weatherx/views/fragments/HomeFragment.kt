@@ -1,34 +1,40 @@
 package org.xapps.apps.weatherx.views.fragments
 
-import android.graphics.Color
-import android.graphics.DashPathEffect
+import android.Manifest
+import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.transition.TransitionInflater
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieDrawable
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
-import org.xapps.apps.weatherx.services.models.Location
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
-import timber.log.Timber
+import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
+import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
+import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
 import javax.inject.Inject
 
 
@@ -42,203 +48,249 @@ class HomeFragment @Inject constructor() : Fragment() {
     @Inject
     lateinit var settings: SettingsService
 
+    private var lastCompletedConstraint: Int? = null
+    private var lastConditionBottomColor: Int? = null
+    private lateinit var navigationBarColorAnimation: ValueAnimator
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        sharedElementEnterTransition =
-            TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
-        sharedElementReturnTransition =
-            TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        ViewCompat.setTranslationZ(binding.root, 1f)
-        binding.location = Location("Serbia", "Stari", 0.0, 0.0, 10240, true, 28, "Clear")
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Timber.i("Checking settings var =  ${settings}")
+        prepareForLoading()
 
-        // background color
-        chart.setBackgroundColor(Color.TRANSPARENT)
+        motionFg.setTransitionListener(object : MotionLayout.TransitionListener {
 
-        // disable description text
-        chart.getDescription().setEnabled(false)
+            override fun onTransitionTrigger(
+                layout: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {
+            }
 
-        // enable touch gestures
-        chart.setTouchEnabled(true)
+            override fun onTransitionStarted(layout: MotionLayout?, startId: Int, endId: Int) {}
 
-        // set listeners
-//            chart.setOnChartValueSelectedListener(this)
-        chart.setDrawGridBackground(false)
-
-        // create marker to display box when values are selected
-//            val mv = MyMarkerView(this, R.layout.custom_marker_view)
-
-        // Set the marker to the chart
-//            mv.setChartView(chart)
-//            chart.setMarker(mv)
-
-        // enable scaling and dragging
-        chart.setDragEnabled(true)
-        chart.setScaleEnabled(true)
-        chart.isHighlightPerTapEnabled = false
-        // chart.setScaleXEnabled(true);
-        // chart.setScaleYEnabled(true);
-
-        // force pinch zoom along both axis
-//            chart.setPinchZoom(true)
-
-
-        var xAxis: XAxis
-        xAxis = chart.getXAxis()
-        xAxis.isEnabled = true
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.setDrawLabels(true)
-        xAxis.granularity = 1f
-//        xAxis.isGranularityEnabled = false
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                Log.i("AppLogger", "getAxisLabel $value")
-                return when {
-                    value == -1f -> "Now"
-                    value <= 12 -> "${value.toInt()} am"
-                    else -> "${value.toInt() % 12} pm"
+            override fun onTransitionChange(
+                layout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
+                if (startId == R.id.setBegin && endId == R.id.setHalf) {
+                    motionBg.setTransition(R.id.setBegin, R.id.setHalf)
+                    motionBg.progress = progress
+                    Handler(Looper.getMainLooper()).post(Runnable {
+                        navigationBarColorAnimation.setCurrentFraction(progress)
+                    })
+                } else if (startId == R.id.setHalf && endId == R.id.setEnd) {
+                    motionBg.setTransition(R.id.setHalf, R.id.setEnd)
+                    motionBg.progress = progress
                 }
             }
 
-            override fun getPointLabel(entry: Entry?): String {
-                Log.i("AppLogger-PointLabel", "${entry?.x}, ${entry?.y}")
-                return super.getPointLabel(entry)
+            override fun onTransitionCompleted(layout: MotionLayout?, currentId: Int) {
+                if (lastCompletedConstraint != null) {
+                    when {
+                        (currentId == R.id.setBegin && (lastCompletedConstraint == R.id.setBegin || lastCompletedConstraint == R.id.setHalf)) -> {
+                            motionBg.progress = 0.0f
+                            navigationBarColorAnimation.setCurrentFraction(0.0f)
+                        }
+                        (currentId == R.id.setHalf && lastCompletedConstraint == R.id.setBegin) -> {
+                            motionBg.progress = 1.0f
+                            navigationBarColorAnimation.setCurrentFraction(1.0f)
+                        }
+                        (currentId == R.id.setHalf && lastCompletedConstraint == R.id.setEnd) -> {
+                            motionBg.progress = 0.0f
+                        }
+                        (currentId == R.id.setEnd && (lastCompletedConstraint == R.id.setEnd || lastCompletedConstraint == R.id.setHalf)) -> {
+                            motionBg.progress = 1.0f
+                        }
+                    }
+                }
+                lastCompletedConstraint = currentId
             }
+
+        })
+
+        viewModel.watchWorking().observe(viewLifecycleOwner, { isWorking ->
+
+        })
+
+        viewModel.watchError().observe(viewLifecycleOwner, { errorMessage ->
+            if (motionFg.currentState == R.id.setLoading) {
+                txvError.text = errorMessage
+                txvError.visibility = View.VISIBLE
+                btnTryAgain.visibility = View.VISIBLE
+            } else {
+                Toasty.error(requireContext(), errorMessage, Toast.LENGTH_LONG, true).show()
+                Toasty.custom(
+                    requireContext(),
+                    errorMessage,
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_information_outline
+                    ),
+                    ContextCompat.getColor(requireContext(), R.color.red_500),
+                    ContextCompat.getColor(requireContext(), R.color.white),
+                    Toasty.LENGTH_LONG,
+                    true,
+                    true
+                ).show()
+            }
+        })
+
+        viewModel.watchReady().observe(viewLifecycleOwner, { isReady ->
+            if (isReady) {
+                updateNavigationBarColor(false, true)
+                if (motionFg.currentState == R.id.setLoading) {
+                    txvError.visibility = View.INVISIBLE
+                    btnTryAgain.visibility = View.INVISIBLE
+                    motionFg.transitionToEnd()
+                }
+            }
+        })
+
+        Dexter.withContext(requireContext())
+            .withPermissions(
+                Manifest.permission.INTERNET,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    lifecycleScope.launchWhenResumed {
+                        report?.let {
+                            if (report.areAllPermissionsGranted()) {
+                                viewModel.prepareMonitoring()
+                            }
+                        }
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: MutableList<PermissionRequest>?,
+                    token: PermissionToken?
+                ) {
+                    token?.continuePermissionRequest()
+                }
+            })
+            .withErrorListener {
+                Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
+            }
+            .check()
+
+        btnAdd.setOnClickListener {
+            val moreOptionPopup = MoreOptionsPopup()
+            moreOptionPopup.setTargetFragment(
+                this@HomeFragment,
+                MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE
+            )
+            val fragmentManager = parentFragmentManager.beginTransaction()
+            moreOptionPopup.show(fragmentManager, "MoreOptionsPopup")
         }
 
-        // vertical grid lines
-//            xAxis.enableGridDashedLine(10f, 10f, 0f)
-
-        var yAxis: YAxis
-        yAxis = chart.getAxisLeft()
-
-//        yAxis.valueFormatter = object : ValueFormatter() {
-//            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-//                return "Cam ${value.toString()}"
-//            }
-//        }
-
-//        yAxis.isEnabled = false
-        chart.axisLeft.isEnabled = false
-        chart.axisRight.isEnabled = false
-
-        // disable dual axis (only use LEFT axis)
-//            chart.getAxisRight().setEnabled(true)
-
-        // horizontal grid lines
-//        yAxis.enableGridDashedLine(10f, 10f, 0f)
-
-        yAxis.axisMaximum = 38f
-        yAxis.axisMinimum = 11f
-
-        val values: ArrayList<Entry> = ArrayList()
-        values.add(Entry(-1f, 28f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-        values.add(Entry(13f, 26f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-        values.add(Entry(14f, 25f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-        values.add(Entry(15f, 25f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-        values.add(Entry(16f, 23f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-        values.add(Entry(17f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(6f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(7f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(8f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(9f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(10f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(11f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(12f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        values.add(Entry(13f, 21f, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-        val set = LineDataSet(values, "")
-        set.setDrawIcons(false)
-        set.color = Color.WHITE
-        set.setCircleColor(Color.WHITE)
-        set.valueTextColor = Color.WHITE
-        set.lineWidth = 1f
-        set.circleRadius = 3f
-        set.valueFormatter = object : ValueFormatter() {
-            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                Log.i("AppLogger-Set", "Value = $value")
-                return "F ${value.toString()}"
-            }
+        btnTryAgain.setOnClickListener {
+            viewModel.prepareMonitoring()
         }
-//        set.isDashedLineEnabled = false
-//        set.formLineWidth = 1f
-//        set.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
-//        set.formSize = 15f
-        val dataSets: ArrayList<ILineDataSet> = ArrayList()
-        dataSets.add(set) // add the data sets
-        val data = LineData(dataSets)
-
-//        val l =  chart.getLegend()
-//        l.setForm(Legend.LegendForm.LINE)
-
-        chart.data = data
-
     }
 
-    private fun setData(count: Int, range: Float) {
+    fun prepareForLoading() {
+        val lastAnimation = LottieAnimationViewBindings.weatherAnimation(
+            viewModel.lastConditionCode(),
+            viewModel.lastWasDayLight(),
+            viewModel.lastWasThereVisibility()
+        )
+        lotConditionImage.tag = lastAnimation
+        lotConditionImage.setAnimation(lastAnimation)
+        lotConditionImage.speed = 1.0f
+        lotConditionImage.repeatCount = LottieDrawable.INFINITE
+        lotConditionImage.repeatMode = LottieDrawable.RESTART
+        lotConditionImage.playAnimation()
+        val lastBackground = ConstraintLayoutBindings.conditionBackground(
+            viewModel.lastConditionCode(),
+            viewModel.lastWasDayLight(),
+            viewModel.lastTemperature(),
+            viewModel.useMetricSystem()
+        )
+        rootLayout.setBackgroundResource(lastBackground)
+        updateNavigationBarColor()
+    }
 
+    private fun updateNavigationBarColor(useSurface: Boolean = true, animate: Boolean = false) {
+        val previousBottomColor = lastConditionBottomColor
+        lastConditionBottomColor = ConstraintLayoutBindings.conditionBottomColor(
+            viewModel.lastConditionCode(),
+            viewModel.lastWasDayLight(),
+            viewModel.lastTemperature(),
+            viewModel.useMetricSystem()
+        )
+        if (motionFg.currentState in arrayOf(R.id.setLoading, R.id.setBegin)) {
+            if (animate) {
+                val typedValue = TypedValue()
+                val theme = requireContext().theme
+                theme.resolveAttribute(R.attr.colorSurface, typedValue, true)
+                val colorSurface = typedValue.data
+                val colorFrom = if (useSurface) {
+                    colorSurface
+                } else {
+                    ContextCompat.getColor(requireContext(), previousBottomColor!!)
+                }
+                val colorTo = ContextCompat.getColor(requireContext(), lastConditionBottomColor!!)
+                val colorAnimation = ValueAnimator.ofArgb(colorFrom, colorTo)
+                colorAnimation.startDelay = 400
+                colorAnimation.duration = 300
+                colorAnimation.addUpdateListener { animator ->
+                    requireActivity().window.navigationBarColor = animator.animatedValue as Int
+                }
+                navigationBarColorAnimation = ValueAnimator.ofArgb(colorTo, colorSurface)
+                navigationBarColorAnimation.duration = 250
+                navigationBarColorAnimation.addUpdateListener { animator ->
+                    requireActivity().window.navigationBarColor = animator.animatedValue as Int
+                }
+                colorAnimation.start()
+            } else {
+                requireActivity().window.navigationBarColor = ContextCompat.getColor(
+                    requireContext(),
+                    lastConditionBottomColor!!
+                )
+            }
+        }
+    }
 
-//        for (i in 0 until count) {
-//            val `val` = (Math.random() * range).toFloat() - 30
-//            values.add(Entry(i.toFloat(), `val`, ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)))
-//        }
-//
-//        if (chart.getData() != null &&
-//            chart.getData().getDataSetCount() > 0
-//        ) {
-//            set1 = chart.getData().getDataSetByIndex(0) as LineDataSet
-//            set1.setValues(values)
-//            set1.notifyDataSetChanged()
-//            chart.getData().notifyDataChanged()
-//            chart.notifyDataSetChanged()
-//        } else {
-//            // create a dataset and give it a type
-//            set1 = LineDataSet(values, "DataSet 1")
-//            set1.setDrawIcons(false)
-//
-//            // draw dashed line
-////            set1.enableDashedLine(10f, 5f, 0f)
-//
-//            // black lines and points
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE) {
+            if (resultCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_ACCEPTED_CODE) {
+                val option = data?.getIntExtra(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION, -1) ?: -1
+                when (option) {
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
+                        viewModel.prepareMonitoring()
+                    }
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
+                        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW -> {
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
+                    }
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 
-//
-//            // line thickness and point size
-
-//
-//            // draw points as solid circles
-//            set1.setDrawCircleHole(false)
-//
-//            // customize legend entry
-
-//
-//            // text size of values
-//            set1.valueTextSize = 9f
-//
-//            // draw selection line as dashed
-////            set1.enableDashedHighlightLine(10f, 5f, 0f)
-//
-//            // set the filled area
-//            set1.setDrawFilled(true)
-//            set1.fillFormatter =
-//                IFillFormatter { dataSet, dataProvider -> chart.getAxisLeft().getAxisMinimum() }
-//
-//            // set color of filled area
-//                // drawables only supported on api level 18 and above
-////                val drawable = ContextCompat.getDrawable(this, R.drawable.fade_red)
-////                set1.fillDrawable = drawable
-//
-//
-//            // create a data object with the data sets
-//
-//        }
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.stopJobGpsTrackerScheduler()
+        viewModel.stopJobWeatherScheduler()
     }
 }

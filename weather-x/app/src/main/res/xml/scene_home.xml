@@ -1,0 +1,1533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        android:id="@+id/loadingToBegin"
+        app:constraintSetEnd="@id/setBegin"
+        app:constraintSetStart="@id/setLoading"
+        app:duration="500" />
+
+    <Transition
+        android:id="@+id/beginToHalf"
+        app:constraintSetEnd="@id/setHalf"
+        app:constraintSetStart="@id/setBegin">
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:nestedScrollFlags="disablePostScroll"
+            app:touchAnchorId="@+id/draggerHalf"
+            app:touchAnchorSide="top" />
+    </Transition>
+
+    <Transition
+        android:id="@+id/halfToEnd"
+        app:constraintSetEnd="@id/setEnd"
+        app:constraintSetStart="@id/setHalf">
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@+id/draggerEnd"
+            app:touchAnchorSide="top" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/setLoading">
+
+        <Constraint
+            android:id="@+id/draggerHalf"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/draggerEnd"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/btnAdd"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/h4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/h4" />
+
+        <Constraint
+            android:id="@+id/txvCounty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/txvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty"
+            app:layout_constraintEnd_toEndOf="@id/txvCounty"
+            app:layout_constraintStart_toStartOf="@id/txvCounty"
+            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+
+        <Constraint
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/topDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/topDotMarker"
+            app:layout_constraintStart_toStartOf="@id/topDotMarker"
+            app:layout_constraintTop_toTopOf="@id/topDotMarker" />
+
+        <Constraint
+            android:id="@+id/txvTemperature"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_84sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lotConditionImage">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_18ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvCondition"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_80sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvTemperature">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_10ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h50"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/h50" />
+
+        <Constraint
+            android:id="@+id/txvToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintStart_toStartOf="@id/v14"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodaySeparatorMinMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="@id/v82"
+            app:layout_constraintStart_toStartOf="@id/v82"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMinTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMaxTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/listHourlySimple"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/h98"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/txvNextTwentyFourHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h15" />
+
+        <Constraint
+            android:id="@+id/listHourly"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
+
+        <Constraint
+            android:id="@+id/listDaily"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/h47" />
+
+        <Constraint
+            android:id="@+id/txvNextSevenDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toTopOf="@id/listDaily"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+        <Constraint
+            android:id="@+id/layoutDayNight"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h60"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+        <Constraint
+            android:id="@+id/popCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
+            app:layout_constraintStart_toStartOf="@+id/v66"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+        <Constraint
+            android:id="@+id/pressureCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/windCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationY="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/realFeelCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            android:translationY="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/uvIndexCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/humidityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationY="@dimen/_50sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/visibilityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
+
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/setBegin">
+
+        <Constraint
+            android:id="@+id/draggerHalf"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/draggerEnd"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/btnAdd"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="1.0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/h4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/h4" />
+
+        <Constraint
+            android:id="@+id/txvCounty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/topDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/topDotMarker"
+            app:layout_constraintStart_toStartOf="@id/topDotMarker"
+            app:layout_constraintTop_toTopOf="@id/topDotMarker" />
+
+        <Constraint
+            android:id="@+id/txvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty"
+            app:layout_constraintEnd_toEndOf="@id/txvCounty"
+            app:layout_constraintStart_toStartOf="@id/txvCounty"
+            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+
+        <Constraint
+            android:id="@+id/txvTemperature"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_84sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lotConditionImage">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_18ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvCondition"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_80sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvTemperature">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_10ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_140sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toBottomOf="@id/h20" />
+
+        <Constraint
+            android:id="@+id/txvToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintStart_toStartOf="@id/v14"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodaySeparatorMinMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="@id/v82"
+            app:layout_constraintStart_toStartOf="@id/v82"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMinTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMaxTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/listHourlySimple"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:alpha="1.0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/h98"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/txvNextTwentyFourHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h15" />
+
+        <Constraint
+            android:id="@+id/listHourly"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
+
+        <Constraint
+            android:id="@+id/listDaily"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/h47" />
+
+        <Constraint
+            android:id="@+id/txvNextSevenDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toTopOf="@id/listDaily"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+        <Constraint
+            android:id="@+id/layoutDayNight"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h60"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+        <Constraint
+            android:id="@+id/popCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
+            app:layout_constraintStart_toStartOf="@+id/v66"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+        <Constraint
+            android:id="@+id/pressureCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/windCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationY="@dimen/_minus50sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/realFeelCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            android:translationY="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/uvIndexCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/humidityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationY="@dimen/_50sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/visibilityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/setHalf">
+
+        <Constraint
+            android:id="@+id/draggerHalf"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/draggerEnd"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/btnAdd"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="1.0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/h4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/h4" />
+
+        <Constraint
+            android:id="@+id/txvCounty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/txvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty"
+            app:layout_constraintEnd_toEndOf="@id/txvCounty"
+            app:layout_constraintStart_toStartOf="@id/txvCounty"
+            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+
+        <Constraint
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintTop_toTopOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/txvTemperature"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_19sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/txvToday"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txvToday">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_6ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvCondition"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvToday">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_4ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            app:layout_constraintBottom_toTopOf="@id/h28"
+            app:layout_constraintEnd_toEndOf="@id/v50"
+            app:layout_constraintStart_toStartOf="@id/v50" />
+
+        <Constraint
+            android:id="@+id/txvToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintStart_toStartOf="@id/v14"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodaySeparatorMinMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="@id/v82"
+            app:layout_constraintStart_toStartOf="@id/v82"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMinTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMaxTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/listHourlySimple"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/txvNextTwentyFourHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:alpha="0.0"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h15" />
+
+        <Constraint
+            android:id="@+id/listHourly"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
+
+        <Constraint
+            android:id="@+id/listDaily"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/h47" />
+
+        <Constraint
+            android:id="@+id/txvNextSevenDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toTopOf="@id/listDaily"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+        <Constraint
+            android:id="@+id/layoutDayNight"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/h60"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+        <Constraint
+            android:id="@+id/popCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationX="0dp"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
+            app:layout_constraintStart_toStartOf="@+id/v66"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+        <Constraint
+            android:id="@+id/pressureCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationX="0dp"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/windCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationX="0dp"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/realFeelCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationX="0dp"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/uvIndexCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationX="0dp"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/humidityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/visibilityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="1.0"
+            android:translationX="0dp"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/setEnd">
+
+        <Constraint
+            android:id="@+id/draggerHalf"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/draggerEnd"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/btnAdd"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="1.0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/h4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/h4" />
+
+        <Constraint
+            android:id="@+id/txvCounty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintStart_toEndOf="@id/btnAdd"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/txvCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/txvCounty"
+            app:layout_constraintEnd_toEndOf="@id/txvCounty"
+            app:layout_constraintStart_toStartOf="@id/txvCounty"
+            app:layout_constraintTop_toBottomOf="@id/txvCounty" />
+
+        <Constraint
+            android:id="@+id/centerDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintTop_toTopOf="@id/h4" />
+
+        <Constraint
+            android:id="@+id/topDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/bottomDotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:alpha="1.0"
+            app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
+            app:layout_constraintStart_toStartOf="@id/centerDotMarker"
+            app:layout_constraintTop_toBottomOf="@id/centerDotMarker" />
+
+        <Constraint
+            android:id="@+id/dotMarker"
+            android:layout_width="@dimen/_4sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/bottomDotMarker"
+            app:layout_constraintEnd_toEndOf="@id/bottomDotMarker"
+            app:layout_constraintStart_toStartOf="@id/bottomDotMarker"
+            app:layout_constraintTop_toTopOf="@id/bottomDotMarker" />
+
+        <Constraint
+            android:id="@+id/txvTemperature"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_19sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintEnd_toStartOf="@id/centerDotMarker"
+            app:layout_constraintStart_toEndOf="@id/lotConditionImage"
+            app:layout_constraintTop_toTopOf="@id/h4">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvCondition"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvToday">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_4ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/lotConditionImage"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h4"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@+id/h4" />
+
+        <Constraint
+            android:id="@+id/txvToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintStart_toStartOf="@id/v14"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodaySeparatorMinMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toEndOf="@id/v82"
+            app:layout_constraintStart_toStartOf="@id/v82"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMinTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/txvTodayMaxTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
+            app:layout_constraintTop_toBottomOf="@id/h28">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="@dimen/_5ssp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/listHourlySimple"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_100sdp"
+            android:alpha="0.0"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/txvNextTwentyFourHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:alpha="1.0"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h15" />
+
+        <Constraint
+            android:id="@+id/listHourly"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:alpha="1.0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txvNextTwentyFourHours" />
+
+        <Constraint
+            android:id="@+id/listDaily"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="1.0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/h47" />
+
+        <Constraint
+            android:id="@+id/txvNextSevenDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toTopOf="@id/listDaily"
+            app:layout_constraintStart_toEndOf="@id/v2" />
+
+        <Constraint
+            android:id="@+id/layoutDayNight"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h60"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+
+        <Constraint
+            android:id="@+id/popCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            android:translationY="@dimen/_minus25sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/h60"
+            app:layout_constraintEnd_toEndOf="@+id/v98"
+            app:layout_constraintStart_toStartOf="@+id/v66"
+            app:layout_constraintTop_toTopOf="@id/h41" />
+
+        <Constraint
+            android:id="@+id/pressureCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/windCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="0dp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/realFeelCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h79"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h60" />
+
+        <Constraint
+            android:id="@+id/uvIndexCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_minus25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v34"
+            app:layout_constraintStart_toStartOf="@id/v2"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/humidityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="0dp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v66"
+            app:layout_constraintStart_toStartOf="@id/v34"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/visibilityCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:alpha="0.0"
+            android:translationX="@dimen/_25sdp"
+            android:translationY="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@id/h98"
+            app:layout_constraintEnd_toEndOf="@id/v98"
+            app:layout_constraintStart_toStartOf="@id/v66"
+            app:layout_constraintTop_toTopOf="@id/h79" />
+
+        <Constraint
+            android:id="@+id/txvError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_6sdp"
+            app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:visibilityMode="ignore" />
+
+        <Constraint
+            android:id="@+id/btnTryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/h98"
+            app:layout_constraintEnd_toStartOf="@id/v98"
+            app:layout_constraintStart_toEndOf="@id/v2"
+            app:layout_constraintTop_toBottomOf="@id/h50"
+            app:visibilityMode="ignore" />
+
+    </ConstraintSet>
+
+</MotionScene>

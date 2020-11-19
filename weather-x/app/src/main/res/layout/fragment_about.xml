@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.fragments.AboutFragment">
+
+    <data>
+
+        <variable
+            name="version"
+            type="java.lang.String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingTop="@dimen/_20sdp"
+                android:paddingEnd="@dimen/_12sdp"
+                android:paddingBottom="@dimen/_12sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_64sdp"
+                    android:layout_height="@dimen/_64sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_launcher_rounded_corners" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_12sdp" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/app_name"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{version}"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="0.1.0" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_4sdp" />
+
+                <FrameLayout
+                    android:id="@+id/btnAboutLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:padding="@dimen/_4sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Body1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:justificationMode="inter_word"
+                            android:text="@string/about_description_1"
+                            tools:targetApi="o" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_4sdp" />
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Body1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:justificationMode="inter_word"
+                            android:text="@string/about_description_2"
+                            tools:targetApi="o" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_4sdp" />
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:justificationMode="inter_word"
+                            android:text="@string/project_github"
+                            tools:targetApi="o" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_24sdp" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weather_service" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="?attr/colorOnSurface" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkOpenWeather"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_openweather"
+                    app:ar_link="@string/openweathermap_url"
+                    app:ar_text="@string/open_weather" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_18sdp" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fonts" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="?attr/colorOnSurface" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkGoogleFonts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_googlefonts"
+                    app:ar_link="@string/quicksand_url"
+                    app:ar_text="@string/quicksand" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_18sdp" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icons" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="?attr/colorOnSurface" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkMaterialDesignIcons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_googlematerialdesign"
+                    app:ar_link="@string/material_design_icons_url"
+                    app:ar_text="@string/material_design_icons" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_18sdp" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/animated_icons" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="?attr/colorOnSurface" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkLottieFiles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_lottiefiles"
+                    app:ar_link="@string/lottiefiles_jochang_url"
+                    app:ar_text="@string/designed_by_jochang" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_18sdp" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/colors" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="?attr/colorOnSurface" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkUiGradients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_uigradients"
+                    app:ar_link="@string/uigradients_url"
+                    app:ar_text="@string/uigradients" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_18sdp" />
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/libraries_and_tools" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.1"
+                    android:background="?attr/colorOnSurface" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkAndroidJetpack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_androidjetpack"
+                    app:ar_link="@string/android_jetpack_url"
+                    app:ar_text="@string/android_jetpack" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkAndroidKotlin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_androidkotlin"
+                    app:ar_link="@string/android_kotlin_url"
+                    app:ar_text="@string/android_kotlin" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkDexterPermissions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_dexter"
+                    app:ar_link="@string/dexter_url"
+                    app:ar_text="@string/dexter" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkSDP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_link="@string/sdp_url"
+                    app:ar_text="@string/sdp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkSSP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_link="@string/ssp_url"
+                    app:ar_text="@string/ssp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkLottieForAndroid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_link="@string/lottie_for_android_url"
+                    app:ar_text="@string/lottie_for_android" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkRetrofit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_square"
+                    app:ar_link="@string/retrofit_url"
+                    app:ar_text="@string/retrofit" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkMoshi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_square"
+                    app:ar_link="@string/moshi_url"
+                    app:ar_text="@string/moshi" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkShapeOfView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_link="@string/shape_of_view_url"
+                    app:ar_text="@string/shape_of_view" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkToasty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_toasty"
+                    app:ar_link="@string/toasty_url"
+                    app:ar_text="@string/toasty" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkTimber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_link="@string/timber_url"
+                    app:ar_text="@string/timber" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/ic_bg_back_btn_about"
+            android:fitsSystemWindows="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_left"
+                android:tint="?attr/colorOnSurface" />
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
