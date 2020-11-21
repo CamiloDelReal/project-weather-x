@@ -16,13 +16,13 @@ object Plugins {
 
 object Build {
     const val SDK_VERSION = 30
-    const val MIN_SDK_VERSION = 23
+    const val MIN_SDK_VERSION = 24
     const val TARGET_SDK_VERSION = 30
     const val BUILD_TOOLS_VERSION = "30.0.2"
     const val APPLICATION_ID = "org.xapps.apps.weatherx"
     const val APP_NAME = "WeatherX"
     const val MAJOR_VERSION = 1
-    const val MINOR_VERSION = 0
+    const val MINOR_VERSION = 1
     const val PATH_VERSION = 0
     const val STATUS_VERSION = ""
 }
@@ -126,6 +126,12 @@ object Libraries {
             const val CORE_KTX = "androidx.room:room-ktx:$VERSION"
             const val COMPILER = "androidx.room:room-compiler:$VERSION"
         }
+    }
+
+    object PlayServices {
+        private const val LOCATION_VERSION = "17.1.0"
+
+        const val LOCATION = "com.google.android.gms:play-services-location:$LOCATION_VERSION"
     }
 
     object Dagger {

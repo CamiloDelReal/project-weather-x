@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.xapps.apps.weatherx.services.models.Session
 import org.xapps.apps.weatherx.services.utils.GpsTracker
-import org.xapps.apps.weatherx.services.utils.NetworkUtils
+import org.xapps.apps.weatherx.services.utils.NetworkTracker
 import java.util.*
 import javax.inject.Singleton
 
@@ -35,7 +35,7 @@ class GlobalModule {
 
     @Singleton
     @Provides
-    fun provideNetworkUtils(@ApplicationContext context: Context): NetworkUtils =
-        NetworkUtils(context)
+    fun provideNetworkTracker(@ApplicationContext context: Context): NetworkTracker =
+        NetworkTracker(context)
 
 }

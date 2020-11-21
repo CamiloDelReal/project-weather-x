@@ -17,7 +17,7 @@ import org.xapps.apps.weatherx.BR
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.local.PlaceDao
 import org.xapps.apps.weatherx.services.models.*
-import org.xapps.apps.weatherx.services.utils.NetworkUtils
+import org.xapps.apps.weatherx.services.utils.NetworkTracker
 import org.xapps.apps.weatherx.services.repositories.WeatherRepository
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.services.utils.DateUtils
@@ -31,7 +31,7 @@ import java.util.*
 class HomeViewModel @ViewModelInject constructor(
     @ApplicationContext private val context: Context,
     private val settings: SettingsService,
-    private val network: NetworkUtils,
+    private val networkTracker: NetworkTracker,
     private val session: Session,
     private val gpsTracker: GpsTracker,
     private val geocoder: Geocoder,
@@ -43,7 +43,9 @@ class HomeViewModel @ViewModelInject constructor(
     private val errorEmitter: MutableLiveData<String> = MutableLiveData()
     private val readyEmitter: MutableLiveData<Boolean> = MutableLiveData()
 
-    private var jobGpsTracker: Job? = null
+    private var jobNetworkTracker: Job? = null
+    private var jobGpsTrackerErrors: Job? = null
+    private var jobGpsTrackerUpdates: Job? = null
     private var jobWeatherInfo: Job? = null
 
     fun watchWorking(): LiveData<Boolean> = workingEmitter
@@ -69,14 +71,37 @@ class HomeViewModel @ViewModelInject constructor(
 
     init {
         session.currentLanguage = Locale.getDefault().language
+        jobNetworkTracker = viewModelScope.launch {
+            networkTracker.connectivityWatcher()
+                .collect { isConnectionAvailable ->
+                    if(isConnectionAvailable) {
+                        prepareMonitoring()
+                    }
+                }
+        }
+        networkTracker.start()
     }
 
     fun prepareMonitoring() {
-        if(network.isConnectedToInternet()) {
-            Timber.i("AppLogger - Internet true")
-            jobGpsTracker = viewModelScope.launch {
+        stopJobGpsTrackerScheduler()
+        if(networkTracker.isConnectedToInternet()) {
+            Timber.i("AppLogger - Internet wategay detected")
+            jobGpsTrackerErrors = viewModelScope.launch {
+                gpsTracker.watchError()
+                    .collect { error ->
+                        Timber.i("AppLogger - GpsTracker has returned error $error")
+                        val errorMessage = when (error) {
+                            GpsTracker.Error.INVALID_LOCATION -> context.getString(R.string.gps_disabled)
+                            GpsTracker.Error.PROVIDER_ERROR -> context.getString(R.string.location_provider_error)
+                            else -> context.getString(R.string.location_unknown_error)
+                        }
+                        errorEmitter.postValue(errorMessage)
+                    }
+            }
+            jobGpsTrackerUpdates = viewModelScope.launch {
                 gpsTracker.watchUpdater()
                     .collect { location ->
+                        Timber.i("AppLogger - Location recieved from tracker $location")
                         monitorSessionPlace(ignoreCustomPlaces = true)
                     }
             }
@@ -84,7 +109,7 @@ class HomeViewModel @ViewModelInject constructor(
             gpsTracker.start()
             monitorSessionPlace(ignoreCurrentPlace = true)
         } else {
-            Timber.i("AppLogger - Internet false")
+            Timber.i("AppLogger - Internet connection not found")
             errorEmitter.postValue(context.getString(R.string.internet_not_detected))
             readyEmitter.postValue(false)
         }
@@ -99,8 +124,7 @@ class HomeViewModel @ViewModelInject constructor(
             if (lastPlaceId == Place.CURRENT_PLACE_ID) {
                 if(!ignoreCurrentPlace) {
                     gpsTracker.location?.let { location ->
-                        val addresses =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         addresses.isNotEmpty().let {
                             val address = addresses[0]
                             place = Place(
@@ -135,53 +159,76 @@ class HomeViewModel @ViewModelInject constructor(
         scheduleWeatherInfo()
     }
 
-    fun scheduleWeatherInfo() {
+    private fun scheduleWeatherInfo() {
         stopJobWeatherScheduler()
         jobWeatherInfo = viewModelScope.launch {
             timerFlow(interval = 1000 * 60 * 10).collect {
-                viewModelScope.launch {
-                    weatherRepository.currentHourlyDaily()
-                        .catch { exception ->
-                            Timber.e(exception)
-                            errorEmitter.postValue(exception.localizedMessage)
-                            readyEmitter.postValue(false)
-                        }
-                        .collect { weather ->
-                            weather?.current?.let {
-                                settings.setLastTemperature(it.temperature)
-                                settings.setLastWasVisible(Utilities.isVisible(it.visibility))
-                                settings.setLastWasDayLight(DateUtils.isDayLight(sunrise = it.sunrise, sunset = it.sunset, datetime = it.datetime))
-                                if(it.conditions.isNotEmpty()) {
-                                    settings.setLastConditionCode(it.conditions[0].id)
+                if(networkTracker.isConnectedToInternet()) {
+                    viewModelScope.launch {
+                        weatherRepository.currentHourlyDaily()
+                            .catch { exception ->
+                                Timber.e(exception)
+                                errorEmitter.postValue(exception.localizedMessage)
+                                readyEmitter.postValue(false)
+                            }
+                            .collect { weather ->
+                                weather?.current?.let {
+                                    settings.setLastTemperature(it.temperature)
+                                    settings.setLastWasVisible(Utilities.isVisible(it.visibility))
+                                    settings.setLastWasDayLight(
+                                        DateUtils.isDayLight(
+                                            sunrise = it.sunrise,
+                                            sunset = it.sunset,
+                                            datetime = it.datetime
+                                        )
+                                    )
+                                    if (it.conditions.isNotEmpty()) {
+                                        settings.setLastConditionCode(it.conditions[0].id)
+                                    }
                                 }
+                                currentWeather = weather?.current
+                                weather?.hourly?.let {
+                                    hourlyWeather.clear()
+                                    hourlyWeather.addAll(it)
+                                }
+                                weather?.daily?.let {
+                                    dailyWeather.clear()
+                                    dailyWeather.addAll(it)
+                                }
+                                readyEmitter.postValue(true)
                             }
-                            currentWeather = weather?.current
-                            weather?.hourly?.let {
-                                hourlyWeather.clear()
-                                hourlyWeather.addAll(it)
-                            }
-                            weather?.daily?.let {
-                                dailyWeather.clear()
-                                dailyWeather.addAll(it)
-                            }
-                            readyEmitter.postValue(true)
-                        }
+                    }
+                } else {
+                    Timber.i("AppLogger - Internet connection not found, skipping weather request")
                 }
             }
         }
     }
 
-    fun stopJobWeatherScheduler() {
+    fun stopMonitoring() {
+        gpsTracker.stop()
+        stopJobWeatherScheduler()
+        stopJobWeatherScheduler()
+    }
+
+    private fun stopJobWeatherScheduler() {
         if (jobWeatherInfo?.isActive == true) {
+            Timber.i("AppLogger - Stopping weather job")
             jobWeatherInfo?.cancel()
             jobWeatherInfo = null
         }
     }
 
-    fun stopJobGpsTrackerScheduler() {
-        if(jobGpsTracker?.isActive == true) {
-            jobGpsTracker?.cancel()
-            jobGpsTracker = null
+    private fun stopJobGpsTrackerScheduler() {
+        if(jobGpsTrackerErrors?.isActive == true) {
+            Timber.i("AppLogger - Stopping gps tracker errors job")
+            jobGpsTrackerErrors?.cancel()
+            jobGpsTrackerErrors = null
+        }
+        if(jobGpsTrackerUpdates?.isActive == true) {
+            Timber.i("AppLogger - Stopping gps tracker updates job")
+            jobGpsTrackerUpdates?.cancel()
+            jobGpsTrackerUpdates = null
         }
     }
 

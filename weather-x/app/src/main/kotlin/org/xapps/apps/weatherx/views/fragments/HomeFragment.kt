@@ -163,8 +163,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             .withPermissions(
                 Manifest.permission.INTERNET,
                 Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             )
             .withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
@@ -290,7 +289,6 @@ class HomeFragment @Inject constructor() : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.stopJobGpsTrackerScheduler()
-        viewModel.stopJobWeatherScheduler()
+        viewModel.stopMonitoring()
     }
 }

@@ -153,6 +153,9 @@ dependencies {
     implementation(Libraries.Retrofit.LOGGING_INTERCEPTOR)
     implementation(Libraries.Moshi.MOSHI_KTX)
 
+    // Play Services
+    implementation(Libraries.PlayServices.LOCATION)
+
     // Scalable Units
     implementation(Libraries.ScalableUnits.DP)
     implementation(Libraries.ScalableUnits.SP)
