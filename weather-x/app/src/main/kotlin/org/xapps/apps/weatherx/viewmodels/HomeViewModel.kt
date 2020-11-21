@@ -43,7 +43,8 @@ class HomeViewModel @ViewModelInject constructor(
     private val errorEmitter: MutableLiveData<String> = MutableLiveData()
     private val readyEmitter: MutableLiveData<Boolean> = MutableLiveData()
 
-    private var jobGpsTracker: Job? = null
+    private var jobGpsTrackerErrors: Job? = null
+    private var jobGpsTrackerUpdates: Job? = null
     private var jobWeatherInfo: Job? = null
 
     fun watchWorking(): LiveData<Boolean> = workingEmitter
@@ -72,11 +73,25 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun prepareMonitoring() {
+        stopJobGpsTrackerScheduler()
         if(network.isConnectedToInternet()) {
-            Timber.i("AppLogger - Internet true")
-            jobGpsTracker = viewModelScope.launch {
+            Timber.i("AppLogger - Internet wategay detected")
+            jobGpsTrackerErrors = viewModelScope.launch {
+                gpsTracker.watchError()
+                    .collect { error ->
+                        Timber.i("AppLogger - GpsTracker has returned error $error")
+                        val errorMessage = when (error) {
+                            GpsTracker.Error.INVALID_LOCATION -> context.getString(R.string.gps_disabled)
+                            GpsTracker.Error.PROVIDER_ERROR -> context.getString(R.string.location_provider_error)
+                            else -> context.getString(R.string.location_unknown_error)
+                        }
+                        errorEmitter.postValue(errorMessage)
+                    }
+            }
+            jobGpsTrackerUpdates = viewModelScope.launch {
                 gpsTracker.watchUpdater()
                     .collect { location ->
+                        Timber.i("AppLogger - Location recieved from tracker $location")
                         monitorSessionPlace(ignoreCustomPlaces = true)
                     }
             }
@@ -84,7 +99,7 @@ class HomeViewModel @ViewModelInject constructor(
             gpsTracker.start()
             monitorSessionPlace(ignoreCurrentPlace = true)
         } else {
-            Timber.i("AppLogger - Internet false")
+            Timber.i("AppLogger - Internet connection not found")
             errorEmitter.postValue(context.getString(R.string.internet_not_detected))
             readyEmitter.postValue(false)
         }
@@ -99,8 +114,7 @@ class HomeViewModel @ViewModelInject constructor(
             if (lastPlaceId == Place.CURRENT_PLACE_ID) {
                 if(!ignoreCurrentPlace) {
                     gpsTracker.location?.let { location ->
-                        val addresses =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                         addresses.isNotEmpty().let {
                             val address = addresses[0]
                             place = Place(
@@ -171,17 +185,30 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun stopJobWeatherScheduler() {
+    fun stopMonitoring() {
+        gpsTracker.stop()
+        stopJobWeatherScheduler()
+        stopJobWeatherScheduler()
+    }
+
+    private fun stopJobWeatherScheduler() {
         if (jobWeatherInfo?.isActive == true) {
+            Timber.i("AppLogger - Stopping weather job")
             jobWeatherInfo?.cancel()
             jobWeatherInfo = null
         }
     }
 
-    fun stopJobGpsTrackerScheduler() {
-        if(jobGpsTracker?.isActive == true) {
-            jobGpsTracker?.cancel()
-            jobGpsTracker = null
+    private fun stopJobGpsTrackerScheduler() {
+        if(jobGpsTrackerErrors?.isActive == true) {
+            Timber.i("AppLogger - Stopping gps tracker errors job")
+            jobGpsTrackerErrors?.cancel()
+            jobGpsTrackerErrors = null
+        }
+        if(jobGpsTrackerUpdates?.isActive == true) {
+            Timber.i("AppLogger - Stopping gps tracker updates job")
+            jobGpsTrackerUpdates?.cancel()
+            jobGpsTrackerUpdates = null
         }
     }
 

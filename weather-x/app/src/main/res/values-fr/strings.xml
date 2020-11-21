@@ -46,4 +46,7 @@
 	<string name="metric_system">Système métrique</string>
 	<string name="about_description_1">Juste une application simple pour le plaisir, mais vous pouvez l\'utiliser pour obtenir des informations météorologiques xD</string>
 	<string name="about_description_2">Vous pouvez nous trouver sur GitHub (appuyez sur ce texte) et nous aider à nous améliorer. Tous les outils et bibliothèques utilisés dans ce projet sont gratuits, toutes les icônes présentées dans cette section ne sont pas fournies par le projet correspondant, dans certains nous prenons simplement une photo et créons une icône à utiliser ici :)</string>
+	<string name="location_unknown_error">Erreur inconnue du fournisseur de Localisation</string>
+	<string name="location_provider_error">Fournisseur de Localisation n\'a pas pu obtenir la dernière position connue</string>
+	<string name="gps_disabled">Service GPS désactivé. Veuillez activer le Service GPS de votre appareil</string>
 </resources>

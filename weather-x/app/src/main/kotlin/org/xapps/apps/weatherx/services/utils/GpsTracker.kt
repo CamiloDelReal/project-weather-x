@@ -2,30 +2,43 @@ package org.xapps.apps.weatherx.services.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.LOCATION_SERVICE
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.os.Bundle
+import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
+import com.google.android.gms.location.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 
 @SuppressLint("MissingPermission")
-@ExperimentalCoroutinesApi
 class GpsTracker(
     private val context: Context
-) : LocationListener {
+) {
 
-    private var locationManager: LocationManager? = null
+    private lateinit var locationProvider: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
 
+    private val errorEmitter = MutableLiveData<Error>()
     private val updaterEmitter = MutableLiveData<Location>()
 
+    enum class Error {
+        NONE,
+        INVALID_LOCATION,
+        PROVIDER_ERROR
+    }
+
     var validateUpdates: Boolean = false
+
+    var error: Error = Error.NONE
+        private set(value) {
+            field = value
+            errorEmitter.value = value
+        }
 
     var location: Location? = null
         private set(value) {
@@ -37,74 +50,94 @@ class GpsTracker(
         return updaterEmitter.asFlow().flowOn(Dispatchers.Main)
     }
 
+    fun watchError(): Flow<Error> {
+        return errorEmitter.asFlow().flowOn(Dispatchers.Main)
+    }
+
     fun start() {
-        locationManager = context.getSystemService(LOCATION_SERVICE) as LocationManager
+        Timber.i("AppLogger - GPSTracker has started")
+        locationProvider = LocationServices.getFusedLocationProviderClient(context)
 
-        val isGPSEnabled = locationManager?.isProviderEnabled(LocationManager.GPS_PROVIDER) ?: false
-        val isNetworkEnabled = locationManager?.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ?: false
-
-        location = try {
-            if (isNetworkEnabled) {
-                locationManager?.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    MIN_TIME_BW_UPDATES,
-                    MIN_DISTANCE_CHANGE_FOR_UPDATES.toFloat(),
-                    this
-                )
-                locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            } else if (isGPSEnabled) {
-                locationManager?.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    MIN_TIME_BW_UPDATES,
-                    MIN_DISTANCE_CHANGE_FOR_UPDATES.toFloat(),
-                    this
-                )
-                locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            } else {
-                null
+        locationProvider.lastLocation.apply {
+            addOnFailureListener{
+                error = Error.PROVIDER_ERROR
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
-
-
-    fun stopTracker() {
-        locationManager?.removeUpdates(this@GpsTracker)
-    }
-
-
-    override fun onLocationChanged(location: Location) {
-        if (validateUpdates) {
-            if(this.location != null) {
-                val distanceKm = calculateCoordinatesDistanceKm(
-                    this.location!!.latitude,
-                    this.location!!.longitude,
-                    location.latitude,
-                    location.longitude
-                )
-                if ((distanceKm * 1000) >= MIN_DISTANCE_CHANGE_FOR_UPDATES) {
-                    this.location = location
+            addOnSuccessListener { lastLocation ->
+                if(lastLocation != null) {
+                    Timber.i("AppLogger - Last location has returned a valid value $lastLocation")
+                    location = lastLocation
+                } else {
+                    Timber.i("AppLogger - Last location has returned an invalid value")
+                    error = Error.INVALID_LOCATION
                 }
-            } else {
-                this.location = location
             }
-        } else {
-            this.location = location
         }
+
+        locationRequest = LocationRequest().apply {
+            interval = TimeUnit.MINUTES.toMillis(MIN_TIME_BW_UPDATES)
+            fastestInterval = TimeUnit.MINUTES.toMillis(MIN_FASTEST_TIME_BW_UPDATES)
+            maxWaitTime = TimeUnit.MINUTES.toMillis(WAIT_FOR_BATCH_UPDATES)
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            smallestDisplacement = MIN_DISPLACEMENT_FOR_UPDATES
+        }
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                super.onLocationResult(locationResult)
+
+                if (validateUpdates) {
+                    Timber.i("AppLogger - Location validation active")
+                    if(locationResult?.lastLocation != null) {
+                        if (location != null) {
+                            Timber.i("AppLogger - Location is valid")
+                            val distanceKm = calculateCoordinatesDistanceKm(
+                                location!!.latitude,
+                                location!!.longitude,
+                                locationResult.lastLocation.latitude,
+                                locationResult.lastLocation.longitude
+                            )
+                            if ((distanceKm * 1000) >= MIN_DISPLACEMENT_FOR_UPDATES) {
+                                Timber.i("AppLogger - Location is in range to update")
+                                location = locationResult.lastLocation
+                            }
+                        } else {
+                            Timber.i("AppLogger - Current saved location is invalid, proceding to save the location recieved")
+                            location = locationResult.lastLocation
+                        }
+                    } else {
+                        Timber.i("AppLogger - Location result is invalid")
+                        if(location == null) {
+                            error = Error.INVALID_LOCATION
+                        }
+                    }
+                } else {
+                    Timber.i("AppLogger - Location validation is not active, proceding to save new location")
+                    location = locationResult?.lastLocation
+                }
+            }
+        }
+
+        locationProvider.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
     }
 
-    override fun onProviderDisabled(provider: String) {}
 
-    override fun onProviderEnabled(provider: String) {}
-
-    override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+    fun stop() {
+        val removeTask = locationProvider.removeLocationUpdates(locationCallback)
+        removeTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Timber.i("AppLogger - Location callback removed")
+            } else {
+                Timber.i("AppLogger - Failed to remove location callback")
+            }
+        }
+    }
 
     companion object {
-        private const val MIN_DISTANCE_CHANGE_FOR_UPDATES = 100L     // 100 meters
+        private const val MIN_DISPLACEMENT_FOR_UPDATES = 100.0f     // Meters
 
-        private const val MIN_TIME_BW_UPDATES = 1000L * 60L * 1L    // 1 minute
+        private const val MIN_TIME_BW_UPDATES = 5L                  // Minutes
+        private const val MIN_FASTEST_TIME_BW_UPDATES = 3L          // Minutes
+        private const val WAIT_FOR_BATCH_UPDATES = 1L               // Minutes
     }
 
     private fun decimalToRadian(value: Double): Double {

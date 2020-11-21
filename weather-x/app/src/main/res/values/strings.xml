@@ -80,4 +80,7 @@
     <string name="about_description_1">Just a simple app for fun, but you can use it to get weather information xD</string>
     <string name="about_description_2">You can find us in GitHub (tap this text) and help us improve. All the tools and libraries use in this project are free, not all the icons shown in this section are provided from the corresponding project, in some we just take a picture and create an icon to use here :)</string>
     <string name="project_github">https://github.com/CamiloDelReal/project-weather-x</string>
+    <string name="location_unknown_error">Unknown error from Location provider</string>
+    <string name="location_provider_error">Location provider couldn\'t get the last known location</string>
+    <string name="gps_disabled">GPS Service disabled. Please, enable your device\'s GPS Service</string>
 </resources>
