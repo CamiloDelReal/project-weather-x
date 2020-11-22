@@ -8,12 +8,15 @@ import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.content_popup_more_options.*
 import org.xapps.apps.weatherx.R
+import org.xapps.apps.weatherx.databinding.ContentPopupMoreOptionsBinding
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MoreOptionsPopup @Inject constructor() : DialogFragment() {
+
+    private lateinit var bindings: ContentPopupMoreOptionsBinding
 
     @Inject
     lateinit var settings: SettingsService
@@ -27,9 +30,9 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val currentView = inflater.inflate(R.layout.content_popup_more_options, container, false)
-
-        return currentView
+        val layoutInflater = LayoutInflater.from(context)
+        bindings = ContentPopupMoreOptionsBinding.inflate(layoutInflater, container, false)
+        return bindings.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
