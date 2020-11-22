@@ -398,7 +398,6 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50"
             app:visibilityMode="ignore" />
 
     </ConstraintSet>
@@ -772,7 +771,6 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50"
             app:visibilityMode="ignore" />
 
     </ConstraintSet>
@@ -1148,7 +1146,6 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50"
             app:visibilityMode="ignore" />
 
     </ConstraintSet>
@@ -1525,7 +1522,6 @@
             app:layout_constraintBottom_toTopOf="@id/h98"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h50"
             app:visibilityMode="ignore" />
 
     </ConstraintSet>

@@ -3,6 +3,7 @@ package org.xapps.apps.weatherx.services.settings
 import android.content.Context
 import androidx.core.content.edit
 import org.xapps.apps.weatherx.services.models.Condition
+import org.xapps.apps.weatherx.services.models.Place
 import javax.inject.Inject
 
 
@@ -48,7 +49,7 @@ class SettingsService @Inject constructor(
         sharedPreferences.edit { putBoolean(ATTR_DARK_MODE_ON, darkModeOn) }
 
     fun lastPlaceMonitored(): Long =
-        sharedPreferences.getLong(ATTR_LAST_PLACE_MONITORED, 0)
+        sharedPreferences.getLong(ATTR_LAST_PLACE_MONITORED, Place.CURRENT_PLACE_ID)
 
     fun setLastPlaceMonitored(id: Long) =
         sharedPreferences.edit { putLong(ATTR_LAST_PLACE_MONITORED, id) }

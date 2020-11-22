@@ -573,20 +573,6 @@
                 android:text="@string/try_again"
                 android:visibility="invisible" />
 
-            <!--            <me.zhanghai.android.materialprogressbar.MaterialProgressBar-->
-            <!--                android:id="@+id/progressIndicator"-->
-            <!--                style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="@dimen/_5sdp"-->
-            <!--                android:indeterminate="true"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/btnAdd"-->
-            <!--                app:layout_constraintEnd_toStartOf="@id/v98"-->
-            <!--                app:layout_constraintStart_toEndOf="@id/v2"-->
-            <!--                app:mpb_progressStyle="horizontal"-->
-            <!--                app:mpb_indeterminateTint="@color/white"-->
-            <!--                app:mpb_progressTint="?attr/colorOnPrimarySurface"-->
-            <!--                app:mpb_progressBackgroundTint="?attr/colorOnPrimarySurface"/>-->
-
             <View
                 android:id="@+id/draggerEnd"
                 android:layout_width="0dp"

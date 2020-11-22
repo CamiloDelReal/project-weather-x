@@ -10,7 +10,7 @@ data class Place (
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Long = 0,
+    var id: Long = CURRENT_PLACE_ID,
 
     @ColumnInfo(name = "country")
     var country: String,
@@ -30,7 +30,7 @@ data class Place (
 ) {
 
     companion object {
-        const val CURRENT_PLACE_ID = 0L
+        const val CURRENT_PLACE_ID = 1L
     }
 
 }

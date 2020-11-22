@@ -10,7 +10,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -35,6 +34,7 @@ import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
+import org.xapps.apps.weatherx.views.utils.Message
 import javax.inject.Inject
 
 
@@ -121,44 +121,65 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         })
 
-        viewModel.watchWorking().observe(viewLifecycleOwner, { isWorking ->
+        viewModel.working().observe(viewLifecycleOwner, { isWorking ->
 
         })
 
-        viewModel.watchError().observe(viewLifecycleOwner, { errorMessage ->
-            if (motionFg.currentState == R.id.setLoading) {
-                txvError.text = errorMessage
-                txvError.visibility = View.VISIBLE
-                btnTryAgain.visibility = View.VISIBLE
-            } else {
-                Toasty.error(requireContext(), errorMessage, Toast.LENGTH_LONG, true).show()
-                Toasty.custom(
-                    requireContext(),
-                    errorMessage,
-                    AppCompatResources.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_information_outline
-                    ),
-                    ContextCompat.getColor(requireContext(), R.color.red_500),
-                    ContextCompat.getColor(requireContext(), R.color.white),
-                    Toasty.LENGTH_LONG,
-                    true,
-                    true
-                ).show()
-            }
-        })
+        viewModel.message().observe(viewLifecycleOwner, { message ->
+            when(message.type) {
+                Message.Type.MESSAGE -> {
 
-        viewModel.watchReady().observe(viewLifecycleOwner, { isReady ->
-            if (isReady) {
-                updateNavigationBarColor(false, true)
-                if (motionFg.currentState == R.id.setLoading) {
-                    txvError.visibility = View.INVISIBLE
-                    btnTryAgain.visibility = View.INVISIBLE
-                    motionFg.transitionToEnd()
+                }
+                Message.Type.ERROR -> {
+                    if (motionFg.currentState == R.id.setLoading) {
+                        txvError.text = message.data
+                        txvError.visibility = View.VISIBLE
+                        btnTryAgain.visibility = View.VISIBLE
+                    } else {
+                        Toasty.custom(
+                            requireContext(),
+                            message.data!!,
+                            AppCompatResources.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_information_outline
+                            ),
+                            ContextCompat.getColor(requireContext(), R.color.red_500),
+                            ContextCompat.getColor(requireContext(), R.color.white),
+                            Toasty.LENGTH_LONG,
+                            true,
+                            true
+                        ).show()
+                    }
+                }
+                Message.Type.READY -> {
+                    updateNavigationBarColor(false, true)
+                    if (motionFg.currentState == R.id.setLoading) {
+                        txvError.visibility = View.INVISIBLE
+                        btnTryAgain.visibility = View.INVISIBLE
+                        motionFg.transitionToEnd()
+                    }
                 }
             }
         })
 
+        btnAdd.setOnClickListener {
+            val moreOptionPopup = MoreOptionsPopup()
+            moreOptionPopup.setTargetFragment(
+                this@HomeFragment,
+                MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE
+            )
+            val fragmentManager = parentFragmentManager.beginTransaction()
+            moreOptionPopup.show(fragmentManager, "MoreOptionsPopup")
+        }
+
+        btnTryAgain.setOnClickListener {
+            startWeatherMonitor()
+        }
+
+        startWeatherMonitor()
+    }
+
+    private fun startWeatherMonitor() {
         Dexter.withContext(requireContext())
             .withPermissions(
                 Manifest.permission.INTERNET,
@@ -170,7 +191,7 @@ class HomeFragment @Inject constructor() : Fragment() {
                     lifecycleScope.launchWhenResumed {
                         report?.let {
                             if (report.areAllPermissionsGranted()) {
-                                viewModel.prepareMonitoring()
+                                viewModel.startWeatherMonitor()
                             }
                         }
                     }
@@ -184,23 +205,21 @@ class HomeFragment @Inject constructor() : Fragment() {
                 }
             })
             .withErrorListener {
-                Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
+                Toasty.custom(
+                    requireContext(),
+                    it.name,
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_information_outline
+                    ),
+                    ContextCompat.getColor(requireContext(), R.color.red_500),
+                    ContextCompat.getColor(requireContext(), R.color.white),
+                    Toasty.LENGTH_LONG,
+                    true,
+                    true
+                ).show()
             }
             .check()
-
-        btnAdd.setOnClickListener {
-            val moreOptionPopup = MoreOptionsPopup()
-            moreOptionPopup.setTargetFragment(
-                this@HomeFragment,
-                MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE
-            )
-            val fragmentManager = parentFragmentManager.beginTransaction()
-            moreOptionPopup.show(fragmentManager, "MoreOptionsPopup")
-        }
-
-        btnTryAgain.setOnClickListener {
-            viewModel.prepareMonitoring()
-        }
     }
 
     fun prepareForLoading() {
@@ -272,7 +291,7 @@ class HomeFragment @Inject constructor() : Fragment() {
                 val option = data?.getIntExtra(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION, -1) ?: -1
                 when (option) {
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
-                        viewModel.prepareMonitoring()
+                        viewModel.startWeatherMonitor()
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
                         AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
@@ -289,6 +308,6 @@ class HomeFragment @Inject constructor() : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.stopMonitoring()
+        viewModel.stopMonitors()
     }
 }

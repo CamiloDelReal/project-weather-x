@@ -8,10 +8,10 @@ import org.xapps.apps.weatherx.services.models.Place
 @Dao
 interface PlaceDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAsync(place: Place): Long
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(place: Place): Long
 
     @Insert
@@ -27,10 +27,10 @@ interface PlaceDao {
     fun places(): List<Place>
 
     @Query("SELECT * FROM places WHERE id = :id")
-    fun placeAsync(id: Long): Flow<Place>
+    fun placeAsync(id: Long): Flow<Place?>
 
     @Query("SELECT * FROM places WHERE id = :id")
-    fun place(id: Long): Place
+    fun place(id: Long): Place?
 
     @Update
     suspend fun updateAsync(place: Place): Int

@@ -19,9 +19,9 @@ class GpsTracker(
     private val context: Context
 ) {
 
-    private lateinit var locationProvider: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
+    private var locationProvider: FusedLocationProviderClient? = null
+    private var locationRequest: LocationRequest? = null
+    private var locationCallback: LocationCallback? = null
 
     private val errorEmitter = MutableLiveData<Error>()
     private val updaterEmitter = MutableLiveData<Location>()
@@ -58,7 +58,7 @@ class GpsTracker(
         Timber.i("AppLogger - GPSTracker has started")
         locationProvider = LocationServices.getFusedLocationProviderClient(context)
 
-        locationProvider.lastLocation.apply {
+        locationProvider?.lastLocation?.apply {
             addOnFailureListener{
                 error = Error.PROVIDER_ERROR
             }
@@ -117,13 +117,13 @@ class GpsTracker(
             }
         }
 
-        locationProvider.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+        locationProvider?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
     }
 
 
     fun stop() {
-        val removeTask = locationProvider.removeLocationUpdates(locationCallback)
-        removeTask.addOnCompleteListener { task ->
+        val removeTask = locationProvider?.removeLocationUpdates(locationCallback)
+        removeTask?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Timber.i("AppLogger - Location callback removed")
             } else {
