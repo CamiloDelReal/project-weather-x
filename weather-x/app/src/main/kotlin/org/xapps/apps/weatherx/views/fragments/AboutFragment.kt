@@ -83,6 +83,10 @@ class AboutFragment @Inject constructor() : Fragment() {
             launchUri(getString(R.string.android_kotlin_url))
         }
 
+        btnLinkGooglePlayLocation.setOnClickListener {
+            launchUri(getString(R.string.android_google_play_service_location_url))
+        }
+
         btnLinkDexterPermissions.setOnClickListener {
             launchUri(getString(R.string.dexter_url))
         }
