@@ -84,4 +84,6 @@
     <string name="location_provider_error">Location provider couldn\'t get the last known location</string>
     <string name="gps_disabled">GPS Service disabled or is being obtained now. Please, enable your device\'s GPS Service at least once to get your location, you won\'t need it again unless you want a real-time monitoring or you change location</string>
     <string name="error_retrieving_place_from_db">Error retrieving the place from database</string>
+    <string name="android_google_play_service_location">Google Play Service for Location</string>
+    <string name="android_google_play_service_location_url">https://developer.android.com/training/location</string>
 </resources>

@@ -296,6 +296,17 @@
                     android:layout_height="@dimen/_6sdp" />
 
                 <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkGooglePlayLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_link="@string/android_google_play_service_location_url"
+                    app:ar_text="@string/android_google_play_service_location" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_6sdp" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
                     android:id="@+id/btnLinkDexterPermissions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
