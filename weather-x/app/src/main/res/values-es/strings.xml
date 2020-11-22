@@ -48,5 +48,6 @@
 	<string name="about_description_2">Nos puedes encontrar en GitHub (toqua este texto) y así ayudar a mejorar.</string>
 	<string name="location_unknown_error">Error desconocido desde el proveedor de Localización</string>
 	<string name="location_provider_error">El proveedor de Localización no pudo obtener la última ubicación conocida</string>
-	<string name="gps_disabled">Servicio GPS disactivado. Por favor, habilite el Servicio GPS de su dispositivo</string>
+	<string name="gps_disabled">Servicio GPS desactivado o se está obteniendo ahora. Por favor, habilite el servicio GPS de su dispositivo al menos una vez para obtener su ubicación, no lo necesitará nuevamente a menos que desee un monitoreo en tiempo real o cambie de ubicación</string>
+	<string name="error_retrieving_place_from_db">Error leyendo la ubicación de la base de datos</string>
 </resources>

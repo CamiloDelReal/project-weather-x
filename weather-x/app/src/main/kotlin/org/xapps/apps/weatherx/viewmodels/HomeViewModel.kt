@@ -23,6 +23,7 @@ import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.services.utils.DateUtils
 import org.xapps.apps.weatherx.services.utils.GpsTracker
 import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
+import org.xapps.apps.weatherx.views.utils.Message
 import org.xapps.apps.weatherx.views.utils.Utilities
 import timber.log.Timber
 import java.util.*
@@ -40,17 +41,15 @@ class HomeViewModel @ViewModelInject constructor(
 ) : ObservableViewModel() {
 
     private val workingEmitter: MutableLiveData<Boolean> = MutableLiveData()
-    private val errorEmitter: MutableLiveData<String> = MutableLiveData()
-    private val readyEmitter: MutableLiveData<Boolean> = MutableLiveData()
+    private val messageEmitter: MutableLiveData<Message> = MutableLiveData()
 
     private var jobNetworkTracker: Job? = null
     private var jobGpsTrackerErrors: Job? = null
     private var jobGpsTrackerUpdates: Job? = null
     private var jobWeatherInfo: Job? = null
 
-    fun watchWorking(): LiveData<Boolean> = workingEmitter
-    fun watchError(): LiveData<String> = errorEmitter
-    fun watchReady(): LiveData<Boolean> = readyEmitter
+    fun working(): LiveData<Boolean> = workingEmitter
+    fun message(): LiveData<Message> = messageEmitter
 
     @get:Bindable
     var place: Place? = null
@@ -74,102 +73,135 @@ class HomeViewModel @ViewModelInject constructor(
         jobNetworkTracker = viewModelScope.launch {
             networkTracker.connectivityWatcher()
                 .collect { isConnectionAvailable ->
-                    if(isConnectionAvailable) {
-                        prepareMonitoring()
+                    if (isConnectionAvailable) {
+                        startWeatherMonitor()
                     }
                 }
         }
         networkTracker.start()
     }
 
-    fun prepareMonitoring() {
-        stopJobGpsTrackerScheduler()
-        if(networkTracker.isConnectedToInternet()) {
-            Timber.i("AppLogger - Internet wategay detected")
+    fun startWeatherMonitor() {
+        Timber.i("AppLogger - Start weather monitor")
+        val lastPlaceId = settings.lastPlaceMonitored()
+        if (lastPlaceId == Place.CURRENT_PLACE_ID) {
+            Timber.i("AppLogger - Current place was the last monitored place")
+            startWeatherMonitorCurrentPlace()
+        } else {
+            Timber.i("AppLogger - A custom place was the last monitored place")
+            viewModelScope.launch {
+                placeDao.placeAsync(lastPlaceId)
+                    .collect { customPlace ->
+                        if(customPlace != null) {
+                            startWeatherMonitorCustomPlace(customPlace)
+                        } else {
+                            Timber.i("AppLogger - The request place couldn't be found in the database")
+                            messageEmitter.postValue(Message.error(context.getString(R.string.error_retrieving_place_from_db)))
+                        }
+                    }
+            }
+        }
+    }
+
+    fun startWeatherMonitorCustomPlace(customPlace: Place) {
+        stopMonitors()
+        settings.setLastPlaceMonitored(customPlace.id)
+        place = customPlace
+        session.currentPlace = customPlace
+
+        if (networkTracker.isConnectedToInternet()) {
+            Timber.i("AppLogger - Internet gateway detected")
+            scheduleWeatherInfo()
+        } else {
+            Timber.i("AppLogger - Internet connection not found")
+            messageEmitter.postValue(Message.error(context.getString(R.string.internet_not_detected)))
+        }
+    }
+
+    fun startWeatherMonitorCurrentPlace() {
+        stopMonitors()
+        if (networkTracker.isConnectedToInternet()) {
+            Timber.i("AppLogger - Internet gateway detected")
             jobGpsTrackerErrors = viewModelScope.launch {
                 gpsTracker.watchError()
                     .collect { error ->
                         Timber.i("AppLogger - GpsTracker has returned error $error")
-                        val errorMessage = when (error) {
-                            GpsTracker.Error.INVALID_LOCATION -> context.getString(R.string.gps_disabled)
-                            GpsTracker.Error.PROVIDER_ERROR -> context.getString(R.string.location_provider_error)
-                            else -> context.getString(R.string.location_unknown_error)
+                        if(currentWeather == null && session.currentPlace == null) {
+                            val errorMessage = when (error) {
+                                GpsTracker.Error.INVALID_LOCATION -> context.getString(R.string.gps_disabled)
+                                GpsTracker.Error.PROVIDER_ERROR -> context.getString(R.string.location_provider_error)
+                                else -> context.getString(R.string.location_unknown_error)
+                            }
+                            messageEmitter.postValue(Message.error(errorMessage))
                         }
-                        errorEmitter.postValue(errorMessage)
                     }
             }
             jobGpsTrackerUpdates = viewModelScope.launch {
                 gpsTracker.watchUpdater()
                     .collect { location ->
                         Timber.i("AppLogger - Location recieved from tracker $location")
-                        monitorSessionPlace(ignoreCustomPlaces = true)
+                        monitorCurrentPlace()
                     }
             }
             gpsTracker.validateUpdates = true
             gpsTracker.start()
-            monitorSessionPlace(ignoreCurrentPlace = true)
+            monitorCurrentPlace()
         } else {
             Timber.i("AppLogger - Internet connection not found")
-            errorEmitter.postValue(context.getString(R.string.internet_not_detected))
-            readyEmitter.postValue(false)
+            messageEmitter.postValue(Message.error(context.getString(R.string.internet_not_detected)))
         }
     }
 
-    private fun monitorSessionPlace(
-        ignoreCurrentPlace: Boolean = false,
-        ignoreCustomPlaces: Boolean = false
-    ) {
+    private fun monitorCurrentPlace() {
         viewModelScope.launch {
-            val lastPlaceId = settings.lastPlaceMonitored()
-            if (lastPlaceId == Place.CURRENT_PLACE_ID) {
-                if(!ignoreCurrentPlace) {
-                    gpsTracker.location?.let { location ->
-                        val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                        addresses.isNotEmpty().let {
-                            val address = addresses[0]
-                            place = Place(
-                                id = Place.CURRENT_PLACE_ID,
-                                country = address.countryName,
-                                city = address.locality,
-                                latitude = location.latitude,
-                                longitude = location.longitude,
-                                code = address.countryCode
-                            )
+            gpsTracker.location?.let { location ->
+                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                addresses.isNotEmpty().let {
+                    val address = addresses[0]
+                    place = Place(
+                        id = Place.CURRENT_PLACE_ID,
+                        country = address.countryName,
+                        city = address.locality,
+                        latitude = location.latitude,
+                        longitude = location.longitude,
+                        code = address.countryCode
+                    )
+                    session.currentPlace = place
+                    placeDao.insertAsync(place!!)
+
+                    scheduleWeatherInfo()
+                }
+            } ?: run {
+                Timber.i("AppLogger - GPS tracker doesn't have location yet, getting location from database")
+                placeDao.placeAsync(Place.CURRENT_PLACE_ID)
+                    .catch {
+                        it.printStackTrace()
+                    }
+                    .collect { currentPlace ->
+                        if(currentPlace != null) {
+                            place = currentPlace
                             session.currentPlace = place
 
                             scheduleWeatherInfo()
+                        } else {
+                            Timber.i("AppLogger - There isn't a place saved in database")
+                            messageEmitter.postValue(Message.error(context.getString(R.string.gps_disabled)))
                         }
                     }
-                }
-            } else if (!ignoreCustomPlaces) {
-                placeDao.placeAsync(lastPlaceId)
-                    .collect { place ->
-                        this@HomeViewModel.place = place
-                        session.currentPlace = place
-                    }
-
-                scheduleWeatherInfo()
             }
         }
-    }
-
-    fun monitorPlace(place: Place) {
-        settings.setLastPlaceMonitored(place.id)
-        session.currentPlace = place
-        scheduleWeatherInfo()
     }
 
     private fun scheduleWeatherInfo() {
         stopJobWeatherScheduler()
         jobWeatherInfo = viewModelScope.launch {
             timerFlow(interval = 1000 * 60 * 10).collect {
-                if(networkTracker.isConnectedToInternet()) {
+                if (networkTracker.isConnectedToInternet()) {
                     viewModelScope.launch {
                         weatherRepository.currentHourlyDaily()
                             .catch { exception ->
                                 Timber.e(exception)
-                                errorEmitter.postValue(exception.localizedMessage)
-                                readyEmitter.postValue(false)
+                                messageEmitter.postValue(Message.error(exception.localizedMessage))
                             }
                             .collect { weather ->
                                 weather?.current?.let {
@@ -195,7 +227,7 @@ class HomeViewModel @ViewModelInject constructor(
                                     dailyWeather.clear()
                                     dailyWeather.addAll(it)
                                 }
-                                readyEmitter.postValue(true)
+                                messageEmitter.postValue(Message.ready())
                             }
                     }
                 } else {
@@ -205,7 +237,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun stopMonitoring() {
+    fun stopMonitors() {
         gpsTracker.stop()
         stopJobWeatherScheduler()
         stopJobWeatherScheduler()
@@ -220,12 +252,12 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun stopJobGpsTrackerScheduler() {
-        if(jobGpsTrackerErrors?.isActive == true) {
+        if (jobGpsTrackerErrors?.isActive == true) {
             Timber.i("AppLogger - Stopping gps tracker errors job")
             jobGpsTrackerErrors?.cancel()
             jobGpsTrackerErrors = null
         }
-        if(jobGpsTrackerUpdates?.isActive == true) {
+        if (jobGpsTrackerUpdates?.isActive == true) {
             Timber.i("AppLogger - Stopping gps tracker updates job")
             jobGpsTrackerUpdates?.cancel()
             jobGpsTrackerUpdates = null
