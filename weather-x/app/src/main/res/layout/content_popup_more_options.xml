@@ -11,17 +11,18 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:background="@android:color/black">
 
             <LinearLayout
-                android:layout_width="@dimen/_180sdp"
+                android:layout_width="@dimen/popup_more_options_width"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="@drawable/ic_bg_card"
+                android:layout_marginTop="@dimen/popup_more_options_margin_top"
+                android:layout_marginStart="@dimen/popup_more_options_margin_start"
+                android:background="@drawable/ic_bg_popup"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp"
+                android:paddingTop="@dimen/popup_more_options_padding"
+                android:paddingBottom="@dimen/popup_more_options_padding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -33,13 +34,13 @@
                         android:id="@+id/btnAddPlace"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/popup_more_options_button_height"
                         android:layout_centerInParent="true"
                         android:enabled="false"
                         android:gravity="start|center_vertical"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
-                        android:paddingHorizontal="@dimen/_24sdp"
+                        android:paddingHorizontal="@dimen/popup_more_options_button_padding"
                         android:text="@string/add_place"
                         android:textAllCaps="false"
                         app:cornerRadius="0dp" />
@@ -50,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginStart="@dimen/_25sdp"
+                        android:layout_marginStart="@dimen/popup_more_options_button_padding"
                         android:alpha="0.5"
                         android:text="@string/comming_soon" />
 
@@ -58,20 +59,20 @@
 
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_6sdp" />
+                    android:layout_height="@dimen/popup_more_options_section_space" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnUseMetric"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/popup_more_options_button_height"
                     android:checkable="true"
                     android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="start|center_vertical"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:paddingStart="@dimen/_24sdp"
-                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingStart="@dimen/popup_more_options_button_padding"
+                    android:paddingEnd="@dimen/popup_more_options_button_padding_with_check"
                     android:text="@string/metric_system"
                     android:textAllCaps="false"
                     android:textColor="@color/text_button_check_menu"
@@ -83,14 +84,14 @@
                     android:id="@+id/btnDarkMode"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/popup_more_options_button_height"
                     android:checkable="true"
                     android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="start|center_vertical"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:paddingStart="@dimen/_24sdp"
-                    android:paddingEnd="@dimen/_12sdp"
+                    android:paddingStart="@dimen/popup_more_options_button_padding"
+                    android:paddingEnd="@dimen/popup_more_options_button_padding_with_check"
                     android:text="@string/dark_mode"
                     android:textAllCaps="false"
                     android:textColor="@color/text_button_check_menu"
@@ -102,11 +103,11 @@
                     android:id="@+id/btnAbout"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/popup_more_options_button_height"
                     android:gravity="start|center_vertical"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:paddingHorizontal="@dimen/_24sdp"
+                    android:paddingHorizontal="@dimen/popup_more_options_button_padding"
                     android:text="@string/about"
                     android:textAllCaps="false"
                     app:cornerRadius="0dp" />

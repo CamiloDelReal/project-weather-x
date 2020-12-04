@@ -48,13 +48,6 @@ class AboutReference @JvmOverloads constructor(
     }
 
     override fun setOnClickListener(newListener: OnClickListener?) {
-        val fgValue = TypedValue()
-        getContext().theme.resolveAttribute(
-            android.R.attr.selectableItemBackground,
-            fgValue,
-            true
-        )
-        rootLayout.foreground = AppCompatResources.getDrawable(context, fgValue.resourceId)
         imgActionable.visibility = View.VISIBLE
         rootLayout.setOnClickListener(newListener)
     }

@@ -4,6 +4,8 @@
 
     <solid android:color="?attr/colorSurface" />
 
-    <corners android:radius="@dimen/about_back_button_radius" />
+    <corners android:radius="@dimen/popup_corner_radius" />
+
+    <stroke android:width="@dimen/popup_border_width" android:color="@color/card_border" />
 
 </shape>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_corner_radius">6dp</dimen>
+    <dimen name="item_border_width">1dp</dimen>
+
+    <dimen name="dot_stroke_width">1dp</dimen>
+    <dimen name="dot_radius">2dp</dimen>
+
+    <dimen name="card_forecast_icon_size">42dp</dimen>
+    <dimen name="card_forecast_text_size">16sp</dimen>
+    <dimen name="card_forecast_description_text_size">12sp</dimen>
+
+    <dimen name="item_hourly_simple_width">86dp</dimen>
+    <dimen name="item_hourly_simple_padding">8dp</dimen>
+    <dimen name="item_hourly_simple_content_space">8dp</dimen>
+    <dimen name="item_hourly_simple_condition_image_size">37dp</dimen>
+
+    <dimen name="item_hourly_width">156dp</dimen>
+    <dimen name="item_hourly_padding">8dp</dimen>
+    <dimen name="item_hourly_primary_text_size">16sp</dimen>
+    <dimen name="item_hourly_secondary_text_size">13sp</dimen>
+    <dimen name="item_hourly_tertiary_text_size">12sp</dimen>
+    <dimen name="item_hourly_condition_space">2dp</dimen>
+    <dimen name="item_hourly_condition_image_size">54dp</dimen>
+    <dimen name="item_hourly_status_space">6dp</dimen>
+    <dimen name="item_hourly_status_image_size">16dp</dimen>
+
+    <dimen name="item_daily_width">290dp</dimen>
+    <dimen name="item_daily_padding">8dp</dimen>
+    <dimen name="item_daily_content_padding">16dp</dimen>
+    <dimen name="item_daily_content_space">16dp</dimen>
+    <dimen name="item_daily_condition_image_size">105dp</dimen>
+    <dimen name="item_daily_primary_text_size">26sp</dimen>
+    <dimen name="item_daily_secondary_text_size">18sp</dimen>
+    <dimen name="item_daily_tertiary_text_size">15sp</dimen>
+    <dimen name="item_daily_fourth_text_size">13sp</dimen>
+
+    <dimen name="item_daily_forecast_content_space">7dp</dimen>
+    <dimen name="item_daily_forecast_column_space">7dp</dimen>
+    <dimen name="item_daily_forecast_text_size">14sp</dimen>
+    <dimen name="item_daily_forecast_description_text_size">12sp</dimen>
+    <dimen name="item_daily_forecast_icon_size">24dp</dimen>
+
+    <dimen name="popup_corner_radius">6dp</dimen>
+    <dimen name="popup_border_width">1dp</dimen>
+
+    <dimen name="popup_more_options_section_space">6dp</dimen>
+    <dimen name="popup_more_options_width">230dp</dimen>
+    <dimen name="popup_more_options_padding">6dp</dimen>
+    <dimen name="popup_more_options_margin_top">12dp</dimen>
+    <dimen name="popup_more_options_margin_start">12dp</dimen>
+    <dimen name="popup_more_options_button_height">50dp</dimen>
+    <dimen name="popup_more_options_button_padding">24dp</dimen>
+    <dimen name="popup_more_options_button_padding_with_check">12dp</dimen>
+
+    <dimen name="about_reference_padding">6dp</dimen>
+    <dimen name="about_reference_icon_size">40dp</dimen>
+    <dimen name="about_reference_content_space">12dp</dimen>
+
+    <dimen name="about_padding">12dp</dimen>
+    <dimen name="about_header_content_padding">6dp</dimen>
+    <dimen name="about_icon_size">100dp</dimen>
+    <dimen name="about_space">12dp</dimen>
+    <dimen name="about_content_space">4dp</dimen>
+    <dimen name="about_section_space">18dp</dimen>
+    <dimen name="about_section_header_space">6dp</dimen>
+    <dimen name="about_section_item_space">6dp</dimen>
+    <dimen name="about_header_space">24dp</dimen>
+    <dimen name="about_separator_height">1dp</dimen>
+    <dimen name="about_back_button_margin">4dp</dimen>
+    <dimen name="about_back_button_radius">28dp</dimen>
+</resources>

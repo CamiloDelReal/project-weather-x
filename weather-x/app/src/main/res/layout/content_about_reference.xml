@@ -9,11 +9,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/rootLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/_4sdp">
+            app:cardCornerRadius="@dimen/item_corner_radius"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="false"
+            app:contentPadding="@dimen/about_reference_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -23,13 +26,13 @@
 
                 <ImageView
                     android:id="@+id/imgIcon"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_width="@dimen/about_reference_icon_size"
+                    android:layout_height="@dimen/about_reference_icon_size"
                     android:layout_gravity="top"
-                    tools:src="@drawable/ic_uigradients" />
+                    tools:src="@drawable/ic_googlematerialdesign" />
 
                 <Space
-                    android:layout_width="@dimen/_12sdp"
+                    android:layout_width="@dimen/about_reference_content_space"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -43,7 +46,7 @@
                         style="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/uigradients" />
+                        tools:text="@string/material_design_icons" />
 
                     <TextView
                         android:id="@+id/txvLink"
@@ -52,18 +55,18 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        tools:text="@string/uigradients_url" />
+                        tools:text="@string/material_design_icons_url" />
 
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="@dimen/_4sdp"
+                    android:layout_width="4dp"
                     android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/imgActionable"
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="@dimen/_16sdp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_gravity="center_vertical"
                     android:alpha="0.5"
                     android:src="@drawable/ic_chevron_right"
@@ -71,7 +74,7 @@
 
             </LinearLayout>
 
-        </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
