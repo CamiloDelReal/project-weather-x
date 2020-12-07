@@ -34,7 +34,7 @@
         <Constraint
             android:id="@+id/draggerHalf"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -42,15 +42,15 @@
         <Constraint
             android:id="@+id/draggerEnd"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
             android:id="@+id/btnAdd"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="@dimen/home_button_add_width"
+            android:layout_height="@dimen/home_button_add_height"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/h4"
@@ -79,8 +79,8 @@
 
         <Constraint
             android:id="@+id/centerDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="0.0"
             app:layout_constraintBottom_toBottomOf="@id/h4"
             app:layout_constraintEnd_toStartOf="@id/v98"
@@ -88,9 +88,9 @@
 
         <Constraint
             android:id="@+id/topDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginBottom="@dimen/dot_indicator_space"
             android:alpha="0.0"
             app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
@@ -98,9 +98,9 @@
 
         <Constraint
             android:id="@+id/bottomDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginTop="@dimen/dot_indicator_space"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
             app:layout_constraintStart_toStartOf="@id/centerDotMarker"
@@ -108,8 +108,8 @@
 
         <Constraint
             android:id="@+id/dotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="0.0"
             app:layout_constraintBottom_toBottomOf="@id/topDotMarker"
             app:layout_constraintEnd_toEndOf="@id/topDotMarker"
@@ -119,33 +119,33 @@
         <Constraint
             android:id="@+id/txvTemperature"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_84sdp"
+            android:layout_height="@dimen/home_temperature_text_height_expanded"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lotConditionImage">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_18ssp" />
+                app:customDimension="@dimen/home_temperature_text_size_expanded" />
         </Constraint>
 
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_height="@dimen/home_condition_text_height_expanded"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txvTemperature">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_10ssp" />
+                app:customDimension="@dimen/home_condition_text_size_expanded" />
         </Constraint>
 
         <Constraint
             android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_width="@dimen/home_condition_image_size_state_1"
+            android:layout_height="@dimen/home_condition_image_size_state_1"
             app:layout_constraintBottom_toBottomOf="@id/h50"
             app:layout_constraintEnd_toEndOf="@id/v50"
             app:layout_constraintStart_toStartOf="@id/v50"
@@ -157,26 +157,18 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintStart_toStartOf="@id/v14"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodaySeparatorMinMax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/home_current_weather_space"
+            android:layout_marginEnd="@dimen/home_current_weather_space"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="@id/v82"
             app:layout_constraintStart_toStartOf="@id/v82"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMinTemp"
@@ -184,11 +176,7 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMaxTemp"
@@ -196,17 +184,13 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/listHourlySimple"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_height="@dimen/list_hourly_simple_height"
+            android:layout_marginBottom="@dimen/list_hourly_simple_margin"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/h98"
@@ -217,17 +201,18 @@
             android:id="@+id/txvNextTwentyFourHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="0.0"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h15" />
+            app:layout_constraintTop_toBottomOf="@id/h8" />
 
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/list_hourly_margin_top"
+            android:layout_marginBottom="@dimen/list_hourly_margin_bottom"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
@@ -250,8 +235,9 @@
             android:id="@+id/txvNextSevenDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginTop="@dimen/home_title_margin_top"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="0.0"
             app:layout_constraintBottom_toTopOf="@id/listDaily"
             app:layout_constraintStart_toEndOf="@id/v2" />
@@ -260,12 +246,12 @@
             android:id="@+id/layoutDayNight"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h60"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -275,12 +261,12 @@
             android:id="@+id/popCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@+id/h60"
             app:layout_constraintEnd_toEndOf="@+id/v98"
             app:layout_constraintStart_toStartOf="@+id/v66"
@@ -290,13 +276,13 @@
             android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
-            android:translationY="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_out_25"
+            android:translationY="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v34"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -306,12 +292,12 @@
             android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationY="@dimen/_minus25sdp"
+            android:translationY="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v34"
@@ -321,13 +307,13 @@
             android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
-            android:translationY="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_in_25"
+            android:translationY="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
@@ -337,13 +323,13 @@
             android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_out_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v34"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -353,12 +339,12 @@
             android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationY="@dimen/_50sdp"
+            android:translationY="@dimen/home_translation_in_50"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v34"
@@ -368,13 +354,13 @@
             android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_in_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
@@ -384,7 +370,6 @@
             android:id="@+id/txvError"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_6sdp"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
@@ -407,7 +392,7 @@
         <Constraint
             android:id="@+id/draggerHalf"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -415,15 +400,15 @@
         <Constraint
             android:id="@+id/draggerEnd"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
             android:id="@+id/btnAdd"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="@dimen/home_button_add_width"
+            android:layout_height="@dimen/home_button_add_height"
             android:alpha="1.0"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/h4"
@@ -442,8 +427,8 @@
 
         <Constraint
             android:id="@+id/centerDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/h4"
             app:layout_constraintEnd_toStartOf="@id/v98"
@@ -451,9 +436,9 @@
 
         <Constraint
             android:id="@+id/topDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginBottom="@dimen/dot_indicator_space"
             android:alpha="1.0"
             app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
@@ -461,9 +446,9 @@
 
         <Constraint
             android:id="@+id/bottomDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginTop="@dimen/dot_indicator_space"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
             app:layout_constraintStart_toStartOf="@id/centerDotMarker"
@@ -471,8 +456,8 @@
 
         <Constraint
             android:id="@+id/dotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/topDotMarker"
             app:layout_constraintEnd_toEndOf="@id/topDotMarker"
@@ -492,35 +477,34 @@
         <Constraint
             android:id="@+id/txvTemperature"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_84sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_height="@dimen/home_temperature_text_height_expanded"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lotConditionImage">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_18ssp" />
+                app:customDimension="@dimen/home_temperature_text_size_expanded" />
         </Constraint>
 
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_height="@dimen/home_condition_text_height_expanded"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txvTemperature">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_10ssp" />
+                app:customDimension="@dimen/home_condition_text_size_expanded" />
         </Constraint>
 
         <Constraint
             android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_140sdp"
-            android:layout_height="@dimen/_140sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_width="@dimen/home_condition_image_size_state_2"
+            android:layout_height="@dimen/home_condition_image_size_state_2"
+            android:layout_marginBottom="@dimen/home_condition_image_margin_bottom_state_2"
             app:layout_constraintEnd_toEndOf="@id/v50"
             app:layout_constraintStart_toStartOf="@id/v50"
             app:layout_constraintTop_toBottomOf="@id/h20" />
@@ -531,26 +515,18 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintStart_toStartOf="@id/v14"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodaySeparatorMinMax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/home_current_weather_space"
+            android:layout_marginEnd="@dimen/home_current_weather_space"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="@id/v82"
             app:layout_constraintStart_toStartOf="@id/v82"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMinTemp"
@@ -558,11 +534,7 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMaxTemp"
@@ -570,17 +542,13 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/listHourlySimple"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_height="@dimen/list_hourly_simple_height"
+            android:layout_marginBottom="@dimen/list_hourly_simple_margin"
             android:alpha="1.0"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/h98"
@@ -591,17 +559,18 @@
             android:id="@+id/txvNextTwentyFourHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="0.0"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h15" />
+            app:layout_constraintTop_toBottomOf="@id/h8" />
 
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/list_hourly_margin_top"
+            android:layout_marginBottom="@dimen/list_hourly_margin_bottom"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
@@ -624,8 +593,9 @@
             android:id="@+id/txvNextSevenDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginTop="@dimen/home_title_margin_top"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="0.0"
             app:layout_constraintBottom_toTopOf="@id/listDaily"
             app:layout_constraintStart_toEndOf="@id/v2" />
@@ -634,12 +604,12 @@
             android:id="@+id/layoutDayNight"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h60"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -649,12 +619,12 @@
             android:id="@+id/popCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@+id/h60"
             app:layout_constraintEnd_toEndOf="@+id/v98"
             app:layout_constraintStart_toStartOf="@+id/v66"
@@ -664,13 +634,13 @@
             android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
-            android:translationY="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_out_25"
+            android:translationY="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v34"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -680,12 +650,12 @@
             android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationY="@dimen/_minus50sdp"
+            android:translationY="@dimen/home_translation_out_50"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v34"
@@ -695,13 +665,13 @@
             android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
-            android:translationY="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_in_25"
+            android:translationY="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
@@ -711,13 +681,13 @@
             android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_out_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v34"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -727,12 +697,12 @@
             android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationY="@dimen/_50sdp"
+            android:translationY="@dimen/home_translation_in_50"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v34"
@@ -742,13 +712,13 @@
             android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_in_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
@@ -758,7 +728,6 @@
             android:id="@+id/txvError"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_6sdp"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
@@ -780,7 +749,7 @@
         <Constraint
             android:id="@+id/draggerHalf"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -788,15 +757,15 @@
         <Constraint
             android:id="@+id/draggerEnd"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
             android:id="@+id/btnAdd"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="@dimen/home_button_add_width"
+            android:layout_height="@dimen/home_button_add_height"
             android:alpha="1.0"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/h4"
@@ -825,8 +794,8 @@
 
         <Constraint
             android:id="@+id/centerDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/h4"
             app:layout_constraintEnd_toStartOf="@id/v98"
@@ -834,9 +803,9 @@
 
         <Constraint
             android:id="@+id/topDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginBottom="@dimen/dot_indicator_space"
             android:alpha="1.0"
             app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
@@ -844,9 +813,9 @@
 
         <Constraint
             android:id="@+id/bottomDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginTop="@dimen/dot_indicator_space"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
             app:layout_constraintStart_toStartOf="@id/centerDotMarker"
@@ -854,8 +823,8 @@
 
         <Constraint
             android:id="@+id/dotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/centerDotMarker"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
@@ -865,7 +834,7 @@
         <Constraint
             android:id="@+id/txvTemperature"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_19sdp"
+            android:layout_height="@dimen/home_temperature_text_height_collapsed"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/txvToday"
             app:layout_constraintEnd_toEndOf="parent"
@@ -873,28 +842,27 @@
             app:layout_constraintTop_toTopOf="@id/txvToday">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_6ssp" />
+                app:customDimension="@dimen/home_temperature_text_size_collapsed" />
         </Constraint>
 
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_38sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_height="@dimen/home_condition_text_height_collapsed"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txvToday">
+            app:layout_constraintTop_toBottomOf="@id/txvTemperature">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_4ssp" />
+                app:customDimension="@dimen/home_condition_text_size_collapsed" />
         </Constraint>
 
         <Constraint
             android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_width="@dimen/home_condition_image_size_state_3"
+            android:layout_height="@dimen/home_condition_image_size_state_3"
+            android:layout_marginBottom="@dimen/home_condition_image_margin_bottom_state_3"
             app:layout_constraintBottom_toTopOf="@id/h28"
             app:layout_constraintEnd_toEndOf="@id/v50"
             app:layout_constraintStart_toStartOf="@id/v50" />
@@ -905,26 +873,18 @@
             android:layout_height="wrap_content"
             android:alpha="1.0"
             app:layout_constraintStart_toStartOf="@id/v14"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodaySeparatorMinMax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/home_current_weather_space"
+            android:layout_marginEnd="@dimen/home_current_weather_space"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="@id/v82"
             app:layout_constraintStart_toStartOf="@id/v82"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMinTemp"
@@ -932,11 +892,7 @@
             android:layout_height="wrap_content"
             android:alpha="1.0"
             app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMaxTemp"
@@ -944,16 +900,12 @@
             android:layout_height="wrap_content"
             android:alpha="1.0"
             app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/listHourlySimple"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_height="@dimen/list_hourly_simple_height"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -964,17 +916,18 @@
             android:id="@+id/txvNextTwentyFourHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="0.0"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h15" />
+            app:layout_constraintTop_toBottomOf="@id/h8" />
 
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/list_hourly_margin_top"
+            android:layout_marginBottom="@dimen/list_hourly_margin_bottom"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
@@ -997,8 +950,9 @@
             android:id="@+id/txvNextSevenDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginTop="@dimen/home_title_margin_top"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="0.0"
             app:layout_constraintBottom_toTopOf="@id/listDaily"
             app:layout_constraintStart_toEndOf="@id/v2" />
@@ -1007,10 +961,10 @@
             android:id="@+id/layoutDayNight"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationY="0dp"
             app:layout_constraintBottom_toBottomOf="@id/h60"
@@ -1022,10 +976,10 @@
             android:id="@+id/popCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationX="0dp"
             android:translationY="0dp"
@@ -1038,10 +992,10 @@
             android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationX="0dp"
             android:translationY="0dp"
@@ -1054,10 +1008,10 @@
             android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationX="0dp"
             android:translationY="0dp"
@@ -1070,10 +1024,10 @@
             android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationX="0dp"
             android:translationY="0dp"
@@ -1086,10 +1040,10 @@
             android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationX="0dp"
             android:translationY="0dp"
@@ -1102,10 +1056,10 @@
             android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationY="0dp"
             app:layout_constraintBottom_toBottomOf="@id/h98"
@@ -1117,10 +1071,10 @@
             android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="1.0"
             android:translationX="0dp"
             android:translationY="0dp"
@@ -1133,7 +1087,6 @@
             android:id="@+id/txvError"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_6sdp"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
@@ -1155,7 +1108,7 @@
         <Constraint
             android:id="@+id/draggerHalf"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -1163,15 +1116,15 @@
         <Constraint
             android:id="@+id/draggerEnd"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/dragger_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/btnAdd"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="@dimen/home_button_add_width"
+            android:layout_height="@dimen/home_button_add_height"
             android:alpha="1.0"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/h4"
@@ -1199,8 +1152,8 @@
 
         <Constraint
             android:id="@+id/centerDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/h4"
             app:layout_constraintEnd_toStartOf="@id/v98"
@@ -1208,9 +1161,9 @@
 
         <Constraint
             android:id="@+id/topDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginBottom="@dimen/dot_indicator_space"
             android:alpha="1.0"
             app:layout_constraintBottom_toTopOf="@id/centerDotMarker"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
@@ -1218,9 +1171,9 @@
 
         <Constraint
             android:id="@+id/bottomDotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
+            android:layout_marginTop="@dimen/dot_indicator_space"
             android:alpha="1.0"
             app:layout_constraintEnd_toEndOf="@id/centerDotMarker"
             app:layout_constraintStart_toStartOf="@id/centerDotMarker"
@@ -1228,8 +1181,8 @@
 
         <Constraint
             android:id="@+id/dotMarker"
-            android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
+            android:layout_width="@dimen/dot_indicator_size"
+            android:layout_height="@dimen/dot_indicator_size"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/bottomDotMarker"
             app:layout_constraintEnd_toEndOf="@id/bottomDotMarker"
@@ -1239,7 +1192,7 @@
         <Constraint
             android:id="@+id/txvTemperature"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_19sdp"
+            android:layout_height="@dimen/home_temperature_text_height_collapsed"
             android:alpha="1.0"
             app:layout_constraintBottom_toBottomOf="@id/h4"
             app:layout_constraintEnd_toStartOf="@id/centerDotMarker"
@@ -1247,27 +1200,26 @@
             app:layout_constraintTop_toTopOf="@id/h4">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
+                app:customDimension="@dimen/home_temperature_text_size_collapsed_2" />
         </Constraint>
 
         <Constraint
             android:id="@+id/txvCondition"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_38sdp"
-            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_height="@dimen/home_condition_text_height_collapsed"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txvToday">
             <CustomAttribute
                 app:attributeName="textSize"
-                app:customDimension="@dimen/_4ssp" />
+                app:customDimension="@dimen/home_condition_text_size_collapsed" />
         </Constraint>
 
         <Constraint
             android:id="@+id/lotConditionImage"
-            android:layout_width="@dimen/_28sdp"
-            android:layout_height="@dimen/_28sdp"
+            android:layout_width="@dimen/home_condition_image_size_state_4"
+            android:layout_height="@dimen/home_condition_image_size_state_4"
             app:layout_constraintBottom_toBottomOf="@id/h4"
             app:layout_constraintStart_toStartOf="@id/v66"
             app:layout_constraintTop_toTopOf="@+id/h4" />
@@ -1278,26 +1230,18 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintStart_toStartOf="@id/v14"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodaySeparatorMinMax"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginStart="@dimen/home_current_weather_space"
+            android:layout_marginEnd="@dimen/home_current_weather_space"
             android:alpha="0.0"
             app:layout_constraintEnd_toEndOf="@id/v82"
             app:layout_constraintStart_toStartOf="@id/v82"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMinTemp"
@@ -1305,11 +1249,7 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintEnd_toStartOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/txvTodayMaxTemp"
@@ -1317,16 +1257,12 @@
             android:layout_height="wrap_content"
             android:alpha="0.0"
             app:layout_constraintStart_toEndOf="@id/txvTodaySeparatorMinMax"
-            app:layout_constraintTop_toBottomOf="@id/h28">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="@dimen/_5ssp" />
-        </Constraint>
+            app:layout_constraintTop_toBottomOf="@id/h28" />
 
         <Constraint
             android:id="@+id/listHourlySimple"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_height="@dimen/list_hourly_simple_height"
             android:alpha="0.0"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1337,17 +1273,18 @@
             android:id="@+id/txvNextTwentyFourHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="1.0"
             app:layout_constraintStart_toEndOf="@id/v2"
-            app:layout_constraintTop_toBottomOf="@id/h15" />
+            app:layout_constraintTop_toBottomOf="@id/h8" />
 
         <Constraint
             android:id="@+id/listHourly"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/list_hourly_margin_top"
+            android:layout_marginBottom="@dimen/list_hourly_margin_bottom"
             android:alpha="1.0"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/txvNextSevenDays"
@@ -1370,8 +1307,9 @@
             android:id="@+id/txvNextSevenDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/home_title_margin_start"
+            android:layout_marginTop="@dimen/home_title_margin_top"
+            android:layout_marginBottom="@dimen/home_title_margin_bottom"
             android:alpha="1.0"
             app:layout_constraintBottom_toTopOf="@id/listDaily"
             app:layout_constraintStart_toEndOf="@id/v2" />
@@ -1380,13 +1318,13 @@
             android:id="@+id/layoutDayNight"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
-            android:translationY="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_out_25"
+            android:translationY="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@id/h60"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -1397,13 +1335,13 @@
             android:id="@+id/popCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
-            android:translationY="@dimen/_minus25sdp"
+            android:translationX="@dimen/home_translation_in_25"
+            android:translationY="@dimen/home_translation_out_25"
             app:layout_constraintBottom_toBottomOf="@+id/h60"
             app:layout_constraintEnd_toEndOf="@+id/v98"
             app:layout_constraintStart_toStartOf="@+id/v66"
@@ -1413,13 +1351,13 @@
             android:id="@+id/pressureCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_out_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v34"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -1429,13 +1367,13 @@
             android:id="@+id/windCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
             android:translationX="0dp"
-            android:translationY="@dimen/_25sdp"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v34"
@@ -1445,13 +1383,13 @@
             android:id="@+id/realFeelCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_in_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h79"
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
@@ -1461,13 +1399,13 @@
             android:id="@+id/uvIndexCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_minus25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_out_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v34"
             app:layout_constraintStart_toStartOf="@id/v2"
@@ -1477,13 +1415,13 @@
             android:id="@+id/humidityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
             android:translationX="0dp"
-            android:translationY="@dimen/_25sdp"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v66"
             app:layout_constraintStart_toStartOf="@id/v34"
@@ -1493,13 +1431,13 @@
             android:id="@+id/visibilityCard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_6sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_6sdp"
-            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginStart="@dimen/home_forecast_margin"
+            android:layout_marginTop="@dimen/home_forecast_margin"
+            android:layout_marginEnd="@dimen/home_forecast_margin"
+            android:layout_marginBottom="@dimen/home_forecast_margin"
             android:alpha="0.0"
-            android:translationX="@dimen/_25sdp"
-            android:translationY="@dimen/_25sdp"
+            android:translationX="@dimen/home_translation_in_25"
+            android:translationY="@dimen/home_translation_in_25"
             app:layout_constraintBottom_toBottomOf="@id/h98"
             app:layout_constraintEnd_toEndOf="@id/v98"
             app:layout_constraintStart_toStartOf="@id/v66"
@@ -1509,7 +1447,6 @@
             android:id="@+id/txvError"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_6sdp"
             app:layout_constraintBottom_toTopOf="@id/btnTryAgain"
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"

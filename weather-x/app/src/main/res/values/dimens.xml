@@ -3,12 +3,56 @@
     <dimen name="item_corner_radius">6dp</dimen>
     <dimen name="item_border_width">1dp</dimen>
 
+    <dimen name="dot_indicator_size">6dp</dimen>
+    <dimen name="dot_indicator_space">3dp</dimen>
     <dimen name="dot_stroke_width">1dp</dimen>
-    <dimen name="dot_radius">2dp</dimen>
+    <dimen name="dot_radius">3dp</dimen>
 
-    <dimen name="card_forecast_icon_size">42dp</dimen>
+    <dimen name="dragger_height">2dp</dimen>
+
+    <dimen name="home_button_add_height">54dp</dimen>
+    <dimen name="home_button_add_width">54dp</dimen>
+
+    <dimen name="home_temperature_text_height_expanded">84dp</dimen>
+    <dimen name="home_temperature_text_height_collapsed">32dp</dimen>
+    <dimen name="home_temperature_text_size_expanded">24sp</dimen>
+    <dimen name="home_temperature_text_size_collapsed">9sp</dimen>
+    <dimen name="home_temperature_text_size_collapsed_2">6sp</dimen>
+    <dimen name="home_condition_text_height_expanded">80dp</dimen>
+    <dimen name="home_condition_text_height_collapsed">38dp</dimen>
+    <dimen name="home_condition_text_padding">12dp</dimen>
+    <dimen name="home_county_title_text_size">26sp</dimen>
+    <dimen name="home_county_text_padding_bottom">6dp</dimen>
+    <dimen name="home_condition_text_size_expanded">16sp</dimen>
+    <dimen name="home_condition_text_size_collapsed">6sp</dimen>
+    <dimen name="home_condition_image_size_state_1">80dp</dimen>
+    <dimen name="home_condition_image_size_state_2">160dp</dimen>
+    <dimen name="home_condition_image_size_state_3">120dp</dimen>
+    <dimen name="home_condition_image_size_state_4">32dp</dimen>
+    <dimen name="home_condition_image_margin_bottom_state_2">20dp</dimen>
+    <dimen name="home_condition_image_margin_bottom_state_3">12dp</dimen>
+    <dimen name="home_current_weather_text_size">16sp</dimen>
+    <dimen name="home_current_weather_space">5sp</dimen>
+    <dimen name="home_forecast_margin">6dp</dimen>
+    <dimen name="list_hourly_simple_height">100dp</dimen>
+    <dimen name="list_hourly_simple_margin">30dp</dimen>
+    <dimen name="list_hourly_margin_top">10dp</dimen>
+    <dimen name="list_hourly_margin_bottom">10dp</dimen>
+    <dimen name="home_title_margin_start">4dp</dimen>
+    <dimen name="home_title_margin_top">22dp</dimen>
+    <dimen name="home_title_margin_bottom">10dp</dimen>
+    <dimen name="card_forecast_icon_size">13dp</dimen>
+    <dimen name="card_forecast_secondary_icon_size">24dp</dimen>
     <dimen name="card_forecast_text_size">16sp</dimen>
     <dimen name="card_forecast_description_text_size">12sp</dimen>
+    <dimen name="home_day_night_padding">8dp</dimen>
+    <dimen name="home_day_night_space">6dp</dimen>
+    <dimen name="home_error_padding">6dp</dimen>
+    <dimen name="home_error_margin">6dp</dimen>
+    <dimen name="home_translation_in_25">25dp</dimen>
+    <dimen name="home_translation_out_25">-25dp</dimen>
+    <dimen name="home_translation_in_50">50dp</dimen>
+    <dimen name="home_translation_out_50">-25dp</dimen>
 
     <dimen name="item_hourly_simple_width">86dp</dimen>
     <dimen name="item_hourly_simple_padding">8dp</dimen>
