@@ -11,17 +11,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/_230sdp"
+        android:layout_width="@dimen/item_daily_width"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/_6sdp"
-        android:paddingEnd="@dimen/_6sdp">
+        android:paddingStart="@dimen/item_daily_padding"
+        android:paddingEnd="@dimen/item_daily_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ic_bg_card"
             android:orientation="vertical"
-            android:padding="@dimen/_12sdp">
+            android:padding="@dimen/item_daily_content_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/item_daily_secondary_text_size"
                     app:timestampToDayOfTheWeek="@{data.datetime}"
                     tools:text="Monday" />
 
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|end"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/item_daily_fourth_text_size"
                     app:timestampToDate="@{data.datetime}"
                     tools:text="11/20/2020" />
 
@@ -63,15 +63,15 @@
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/lotConditionImage"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_width="@dimen/item_daily_condition_image_size"
+                    android:layout_height="@dimen/item_daily_condition_image_size"
                     app:lottie_autoPlay="true"
                     app:weatherAnimation="@{data}"
                     app:lottie_loop="true"
                     app:lottie_speed="1" />
 
                 <Space
-                    android:layout_width="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_daily_content_space"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -85,7 +85,7 @@
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_20ssp"
+                        android:textSize="@dimen/item_daily_primary_text_size"
                         app:temperature="@{data}"
                         tools:text="20°C" />
 
@@ -93,7 +93,7 @@
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_11ssp"
+                        android:textSize="@dimen/item_daily_tertiary_text_size"
                         app:condition="@{data}"
                         tools:text="Clear" />
 
@@ -118,13 +118,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_sunrise"
                         app:tint="@color/sunrise" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -137,7 +137,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:timestampToSimpleHour="@{data.sunrise}"
                             tools:text="06:28" />
 
@@ -146,14 +146,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sunrise"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_daily_forecast_column_space"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -163,13 +163,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_sunset"
                         app:tint="@color/sunset" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -182,7 +182,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:timestampToSimpleHour="@{data.sunset}"
                             tools:text="19:45" />
 
@@ -191,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sunset"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
@@ -199,7 +199,7 @@
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_6sdp"
+                    android:layout_height="@dimen/item_daily_forecast_content_space"
                     android:layout_columnSpan="3" />
 
                 <LinearLayout
@@ -209,13 +209,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_gauge"
                         app:tint="@color/pressure" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -228,7 +228,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:pressure="@{data}"
                             tools:text="1024 mb" />
 
@@ -237,14 +237,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/pressure"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_daily_forecast_column_space"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -254,13 +254,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_thermometer"
                         app:tint="@color/realFeel" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -273,7 +273,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:realFeel="@{data}"
                             tools:text="28°" />
 
@@ -282,7 +282,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/real_feel"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
@@ -290,7 +290,7 @@
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_6sdp"
+                    android:layout_height="@dimen/item_daily_forecast_content_space"
                     android:layout_columnSpan="3" />
 
                 <LinearLayout
@@ -300,13 +300,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_wind"
                         app:tint="@color/windSpeed" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -319,7 +319,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:windSpeed="@{data}"
                             tools:text="14 km/h" />
 
@@ -327,7 +327,7 @@
                             style="@style/TextAppearance.AppCompat.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_9ssp"
+                            android:textSize="@dimen/item_daily_forecast_description_text_size"
                             app:windDirection="@{data}"
                             tools:text="South East" />
 
@@ -336,7 +336,7 @@
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_daily_forecast_column_space"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -346,13 +346,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_sun"
                         app:tint="@color/uvIndex" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -365,7 +365,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:uvindex="@{data}"
                             tools:text="0.1" />
 
@@ -374,7 +374,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/uv_index"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
@@ -382,7 +382,7 @@
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_6sdp"
+                    android:layout_height="@dimen/item_daily_forecast_content_space"
                     android:layout_columnSpan="3" />
 
                 <LinearLayout
@@ -392,13 +392,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_water"
                         app:tint="@color/humidity" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -411,7 +411,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:humidity="@{data}"
                             tools:text="48%" />
 
@@ -420,14 +420,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/humidity"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_daily_forecast_column_space"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -437,13 +437,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_rain"
                         app:tint="@color/rain" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -456,7 +456,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:precipitation="@{data}"
                             tools:text="80%" />
 
@@ -465,7 +465,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/precipitation"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
@@ -473,7 +473,7 @@
 
                 <Space
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_6sdp"
+                    android:layout_height="@dimen/item_daily_forecast_content_space"
                     android:layout_columnSpan="3" />
 
                 <LinearLayout
@@ -483,13 +483,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_18sdp"
-                        android:layout_height="@dimen/_18sdp"
+                        android:layout_width="@dimen/item_daily_forecast_icon_size"
+                        android:layout_height="@dimen/item_daily_forecast_icon_size"
                         android:src="@drawable/ic_eye_off"
                         app:tint="@color/visibility" />
 
                     <Space
-                        android:layout_width="@dimen/_6sdp"
+                        android:layout_width="@dimen/item_daily_forecast_content_space"
                         android:layout_height="wrap_content" />
 
                     <LinearLayout
@@ -502,7 +502,7 @@
                             style="@style/TextAppearance.MaterialComponents.Body1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/item_daily_forecast_text_size"
                             app:visibility="@{data}"
                             tools:text="18 km" />
 
@@ -511,14 +511,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/visibility"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/item_daily_forecast_description_text_size" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_daily_forecast_column_space"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -527,38 +527,6 @@
                     android:gravity="top"
                     android:orientation="horizontal">
 
-<!--                    <ImageView-->
-<!--                        android:layout_width="@dimen/_18sdp"-->
-<!--                        android:layout_height="@dimen/_18sdp"-->
-<!--                        android:src="@drawable/ic_sun"-->
-<!--                        app:tint="@color/uvIndex" />-->
-
-<!--                    <Space-->
-<!--                        android:layout_width="@dimen/_6sdp"-->
-<!--                        android:layout_height="wrap_content" />-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            style="@style/TextAppearance.MaterialComponents.Body1"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:textSize="@dimen/_11ssp"-->
-<!--                            app:uvindex="@{data}"-->
-<!--                            tools:text="0.1" />-->
-
-<!--                        <TextView-->
-<!--                            style="@style/TextAppearance.AppCompat.Body1"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/uv_index"-->
-<!--                            android:textSize="@dimen/_9ssp" />-->
-
-<!--                    </LinearLayout>-->
 
                 </LinearLayout>
 

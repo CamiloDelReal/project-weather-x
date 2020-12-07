@@ -91,14 +91,6 @@ class AboutFragment @Inject constructor() : Fragment() {
             launchUri(getString(R.string.dexter_url))
         }
 
-        btnLinkSDP.setOnClickListener {
-            launchUri(getString(R.string.sdp_url))
-        }
-
-        btnLinkSSP.setOnClickListener {
-            launchUri(getString(R.string.ssp_url))
-        }
-
         btnLinkRetrofit.setOnClickListener {
             launchUri(getString(R.string.retrofit_url))
         }

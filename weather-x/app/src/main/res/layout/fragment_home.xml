@@ -117,11 +117,11 @@
                 app:layout_constraintGuide_percent="0.04" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/h15"
+                android:id="@+id/h8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.1" />
+                app:layout_constraintGuide_percent="0.08" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/h20"
@@ -196,9 +196,8 @@
 
             <ImageButton
                 android:id="@+id/btnAdd"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_width="@dimen/home_button_add_width"
+                android:layout_height="@dimen/home_button_add_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:fitsSystemWindows="true"
                 android:src="@drawable/ic_add" />
@@ -209,10 +208,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:gravity="center_vertical"
-                android:paddingBottom="@dimen/_4sdp"
                 android:text="@{viewModel.place != null ? viewModel.place.city : @string/empty}"
                 android:textColor="?attr/colorOnPrimarySurface"
-                android:textSize="@dimen/_20ssp"
+                android:textSize="@dimen/home_county_title_text_size"
+                android:paddingBottom="@dimen/home_county_text_padding_bottom"
                 tools:text="Belgrade" />
 
             <TextView
@@ -226,34 +225,34 @@
 
             <View
                 android:id="@+id/centerDotMarker"
-                android:layout_width="@dimen/_4sdp"
-                android:layout_height="@dimen/_4sdp"
+                android:layout_width="@dimen/dot_indicator_size"
+                android:layout_height="@dimen/dot_indicator_size"
                 android:background="@drawable/ic_bg_dot_marker" />
 
             <View
                 android:id="@+id/topDotMarker"
-                android:layout_width="@dimen/_4sdp"
-                android:layout_height="@dimen/_4sdp"
+                android:layout_width="@dimen/dot_indicator_size"
+                android:layout_height="@dimen/dot_indicator_size"
                 android:background="@drawable/ic_bg_dot_marker" />
 
             <View
                 android:id="@+id/bottomDotMarker"
-                android:layout_width="@dimen/_4sdp"
-                android:layout_height="@dimen/_4sdp"
+                android:layout_width="@dimen/dot_indicator_size"
+                android:layout_height="@dimen/dot_indicator_size"
                 android:background="@drawable/ic_bg_dot_marker" />
 
             <View
                 android:id="@+id/dotMarker"
-                android:layout_width="@dimen/_4sdp"
-                android:layout_height="@dimen/_4sdp"
+                android:layout_width="@dimen/dot_indicator_size"
+                android:layout_height="@dimen/dot_indicator_size"
                 android:background="@drawable/ic_bg_dot" />
 
             <TextView
                 android:id="@+id/txvTemperature"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_84sdp"
-                android:gravity="bottom|center_horizontal"
+                android:layout_height="@dimen/home_temperature_text_height_expanded"
+                android:gravity="center"
                 android:textColor="?attr/colorOnPrimarySurface"
                 app:temperatureWithUnit="@{viewModel.currentWeather}"
                 tools:text="28 °C" />
@@ -262,10 +261,10 @@
                 android:id="@+id/txvCondition"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_height="@dimen/home_condition_text_height_expanded"
                 android:gravity="top|center_horizontal"
-                android:paddingStart="@dimen/_12sdp"
-                android:paddingEnd="@dimen/_12sdp"
+                android:paddingStart="@dimen/home_condition_text_padding"
+                android:paddingEnd="@dimen/home_condition_text_padding"
                 android:textColor="?attr/colorOnPrimarySurface"
                 app:condition="@{viewModel.currentWeather}"
                 tools:text="Clear" />
@@ -275,8 +274,8 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:text="@string/today"
+                android:textSize="@dimen/home_current_weather_text_size"
                 android:textColor="?attr/colorOnPrimarySurface" />
 
             <TextView
@@ -285,6 +284,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/slash"
+                android:textSize="@dimen/home_current_weather_text_size"
                 android:textColor="?attr/colorOnPrimarySurface" />
 
             <TextView
@@ -292,6 +292,7 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/home_current_weather_text_size"
                 android:textColor="?attr/colorOnPrimarySurface"
                 app:minimumTemperature="@{viewModel.currentWeather}"
                 tools:text="22°" />
@@ -301,14 +302,15 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/home_current_weather_text_size"
                 android:textColor="?attr/colorOnPrimarySurface"
                 app:maximumTemperature="@{viewModel.currentWeather}"
                 tools:text="28°" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotConditionImage"
-                android:layout_width="@dimen/_140sdp"
-                android:layout_height="@dimen/_140sdp"
+                android:layout_width="@dimen/home_condition_image_size_state_2"
+                android:layout_height="@dimen/home_condition_image_size_state_2"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_speed="1"
@@ -320,11 +322,7 @@
                 android:layout_height="0dp"
                 android:background="@drawable/ic_bg_card"
                 android:orientation="vertical"
-                android:padding="@dimen/_8sdp">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_2sdp" />
+                android:padding="@dimen/home_day_night_padding">
 
                 <org.xapps.apps.weatherx.views.custom.DayNightView
                     android:layout_width="match_parent"
@@ -336,7 +334,7 @@
 
                 <Space
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_6sdp" />
+                    android:layout_height="@dimen/home_day_night_space" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -353,24 +351,24 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="@dimen/_18sdp"
-                                android:layout_height="@dimen/_18sdp"
+                                android:layout_width="@dimen/card_forecast_secondary_icon_size"
+                                android:layout_height="@dimen/card_forecast_secondary_icon_size"
                                 android:src="@drawable/ic_sunrise"
                                 app:tint="@color/sunrise" />
 
                             <Space
-                                android:layout_width="@dimen/_6sdp"
+                                android:layout_width="@dimen/home_day_night_space"
                                 android:layout_height="wrap_content" />
 
                             <TextView
                                 style="@style/TextAppearance.MaterialComponents.Body1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/_11ssp"
+                                android:textSize="@dimen/card_forecast_text_size"
                                 app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunrise : 0}"
                                 tools:text="19:45" />
 
@@ -381,7 +379,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sunrise"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/card_forecast_description_text_size" />
 
                     </LinearLayout>
 
@@ -399,24 +397,24 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="@dimen/_18sdp"
-                                android:layout_height="@dimen/_18sdp"
+                                android:layout_width="@dimen/card_forecast_secondary_icon_size"
+                                android:layout_height="@dimen/card_forecast_secondary_icon_size"
                                 android:src="@drawable/ic_sunset"
                                 app:tint="@color/sunset" />
 
                             <Space
-                                android:layout_width="@dimen/_6sdp"
+                                android:layout_width="@dimen/home_day_night_space"
                                 android:layout_height="wrap_content" />
 
                             <TextView
                                 style="@style/TextAppearance.MaterialComponents.Body1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/_11ssp"
+                                android:textSize="@dimen/card_forecast_text_size"
                                 app:timestampToSimpleHour="@{viewModel.currentWeather != null ? viewModel.currentWeather.sunset : 0}"
                                 tools:text="19:45" />
 
@@ -427,7 +425,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sunset"
-                            android:textSize="@dimen/_9ssp" />
+                            android:textSize="@dimen/card_forecast_description_text_size" />
 
                     </LinearLayout>
 
@@ -441,7 +439,7 @@
                 android:layout_height="0dp"
                 app:fc_description="@string/precipitation"
                 app:fc_icon="@drawable/ic_rain"
-                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconSize="@dimen/card_forecast_icon_size"
                 app:fc_iconTint="@color/rain"
                 app:precipitation="@{viewModel.currentWeather}" />
 
@@ -451,7 +449,7 @@
                 android:layout_height="0dp"
                 app:fc_description="@string/pressure"
                 app:fc_icon="@drawable/ic_gauge"
-                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconSize="@dimen/card_forecast_icon_size"
                 app:fc_iconTint="@color/pressure"
                 app:pressure="@{viewModel.currentWeather}" />
 
@@ -461,7 +459,7 @@
                 android:layout_height="0dp"
                 app:fc_description="East"
                 app:fc_icon="@drawable/ic_wind"
-                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconSize="@dimen/card_forecast_icon_size"
                 app:fc_iconTint="@color/windSpeed"
                 app:windSpeed="@{viewModel.currentWeather}" />
 
@@ -471,7 +469,7 @@
                 android:layout_height="0dp"
                 app:fc_description="@string/real_feel"
                 app:fc_icon="@drawable/ic_thermometer"
-                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconSize="@dimen/card_forecast_icon_size"
                 app:fc_iconTint="@color/realFeel"
                 app:realFeel="@{viewModel.currentWeather}" />
 
@@ -481,7 +479,7 @@
                 android:layout_height="0dp"
                 app:fc_description="@string/uv_index"
                 app:fc_icon="@drawable/ic_sun"
-                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconSize="@dimen/card_forecast_icon_size"
                 app:fc_iconTint="@color/uvIndex"
                 app:uvindex="@{viewModel.currentWeather}" />
 
@@ -491,7 +489,7 @@
                 android:layout_height="0dp"
                 app:fc_description="@string/humidity"
                 app:fc_icon="@drawable/ic_water"
-                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconSize="@dimen/card_forecast_icon_size"
                 app:fc_iconTint="@color/humidity"
                 app:humidity="@{viewModel.currentWeather}" />
 
@@ -501,14 +499,15 @@
                 android:layout_height="0dp"
                 app:fc_description="@string/visibility"
                 app:fc_icon="@drawable/ic_eye_off"
-                app:fc_iconSize="@dimen/_10sdp"
+                app:fc_iconSize="@dimen/card_forecast_icon_size"
                 app:fc_iconTint="@color/visibility"
                 app:visibility="@{viewModel.currentWeather}" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listHourlySimple"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_height="@dimen/list_hourly_simple_height"
+                android:layout_marginBottom="@dimen/list_hourly_simple_margin"
                 android:orientation="horizontal"
                 app:hourlySimple="@{viewModel.hourlyWeather}"
                 tools:itemCount="10"
@@ -517,17 +516,16 @@
 
             <TextView
                 android:id="@+id/txvNextTwentyFourHours"
-                style="@style/TextAppearance.MaterialComponents.Body1"
+                style="@style/TextAppearance.MaterialComponents.Headline4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/next_24_hours"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="@dimen/_20ssp" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listHourly"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_120sdp"
+                android:layout_height="0dp"
                 android:orientation="horizontal"
                 app:hourly="@{viewModel.hourlyWeather}"
                 tools:itemCount="10"
@@ -536,18 +534,16 @@
 
             <TextView
                 android:id="@+id/txvNextSevenDays"
-                style="@style/TextAppearance.MaterialComponents.Body1"
+                style="@style/TextAppearance.MaterialComponents.Headline4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/next_7_days"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="@dimen/_20ssp" />
+                android:textColor="?attr/colorOnSurface" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listDaily"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:daily="@{viewModel.dailyWeather}"
                 tools:itemCount="7"
@@ -560,8 +556,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:paddingStart="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_6sdp"
+                android:paddingStart="@dimen/home_error_padding"
+                android:paddingEnd="@dimen/home_error_padding"
+                android:layout_marginBottom="@dimen/home_error_margin"
                 android:textColor="?attr/colorOnPrimarySurface"
                 android:visibility="invisible" />
 

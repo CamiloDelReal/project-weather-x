@@ -27,8 +27,8 @@
 
                 <ImageView
                     android:id="@+id/imgIcon"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/card_forecast_icon_size"
+                    android:layout_height="@dimen/card_forecast_icon_size"
                     tools:src="@drawable/ic_gauge" />
 
                 <Space
@@ -41,7 +41,7 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/card_forecast_text_size"
                     tools:text="1124 mb" />
 
                 <Space
@@ -54,7 +54,7 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_9ssp"
+                    android:textSize="@dimen/card_forecast_description_text_size"
                     tools:text="Pressure" />
 
                 <Space

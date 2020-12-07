@@ -319,28 +319,6 @@
                     android:layout_height="@dimen/_6sdp" />
 
                 <org.xapps.apps.weatherx.views.custom.AboutReference
-                    android:id="@+id/btnLinkSDP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ar_link="@string/sdp_url"
-                    app:ar_text="@string/sdp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_6sdp" />
-
-                <org.xapps.apps.weatherx.views.custom.AboutReference
-                    android:id="@+id/btnLinkSSP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:ar_link="@string/ssp_url"
-                    app:ar_text="@string/ssp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_6sdp" />
-
-                <org.xapps.apps.weatherx.views.custom.AboutReference
                     android:id="@+id/btnLinkLottieForAndroid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -11,10 +11,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/_120sdp"
+        android:layout_width="@dimen/item_hourly_width"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/_6sdp"
-        android:paddingEnd="@dimen/_6sdp">
+        android:paddingStart="@dimen/item_hourly_padding"
+        android:paddingEnd="@dimen/item_hourly_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:background="@drawable/ic_bg_card"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="@dimen/_8sdp">
+            android:padding="@dimen/item_hourly_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/_9ssp"
+                    android:textSize="@dimen/item_hourly_tertiary_text_size"
                     app:timestampToTodayOrTomorrow="@{data.datetime}"
                     tools:text="Today" />
 
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/item_hourly_secondary_text_size"
                     app:timestampToSimpleHour="@{data.datetime}"
                     tools:text="02:00 PM" />
 
@@ -61,8 +61,8 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotConditionImage"
-                android:layout_width="@dimen/_42sdp"
-                android:layout_height="@dimen/_42sdp"
+                android:layout_width="@dimen/item_hourly_condition_image_size"
+                android:layout_height="@dimen/item_hourly_condition_image_size"
                 app:lottie_autoPlay="true"
                 app:weatherAnimation="@{data}"
                 app:lottie_loop="true"
@@ -78,19 +78,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/item_hourly_primary_text_size"
                 app:temperature="@{data}"
                 tools:text="28°" />
 
             <Space
-                android:layout_width="@dimen/_2sdp"
+                android:layout_width="@dimen/item_hourly_condition_space"
                 android:layout_height="wrap_content" />
 
             <TextView
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/item_hourly_tertiary_text_size"
                 android:textColor="?attr/colorOnSurface"
                 app:condition="@{data}"
                 tools:text="Clear" />
@@ -112,13 +112,13 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_hourly_status_image_size"
+                    android:layout_height="@dimen/item_hourly_status_image_size"
                     android:src="@drawable/ic_rain"
                     app:tint="@color/rain" />
 
                 <Space
-                    android:layout_width="@dimen/_4sdp"
+                    android:layout_width="@dimen/item_hourly_status_space"
                     android:layout_height="wrap_content" />
 
                 <TextView
@@ -136,13 +136,13 @@
                     android:layout_height="wrap_content" />
 
                 <ImageView
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_hourly_status_image_size"
+                    android:layout_height="@dimen/item_hourly_status_image_size"
                     android:src="@drawable/ic_eye_off"
                     app:tint="@color/visibility" />
 
                 <Space
-                    android:layout_width="@dimen/_4sdp"
+                    android:layout_width="@dimen/item_hourly_status_space"
                     android:layout_height="wrap_content" />
 
                 <TextView
@@ -168,14 +168,14 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
+                    android:layout_width="@dimen/item_hourly_status_image_size"
+                    android:layout_height="@dimen/item_hourly_status_image_size"
                     app:windDirection="@{data}"
                     app:tint="?attr/colorOnSurface"
                     android:src="@drawable/ic_direction_north" />
 
                 <Space
-                    android:layout_width="@dimen/_4sdp"
+                    android:layout_width="@dimen/item_hourly_status_space"
                     android:layout_height="wrap_content" />
 
                 <TextView

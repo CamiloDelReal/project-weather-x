@@ -1,115 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".views.popups.MoreOptionsPopup">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="@dimen/_180sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_12sdp"
-            android:background="@drawable/ic_bg_card"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/_6sdp"
-            android:paddingBottom="@dimen/_6sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:background="@android:color/black">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp">
+            <LinearLayout
+                android:layout_width="@dimen/popup_more_options_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/popup_more_options_margin_top"
+                android:layout_marginStart="@dimen/popup_more_options_margin_start"
+                android:background="@drawable/ic_bg_popup"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/popup_more_options_padding"
+                android:paddingBottom="@dimen/popup_more_options_padding"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddPlace"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/popup_more_options_button_height"
+                        android:layout_centerInParent="true"
+                        android:enabled="false"
+                        android:gravity="start|center_vertical"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:paddingHorizontal="@dimen/popup_more_options_button_padding"
+                        android:text="@string/add_place"
+                        android:textAllCaps="false"
+                        app:cornerRadius="0dp" />
+
+                    <TextView
+                        style="@style/TextAppearance.MaterialComponents.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/popup_more_options_button_padding"
+                        android:alpha="0.5"
+                        android:text="@string/comming_soon" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/popup_more_options_section_space" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAddPlace"
+                    android:id="@+id/btnUseMetric"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_centerInParent="true"
-                    android:enabled="false"
+                    android:layout_height="@dimen/popup_more_options_button_height"
+                    android:checkable="true"
+                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                    android:gravity="start|center_vertical"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
+                    android:paddingStart="@dimen/popup_more_options_button_padding"
+                    android:paddingEnd="@dimen/popup_more_options_button_padding_with_check"
+                    android:text="@string/metric_system"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_button_check_menu"
+                    app:backgroundTint="@color/bg_button_check_menu"
+                    app:cornerRadius="0dp"
+                    app:rippleColor="@color/mtrl_btn_text_btn_ripple_color" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDarkMode"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/popup_more_options_button_height"
+                    android:checkable="true"
+                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="start|center_vertical"
-                    android:paddingHorizontal="@dimen/_24sdp"
-                    android:text="@string/add_place"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="@dimen/popup_more_options_button_padding"
+                    android:paddingEnd="@dimen/popup_more_options_button_padding_with_check"
+                    android:text="@string/dark_mode"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_button_check_menu"
+                    app:backgroundTint="@color/bg_button_check_menu"
+                    app:cornerRadius="0dp"
+                    app:rippleColor="@color/mtrl_btn_text_btn_ripple_color" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAbout"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/popup_more_options_button_height"
+                    android:gravity="start|center_vertical"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingHorizontal="@dimen/popup_more_options_button_padding"
+                    android:text="@string/about"
                     android:textAllCaps="false"
                     app:cornerRadius="0dp" />
+            </LinearLayout>
 
-                <TextView
-                    style="@style/TextAppearance.MaterialComponents.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="@dimen/_25sdp"
-                    android:alpha="0.5"
-                    android:text="@string/comming_soon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </RelativeLayout>
+    </FrameLayout>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_6sdp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnUseMetric"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/_24sdp"
-                android:paddingEnd="@dimen/_12sdp"
-                android:textColor="@color/text_button_check_menu"
-                app:backgroundTint="@color/bg_button_check_menu"
-                app:rippleColor="@color/mtrl_btn_text_btn_ripple_color"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="@string/metric_system"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:checkable="true"
-                android:textAllCaps="false"
-                app:cornerRadius="0dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnDarkMode"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:gravity="start|center_vertical"
-                android:paddingStart="@dimen/_24sdp"
-                android:paddingEnd="@dimen/_12sdp"
-                android:textColor="@color/text_button_check_menu"
-                app:backgroundTint="@color/bg_button_check_menu"
-                app:rippleColor="@color/mtrl_btn_text_btn_ripple_color"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="@string/dark_mode"
-                android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                android:checkable="true"
-                android:textAllCaps="false"
-                app:cornerRadius="0dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAbout"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:gravity="start|center_vertical"
-                android:paddingHorizontal="@dimen/_24sdp"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="@string/about"
-                android:textAllCaps="false"
-                app:cornerRadius="0dp" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+</layout>

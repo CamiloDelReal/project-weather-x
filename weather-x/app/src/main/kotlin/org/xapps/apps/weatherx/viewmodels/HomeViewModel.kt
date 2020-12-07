@@ -9,10 +9,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.xapps.apps.weatherx.BR
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.local.PlaceDao
@@ -155,21 +154,25 @@ class HomeViewModel @ViewModelInject constructor(
     private fun monitorCurrentPlace() {
         viewModelScope.launch {
             gpsTracker.location?.let { location ->
-                val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                addresses.isNotEmpty().let {
-                    val address = addresses[0]
-                    place = Place(
-                        id = Place.CURRENT_PLACE_ID,
-                        country = address.countryName,
-                        city = address.locality,
-                        latitude = location.latitude,
-                        longitude = location.longitude,
-                        code = address.countryCode
-                    )
-                    session.currentPlace = place
-                    placeDao.insertAsync(place!!)
+                try {
+                    val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                    addresses.isNotEmpty().let {
+                        val address = addresses[0]
+                        place = Place(
+                            id = Place.CURRENT_PLACE_ID,
+                            country = address.countryName,
+                            city = address.locality,
+                            latitude = location.latitude,
+                            longitude = location.longitude,
+                            code = address.countryCode
+                        )
+                        session.currentPlace = place
+                        placeDao.insertAsync(place!!)
 
-                    scheduleWeatherInfo()
+                        scheduleWeatherInfo()
+                    }
+                } catch(e: Exception) {
+                    Timber.i(e, "Exception captured")
                 }
             } ?: run {
                 Timber.i("AppLogger - GPS tracker doesn't have location yet, getting location from database")
