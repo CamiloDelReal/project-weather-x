@@ -156,10 +156,6 @@ dependencies {
     // Play Services
     implementation(Libraries.PlayServices.LOCATION)
 
-    // Scalable Units
-    implementation(Libraries.ScalableUnits.DP)
-    implementation(Libraries.ScalableUnits.SP)
-
     // Permissions
     implementation(Libraries.Permissions.DEXTER)
 

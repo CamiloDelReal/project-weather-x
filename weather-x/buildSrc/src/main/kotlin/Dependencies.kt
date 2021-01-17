@@ -167,13 +167,6 @@ object Libraries {
         const val MOSHI_KTX = "com.squareup.moshi:moshi-kotlin:$VERSION"
     }
 
-    object ScalableUnits {
-        private const val VERSION = "1.0.6"
-
-        const val DP = "com.intuit.sdp:sdp-android:$VERSION"
-        const val SP = "com.intuit.ssp:ssp-android:$VERSION"
-    }
-
     object UI {
         private const val SHAPE_OF_VIEW_VERSION = "1.4.7"
         private const val LOTTIE_VERSION = "3.4.1"

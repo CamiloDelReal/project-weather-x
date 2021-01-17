@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/h35">
             <CustomAttribute
                 app:attributeName="arcHeightDp"
-                app:customDimension="@dimen/_minus16sdp" />
+                app:customDimension="@dimen/home_background_arc_collapsed" />
         </Constraint>
 
     </ConstraintSet>
