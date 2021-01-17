@@ -102,7 +102,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun startWeatherMonitorCustomPlace(customPlace: Place) {
+    private fun startWeatherMonitorCustomPlace(customPlace: Place) {
         stopMonitors()
         settings.setLastPlaceMonitored(customPlace.id)
         place = customPlace
@@ -117,7 +117,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun startWeatherMonitorCurrentPlace() {
+    private fun startWeatherMonitorCurrentPlace() {
         stopMonitors()
         if (networkTracker.isConnectedToInternet()) {
             Timber.i("AppLogger - Internet gateway detected")
@@ -152,7 +152,7 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun monitorCurrentPlace() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             gpsTracker.location?.let { location ->
                 try {
                     val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
@@ -243,7 +243,7 @@ class HomeViewModel @ViewModelInject constructor(
     fun stopMonitors() {
         gpsTracker.stop()
         stopJobWeatherScheduler()
-        stopJobWeatherScheduler()
+        stopJobGpsTrackerScheduler()
     }
 
     private fun stopJobWeatherScheduler() {

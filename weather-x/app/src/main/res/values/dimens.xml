@@ -97,11 +97,15 @@
     <dimen name="popup_more_options_button_padding">24dp</dimen>
     <dimen name="popup_more_options_button_padding_with_check">12dp</dimen>
 
+    <dimen name="about_toolbar_height_expanded">240dp</dimen>
+    <dimen name="about_toolbar_height_collapsed">60dp</dimen>
+
     <dimen name="about_reference_padding">6dp</dimen>
     <dimen name="about_reference_icon_size">40dp</dimen>
     <dimen name="about_reference_content_space">12dp</dimen>
 
     <dimen name="about_padding">12dp</dimen>
+    <dimen name="about_header_content_space">16dp</dimen>
     <dimen name="about_header_content_padding">6dp</dimen>
     <dimen name="about_icon_size">100dp</dimen>
     <dimen name="about_space">12dp</dimen>
