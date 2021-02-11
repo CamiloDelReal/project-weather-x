@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.karumi.dexter.Dexter
@@ -121,11 +122,11 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         })
 
-        viewModel.working().observe(viewLifecycleOwner, { isWorking ->
+        viewModel.working().observe(viewLifecycleOwner) { isWorking ->
 
-        })
+        }
 
-        viewModel.message().observe(viewLifecycleOwner, { message ->
+        viewModel.message().observe(viewLifecycleOwner) { message ->
             when(message.type) {
                 Message.Type.MESSAGE -> {
 
@@ -160,7 +161,7 @@ class HomeFragment @Inject constructor() : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         btnAdd.setOnClickListener {
             val moreOptionPopup = MoreOptionsPopup()
@@ -222,7 +223,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             .check()
     }
 
-    fun prepareForLoading() {
+    private fun prepareForLoading() {
         val lastAnimation = LottieAnimationViewBindings.weatherAnimation(
             viewModel.lastConditionCode(),
             viewModel.lastWasDayLight(),
