@@ -23,7 +23,7 @@
     <dimen name="home_condition_text_padding">12dp</dimen>
     <dimen name="home_county_title_text_size">26sp</dimen>
     <dimen name="home_county_text_padding_bottom">6dp</dimen>
-    <dimen name="home_condition_text_size_expanded">16sp</dimen>
+    <dimen name="home_condition_text_size_expanded">12sp</dimen>
     <dimen name="home_condition_text_size_collapsed">6sp</dimen>
     <dimen name="home_condition_image_size_state_1">80dp</dimen>
     <dimen name="home_condition_image_size_state_2">160dp</dimen>

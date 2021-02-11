@@ -38,33 +38,37 @@ Simple open source android application to get weather information
 
 ### Services and Libraries
 - Weather Service
-  * Open Weather [link](https://openweathermap.org)
+  * [Open Weather](https://openweathermap.org)
 - Fonts
-  * Quicksand [link](https://fonts.google.com/specimen/Quicksand)
+  * [Quicksand](https://fonts.google.com/specimen/Quicksand)
 - Icons
-  * Material Design Icons [link](https://materialdesignicons.com)
+  * [Material Design Icons](https://materialdesignicons.com)
 - Animated Icons
-  * Lottie Files designed by jochang from LottieFiles [link](https://lottiefiles.com/user/26177)
+  * [Lottie Files designed by jochang from LottieFiles](https://lottiefiles.com/user/26177)
 - Colors
-  * Gradient inspirations from uiGradients [link](https://uigradients.com)
+  * [Gradient inspirations from uiGradients](https://uigradients.com)
 - Libraries and Tools
-  * Android Jetpack [link](https://developer.android.com/jetpack)
-  * Android Kotlin [link](https://developer.android.com/kotlin)
-  * Google Play Service for Location [link](https://developer.android.com/training/location)
-  * Dexter [link](https://github.com/Karumi/Dexter)
-  * Lottie for Android [link](https://github.com/airbnb/lottie-android)
-  * Retrofit [link](https://github.com/square/retrofit)
-  * Moshi [link](https://github.com/square/moshi)
-  * ShapeOfView [link](https://github.com/florent37/ShapeOfView)
-  * Toasty [link](https://github.com/GrenderG/Toasty)
-  * Timber [link](https://github.com/JakeWharton/timber)
+  * [Android Jetpack](https://developer.android.com/jetpack)
+  * [Android Kotlin](https://developer.android.com/kotlin)
+  * [Google Play Service for Location](https://developer.android.com/training/location)
+  * [Dexter](https://github.com/Karumi/Dexter)
+  * [Lottie for Android](https://github.com/airbnb/lottie-android)
+  * [Retrofit](https://github.com/square/retrofit)
+  * [Moshi](https://github.com/square/moshi)
+  * [ShapeOfView](https://github.com/florent37/ShapeOfView)
+  * [Toasty](https://github.com/GrenderG/Toasty)
+  * [Timber](https://github.com/JakeWharton/timber)
 
 ### Screenshots
 <p float="left">
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home.jpg" width="30%" height="30%" />
-<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/current_day_details.jpg" width="30%" height="30%" />
+<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/current_details.jpg" width="30%" height="30%" />
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/future_details.jpg" width="30%" height="30%" />
-<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/current_day_details_dark.jpg" width="30%" height="30%" />
+<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/current_details_dark.jpg" width="30%" height="30%" />
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/future_details_dark.jpg" width="30%" height="30%" />
+<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/about_popup.jpg" width="30%" height="30%" />
+<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home_light_snow.jpg" width="30%" height="30%" />
+<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home_heavy_rain_and_mist.jpg" width="30%" height="30%" />
+<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home_night.jpg" width="30%" height="30%" />
 </p>
 
