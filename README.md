@@ -67,6 +67,7 @@ Simple open source android application to get weather information
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/current_details_dark.jpg" width="30%" height="30%" />
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/future_details_dark.jpg" width="30%" height="30%" />
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/about_popup.jpg" width="30%" height="30%" />
+<img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home_scattered_clouds.jpg" width="30%" height="30%" />
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home_light_snow.jpg" width="30%" height="30%" />
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home_heavy_rain_and_mist.jpg" width="30%" height="30%" />
 <img src="https://github.com/CamiloDelReal/project-weather-x/blob/develop/screenshots/home_night.jpg" width="30%" height="30%" />
