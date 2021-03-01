@@ -4,10 +4,10 @@ import android.content.Context
 import android.location.Geocoder
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
@@ -26,9 +26,11 @@ import org.xapps.apps.weatherx.views.utils.Message
 import org.xapps.apps.weatherx.views.utils.Utilities
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 
-class HomeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val settings: SettingsService,
     private val networkTracker: NetworkTracker,
