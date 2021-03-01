@@ -23,7 +23,7 @@ object Build {
     const val APP_NAME = "WeatherX"
     const val MAJOR_VERSION = 1
     const val MINOR_VERSION = 2
-    const val PATH_VERSION = 7
+    const val PATH_VERSION = 8
     const val STATUS_VERSION = ""
 }
 
@@ -31,7 +31,6 @@ object Repositories {
     fun addBuildScriptRepositories(handler: RepositoryHandler) {
         handler.google()
         handler.jcenter()
-        //handler.gradlePluginPortal()  // Unstable
         handler.maven(url = "https://plugins.gradle.org/m2")
         handler.maven(url = "https://maven.fabric.io/public")
         handler.maven(url = "https://clojars.org/repo/")
