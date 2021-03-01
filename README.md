@@ -35,6 +35,7 @@ Simple open source android application to get weather information
 
 ### Future features
 - Allow user to choose custom location
+- Launcher widget with background service
 
 ### Services and Libraries
 - Weather Service
