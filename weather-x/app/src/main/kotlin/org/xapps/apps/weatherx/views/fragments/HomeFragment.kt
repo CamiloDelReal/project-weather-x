@@ -164,13 +164,26 @@ class HomeFragment @Inject constructor() : Fragment() {
         }
 
         btnAdd.setOnClickListener {
-            val moreOptionPopup = MoreOptionsPopup()
-            moreOptionPopup.setTargetFragment(
-                this@HomeFragment,
-                MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE
-            )
-            val fragmentManager = parentFragmentManager.beginTransaction()
-            moreOptionPopup.show(fragmentManager, "MoreOptionsPopup")
+            MoreOptionsPopup.showDialog(
+                parentFragmentManager
+            ) { _, data ->
+                val option = if (data.containsKey(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION)) {
+                    data.getInt(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION)
+                } else {
+                    -1
+                }
+                when (option) {
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
+                        viewModel.startWeatherMonitor()
+                    }
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
+                        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                    MoreOptionsPopup.MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW -> {
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
+                    }
+                }
+            }
         }
 
         btnTryAgain.setOnClickListener {
@@ -283,27 +296,6 @@ class HomeFragment @Inject constructor() : Fragment() {
                     lastConditionBottomColor!!
                 )
             }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_CODE) {
-            if (resultCode == MoreOptionsPopup.MORE_OPTIONS_POPUP_ACCEPTED_CODE) {
-                val option = data?.getIntExtra(MoreOptionsPopup.MORE_OPTIONS_POPUP_OPTION, -1) ?: -1
-                when (option) {
-                    MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
-                        viewModel.startWeatherMonitor()
-                    }
-                    MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
-                        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
-                    }
-                    MoreOptionsPopup.MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW -> {
-                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
-                    }
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
