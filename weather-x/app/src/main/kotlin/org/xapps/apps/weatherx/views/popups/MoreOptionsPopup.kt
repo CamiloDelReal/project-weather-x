@@ -1,12 +1,15 @@
 package org.xapps.apps.weatherx.views.popups
 
-import android.content.Intent
 import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.content_popup_more_options.*
+import org.xapps.apps.weatherx.BuildConfig
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.ContentPopupMoreOptionsBinding
 import org.xapps.apps.weatherx.services.settings.SettingsService
@@ -15,6 +18,24 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreOptionsPopup @Inject constructor() : DialogFragment() {
+
+    companion object {
+        const val REQUEST_KEY = "MoreOptionsPopup"
+
+        const val MORE_OPTIONS_POPUP_OPTION = "MoreOptionsPopupOption"
+        const val MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED = 210
+        const val MORE_OPTIONS_POPUP_DARK_MODE_UPDATED = 211
+        const val MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW = 212
+
+        fun showDialog(
+            fragmentManager: FragmentManager,
+            listener: ((requestKey: String, bundle: Bundle) -> Unit)
+        ) {
+            val popup = MoreOptionsPopup()
+            popup.show(fragmentManager, MoreOptionsPopup::class.java.name)
+            popup.setFragmentResultListener(REQUEST_KEY, listener)
+        }
+    }
 
     private lateinit var bindings: ContentPopupMoreOptionsBinding
 
@@ -38,57 +59,62 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnUseMetric.isChecked = settings.useMetricSystem()
-        btnUseMetric.addOnCheckedChangeListener { _, isChecked ->
+        bindings.btnUseMetric.isChecked = settings.useMetricSystem()
+        bindings.btnUseMetric.addOnCheckedChangeListener { _, isChecked ->
             settings.setUseMetricSystem(isChecked)
-            val data = Intent().apply {
-                putExtra(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED)
+            val data = Bundle().apply {
+                putInt(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED)
             }
-            close(MORE_OPTIONS_POPUP_ACCEPTED_CODE, data)
+            close(data)
         }
 
-        btnDarkMode.isChecked = settings.isDarkModeOn()
-        btnDarkMode.addOnCheckedChangeListener { _, isChecked ->
+        bindings.btnDarkMode.isChecked = settings.isDarkModeOn()
+        bindings.btnDarkMode.addOnCheckedChangeListener { _, isChecked ->
             settings.setIsDarkModeOn(isChecked)
-            val data = Intent().apply {
-                putExtra(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_DARK_MODE_UPDATED)
+            val data = Bundle().apply {
+                putInt(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_DARK_MODE_UPDATED)
             }
-            close(MORE_OPTIONS_POPUP_ACCEPTED_CODE, data)
+            close(data)
         }
 
-        rootLayout.setOnClickListener {
-            close(MORE_OPTIONS_POPUP_NOT_ACCEPTED_CODE)
+        bindings.rootLayout.setOnClickListener {
+            close()
         }
 
-        btnAbout.setOnClickListener {
-            val data = Intent().apply {
-                putExtra(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW)
+        bindings.btnAbout.setOnClickListener {
+            val data = Bundle().apply {
+                putInt(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW)
             }
-            close(MORE_OPTIONS_POPUP_ACCEPTED_CODE, data)
+            close(data)
         }
     }
 
-    private fun close(code: Int, data: Intent? = null) {
-        targetFragment!!.onActivityResult(targetRequestCode, code, data)
+    private fun close(data: Bundle = Bundle()) {
+        setFragmentResult(REQUEST_KEY, data)
         dismiss()
     }
 
     override fun onResume() {
         val window = dialog!!.window
-        val size = Point()
-        val display = window!!.windowManager.defaultDisplay
-        display.getSize(size)
-        window.setLayout(
+//        val size = Point()
+//        val display = if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+//            window!!.windowManager.defaultDisplay
+//        } else {
+//            requireContext().display
+//        }
+//        window!!.windowManager.currentWindowMetrics.bounds
+//        display.getSize(size)
+        window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT
         )
-        window.setGravity(Gravity.CENTER)
+        window?.setGravity(Gravity.CENTER)
 
         dialog?.apply {
             setOnKeyListener { _, keyCode, _ ->
                 if ((keyCode ==  KeyEvent.KEYCODE_BACK))
                 {
-                    close(MORE_OPTIONS_POPUP_NOT_ACCEPTED_CODE)
+                    close()
                     true
                 }
                 else false
@@ -98,13 +124,4 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
         super.onResume()
     }
 
-    companion object {
-        const val MORE_OPTIONS_POPUP_CODE = 200
-        const val MORE_OPTIONS_POPUP_ACCEPTED_CODE = 201
-        const val MORE_OPTIONS_POPUP_NOT_ACCEPTED_CODE = 202
-        const val MORE_OPTIONS_POPUP_OPTION = "moreOptionsPopupOption"
-        const val MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED = 210
-        const val MORE_OPTIONS_POPUP_DARK_MODE_UPDATED = 211
-        const val MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW = 212
-    }
 }

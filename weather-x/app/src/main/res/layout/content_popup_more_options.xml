@@ -28,7 +28,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp">
+                    android:layout_height="@dimen/popup_more_options_button_with_note_height">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddPlace"

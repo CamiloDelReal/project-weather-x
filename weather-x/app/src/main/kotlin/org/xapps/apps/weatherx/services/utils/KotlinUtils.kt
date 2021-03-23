@@ -1,10 +1,12 @@
 package org.xapps.apps.weatherx.services.utils
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import java.util.*
 
 
+@OptIn(ExperimentalCoroutinesApi::class)
 object KotlinUtils {
 
     fun timerFlow(initialDelay: Long = 0, interval: Long) = callbackFlow<Void?> {

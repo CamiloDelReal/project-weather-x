@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_about.*
 import org.xapps.apps.weatherx.BuildConfig
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentAboutBinding
@@ -19,7 +18,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AboutFragment @Inject constructor() : Fragment() {
 
-    private lateinit var binding: FragmentAboutBinding
+    private lateinit var bindings: FragmentAboutBinding
 
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
@@ -27,10 +26,10 @@ class AboutFragment @Inject constructor() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAboutBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.version = BuildConfig.VERSION_NAME
-        return binding.root
+        bindings = FragmentAboutBinding.inflate(layoutInflater)
+        bindings.lifecycleOwner = viewLifecycleOwner
+        bindings.version = BuildConfig.VERSION_NAME
+        return bindings.root
     }
 
     private fun back() {
@@ -47,71 +46,71 @@ class AboutFragment @Inject constructor() : Fragment() {
             }
         }
 
-        btnBack.setOnClickListener {
+        bindings.btnBack.setOnClickListener {
             back()
         }
 
-        btnAboutLink.setOnClickListener {
+        bindings.btnAboutLink.setOnClickListener {
             launchUri(getString(R.string.project_github))
         }
 
-        btnLinkOpenWeather.setOnClickListener {
+        bindings.btnLinkOpenWeather.setOnClickListener {
             launchUri(getString(R.string.openweathermap_url))
         }
 
-        btnLinkGoogleFonts.setOnClickListener {
+        bindings.btnLinkGoogleFonts.setOnClickListener {
             launchUri(getString(R.string.quicksand_url))
         }
 
-        btnLinkMaterialDesignIcons.setOnClickListener {
+        bindings.btnLinkMaterialDesignIcons.setOnClickListener {
             launchUri(getString(R.string.material_design_icons_url))
         }
 
-        btnLinkLottieFiles.setOnClickListener {
+        bindings.btnLinkLottieFiles.setOnClickListener {
             launchUri(getString(R.string.lottiefiles_jochang_url))
         }
 
-        btnLinkUiGradients.setOnClickListener {
+        bindings.btnLinkUiGradients.setOnClickListener {
             launchUri(getString(R.string.uigradients_url))
         }
 
-        btnLinkAndroidJetpack.setOnClickListener {
+        bindings.btnLinkAndroidJetpack.setOnClickListener {
             launchUri(getString(R.string.android_jetpack_url))
         }
 
-        btnLinkAndroidKotlin.setOnClickListener {
+        bindings.btnLinkAndroidKotlin.setOnClickListener {
             launchUri(getString(R.string.android_kotlin_url))
         }
 
-        btnLinkGooglePlayLocation.setOnClickListener {
+        bindings.btnLinkGooglePlayLocation.setOnClickListener {
             launchUri(getString(R.string.android_google_play_service_location_url))
         }
 
-        btnLinkDexterPermissions.setOnClickListener {
+        bindings.btnLinkDexterPermissions.setOnClickListener {
             launchUri(getString(R.string.dexter_url))
         }
 
-        btnLinkRetrofit.setOnClickListener {
+        bindings.btnLinkRetrofit.setOnClickListener {
             launchUri(getString(R.string.retrofit_url))
         }
 
-        btnLinkMoshi.setOnClickListener {
+        bindings.btnLinkMoshi.setOnClickListener {
             launchUri(getString(R.string.moshi_url))
         }
 
-        btnLinkShapeOfView.setOnClickListener {
+        bindings.btnLinkShapeOfView.setOnClickListener {
             launchUri(getString(R.string.shape_of_view_url))
         }
 
-        btnLinkLottieForAndroid.setOnClickListener {
+        bindings.btnLinkLottieForAndroid.setOnClickListener {
             launchUri(getString(R.string.lottie_for_android_url))
         }
 
-        btnLinkToasty.setOnClickListener {
+        bindings.btnLinkToasty.setOnClickListener {
             launchUri(getString(R.string.toasty_url))
         }
 
-        btnLinkTimber.setOnClickListener {
+        bindings.btnLinkTimber.setOnClickListener {
             launchUri(getString(R.string.timber_url))
         }
     }

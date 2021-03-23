@@ -2,33 +2,36 @@ package org.xapps.apps.weatherx.viewmodels
 
 import android.content.Context
 import android.location.Geocoder
-import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
-import androidx.hilt.lifecycle.ViewModelInject
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import org.xapps.apps.weatherx.BR
+import kotlinx.coroutines.launch
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.local.PlaceDao
 import org.xapps.apps.weatherx.services.models.*
-import org.xapps.apps.weatherx.services.utils.NetworkTracker
 import org.xapps.apps.weatherx.services.repositories.WeatherRepository
 import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.services.utils.DateUtils
 import org.xapps.apps.weatherx.services.utils.GpsTracker
 import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
+import org.xapps.apps.weatherx.services.utils.NetworkTracker
 import org.xapps.apps.weatherx.views.utils.Message
 import org.xapps.apps.weatherx.views.utils.Utilities
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 
-class HomeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val settings: SettingsService,
     private val networkTracker: NetworkTracker,
@@ -50,19 +53,9 @@ class HomeViewModel @ViewModelInject constructor(
     fun working(): LiveData<Boolean> = workingEmitter
     fun message(): LiveData<Message> = messageEmitter
 
-    @get:Bindable
-    var place: Place? = null
-        private set(value) {
-            field = value
-            notifyPropertyChanged(BR.place)
-        }
+    val place: ObservableField<Place?> = ObservableField()
 
-    @get:Bindable
-    var currentWeather: Current? = null
-        private set(value) {
-            field = value
-            notifyPropertyChanged(BR.currentWeather)
-        }
+    val currentWeather: ObservableField<Current?> = ObservableField()
 
     val hourlyWeather = ObservableArrayList<Hourly>()
     val dailyWeather = ObservableArrayList<Daily>()
@@ -102,10 +95,10 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun startWeatherMonitorCustomPlace(customPlace: Place) {
+    private fun startWeatherMonitorCustomPlace(customPlace: Place) {
         stopMonitors()
         settings.setLastPlaceMonitored(customPlace.id)
-        place = customPlace
+        place.set(customPlace)
         session.currentPlace = customPlace
 
         if (networkTracker.isConnectedToInternet()) {
@@ -117,7 +110,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun startWeatherMonitorCurrentPlace() {
+    private fun startWeatherMonitorCurrentPlace() {
         stopMonitors()
         if (networkTracker.isConnectedToInternet()) {
             Timber.i("AppLogger - Internet gateway detected")
@@ -152,13 +145,13 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun monitorCurrentPlace() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             gpsTracker.location?.let { location ->
                 try {
                     val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     addresses.isNotEmpty().let {
                         val address = addresses[0]
-                        place = Place(
+                        val currentPlace = Place(
                             id = Place.CURRENT_PLACE_ID,
                             country = address.countryName,
                             city = address.locality,
@@ -166,8 +159,9 @@ class HomeViewModel @ViewModelInject constructor(
                             longitude = location.longitude,
                             code = address.countryCode
                         )
-                        session.currentPlace = place
-                        placeDao.insertAsync(place!!)
+                        place.set(currentPlace)
+                        session.currentPlace = currentPlace
+                        placeDao.insertAsync(currentPlace)
 
                         scheduleWeatherInfo()
                     }
@@ -182,8 +176,8 @@ class HomeViewModel @ViewModelInject constructor(
                     }
                     .collect { currentPlace ->
                         if(currentPlace != null) {
-                            place = currentPlace
-                            session.currentPlace = place
+                            place.set(currentPlace)
+                            session.currentPlace = currentPlace
 
                             scheduleWeatherInfo()
                         } else {
@@ -221,7 +215,7 @@ class HomeViewModel @ViewModelInject constructor(
                                         settings.setLastConditionCode(it.conditions[0].id)
                                     }
                                 }
-                                currentWeather = weather?.current
+                                currentWeather.set(weather?.current)
                                 weather?.hourly?.let {
                                     hourlyWeather.clear()
                                     hourlyWeather.addAll(it)
@@ -243,7 +237,7 @@ class HomeViewModel @ViewModelInject constructor(
     fun stopMonitors() {
         gpsTracker.stop()
         stopJobWeatherScheduler()
-        stopJobWeatherScheduler()
+        stopJobGpsTrackerScheduler()
     }
 
     private fun stopJobWeatherScheduler() {

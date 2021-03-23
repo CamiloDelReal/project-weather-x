@@ -125,7 +125,7 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/item_hourly_secondary_text_size"
                     android:textColor="?attr/colorOnSurface"
                     app:precipitation="@{data}"
                     tools:text="69%" />
@@ -149,7 +149,7 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/item_hourly_secondary_text_size"
                     android:textColor="?attr/colorOnSurface"
                     app:visibility="@{data}"
                     tools:text="69%" />
@@ -182,7 +182,7 @@
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/item_hourly_secondary_text_size"
                     android:textColor="?attr/colorOnSurface"
                     app:windSpeed="@{data}"
                     tools:text="888.9 km/h" />
