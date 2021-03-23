@@ -73,7 +73,7 @@ class GpsTracker(
             }
         }
 
-        locationRequest = LocationRequest().apply {
+        locationRequest = LocationRequest.create().apply {
             interval = TimeUnit.MINUTES.toMillis(MIN_TIME_BW_UPDATES)
             fastestInterval = TimeUnit.MINUTES.toMillis(MIN_FASTEST_TIME_BW_UPDATES)
             maxWaitTime = TimeUnit.MINUTES.toMillis(WAIT_FOR_BATCH_UPDATES)
@@ -82,47 +82,40 @@ class GpsTracker(
         }
 
         locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
+            override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
 
                 if (validateUpdates) {
                     Timber.i("AppLogger - Location validation active")
-                    if(locationResult?.lastLocation != null) {
-                        if (location != null) {
-                            Timber.i("AppLogger - Location is valid")
-                            val distanceKm = calculateCoordinatesDistanceKm(
-                                location!!.latitude,
-                                location!!.longitude,
-                                locationResult.lastLocation.latitude,
-                                locationResult.lastLocation.longitude
-                            )
-                            if ((distanceKm * 1000) >= MIN_DISPLACEMENT_FOR_UPDATES) {
-                                Timber.i("AppLogger - Location is in range to update")
-                                location = locationResult.lastLocation
-                            }
-                        } else {
-                            Timber.i("AppLogger - Current saved location is invalid, proceding to save the location recieved")
+                    if (location != null) {
+                        Timber.i("AppLogger - Location is valid")
+                        val distanceKm = calculateCoordinatesDistanceKm(
+                            location!!.latitude,
+                            location!!.longitude,
+                            locationResult.lastLocation.latitude,
+                            locationResult.lastLocation.longitude
+                        )
+                        if ((distanceKm * 1000) >= MIN_DISPLACEMENT_FOR_UPDATES) {
+                            Timber.i("AppLogger - Location is in range to update")
                             location = locationResult.lastLocation
                         }
                     } else {
-                        Timber.i("AppLogger - Location result is invalid")
-                        if(location == null) {
-                            error = Error.INVALID_LOCATION
-                        }
+                        Timber.i("AppLogger - Current saved location is invalid, proceding to save the location recieved")
+                        location = locationResult.lastLocation
                     }
                 } else {
                     Timber.i("AppLogger - Location validation is not active, proceding to save new location")
-                    location = locationResult?.lastLocation
+                    location = locationResult.lastLocation
                 }
             }
         }
 
-        locationProvider?.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+        locationProvider?.requestLocationUpdates(locationRequest!!, locationCallback!!, Looper.myLooper()!!)
     }
 
 
     fun stop() {
-        val removeTask = locationProvider?.removeLocationUpdates(locationCallback)
+        val removeTask = locationProvider?.removeLocationUpdates(locationCallback!!)
         removeTask?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Timber.i("AppLogger - Location callback removed")

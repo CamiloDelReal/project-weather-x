@@ -10,7 +10,6 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-android")
@@ -47,6 +46,9 @@ android {
 
     (this as ExtensionAware).configure < KotlinJvmOptions > {
         jvmTarget = "1.8"
+    }
+    tasks.withType().configureEach {
+        kotlinOptions.freeCompilerArgs += "-Xopt-in=org.mylibrary.OptInAnnotation"
     }
 
     android.buildFeatures.dataBinding = true

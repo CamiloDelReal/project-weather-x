@@ -10,11 +10,9 @@ import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
-import kotlinx.android.synthetic.main.content_card_forecast.view.*
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.ContentCardForecastBinding
 import org.xapps.apps.weatherx.services.models.Current
-import timber.log.Timber
 import java.util.*
 
 
@@ -24,6 +22,8 @@ class ForecastCardView @JvmOverloads constructor(
     defStyle: Int = 0,
     defStyleRes: Int = 0
 ) : LinearLayout(context, attrs, defStyle, defStyleRes) {
+
+    private var bindings: ContentCardForecastBinding
 
     private var clickableButton = false
 
@@ -38,21 +38,21 @@ class ForecastCardView @JvmOverloads constructor(
         a.recycle()
 
         val layoutInflater = LayoutInflater.from(context)
-        ContentCardForecastBinding.inflate(layoutInflater, this, true)
+        bindings = ContentCardForecastBinding.inflate(layoutInflater, this, true)
 
         if(icon != -1) {
-            imgIcon.setImageResource(icon)
-            ImageViewCompat.setImageTintList(imgIcon, ColorStateList.valueOf(iconTint))
+            bindings.imgIcon.setImageResource(icon)
+            ImageViewCompat.setImageTintList(bindings.imgIcon, ColorStateList.valueOf(iconTint))
             val iconSizeInDp = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 iconSize,
                 resources.displayMetrics
             ).toInt()
-            imgIcon.layoutParams.height = iconSizeInDp
-            imgIcon.layoutParams.width = iconSizeInDp
+            bindings.imgIcon.layoutParams.height = iconSizeInDp
+            bindings.imgIcon.layoutParams.width = iconSizeInDp
         }
-        txvValue.text = value
-        txvDescription.text = description
+        bindings.txvValue.text = value
+        bindings.txvDescription.text = description
 
         if(clickableButton) {
             val fgValue = TypedValue()
@@ -61,21 +61,21 @@ class ForecastCardView @JvmOverloads constructor(
                 fgValue,
                 true
             )
-            rootLayout.foreground = AppCompatResources.getDrawable(context, fgValue.resourceId)
+            bindings.rootLayout.foreground = AppCompatResources.getDrawable(context, fgValue.resourceId)
         }
     }
 
     fun setValue(value: String) {
-        txvValue.text = value
+        bindings.txvValue.text = value
     }
 
     fun setDescription(description: String) {
-        txvDescription.text = description
+        bindings.txvDescription.text = description
     }
 
     override fun setOnClickListener(newListener: OnClickListener?) {
         if(clickableButton) {
-            rootLayout.setOnClickListener(newListener)
+            bindings.rootLayout.setOnClickListener(newListener)
         }
     }
 
@@ -96,7 +96,7 @@ class ForecastCardView @JvmOverloads constructor(
                 if(popd == popl.toDouble())
                     String.format("%d%s", popl, "%")
                 else
-                    String.format(Locale.US, "%.1f%s", popd, "%")
+                    String.format("%.1f%s", popd, "%")
             } ?: run {
                 view.context.getString(R.string.not_available)
             }
@@ -119,9 +119,9 @@ class ForecastCardView @JvmOverloads constructor(
         fun windSpeed(view: ForecastCardView, value: Current?) {
             val valueStr = value?.let{info ->
                 if(info.useMetricSystem) {
-                    String.format(Locale.US, "%.1f km/h", info.windSpeed * 3.6)
+                    String.format("%.1f km/h", info.windSpeed * 3.6)
                 } else {
-                    String.format(Locale.US, "%.1f mph", info.windSpeed)
+                    String.format("%.1f mph", info.windSpeed)
                 }
             } ?: run {
                 view.context.getString(R.string.not_available)
@@ -158,9 +158,9 @@ class ForecastCardView @JvmOverloads constructor(
         fun realFeel(view: ForecastCardView, value: Current?) {
             val valueStr = value?.let{info ->
                 if(info.useMetricSystem) {
-                    String.format(Locale.US, "%.1f°C", info.feelsLike)
+                    String.format("%.1f°C", info.feelsLike)
                 } else {
-                    String.format(Locale.US, "%.1f°F", info.feelsLike)
+                    String.format("%.1f°F", info.feelsLike)
                 }
             } ?: run {
                 view.context.getString(R.string.not_available)
@@ -172,7 +172,7 @@ class ForecastCardView @JvmOverloads constructor(
         @BindingAdapter("uvindex")
         fun uvindex(view: ForecastCardView, value: Current?) {
             val valueStr = value?.let { info ->
-                String.format(Locale.US, "%.2f", info.uvi)
+                String.format("%.2f", info.uvi)
             } ?: run {
                 view.context.getString(R.string.not_available)
             }
@@ -197,7 +197,7 @@ class ForecastCardView @JvmOverloads constructor(
                 if(info.visibility < 1000) {
                     String.format("%d m", info.visibility)
                 } else {
-                    String.format(Locale.US, "%.1f km", info.visibility.toFloat() / 1000f)
+                    String.format("%.1f km", info.visibility.toFloat() / 1000f)
                 }
             } ?: run {
                 view.context.getString(R.string.not_available)
