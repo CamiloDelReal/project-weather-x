@@ -45,7 +45,7 @@
 	<string name="libraries_and_tools">Bibliotecas y Herramientas</string>
 	<string name="metric_system">Sistema métrico</string>
 	<string name="about_description_1">Sólo una aplicación sencilla por diversión, pero se puede utilizar para obtener información sobre el tiempo xD</string>
-	<string name="about_description_2">Nos puedes encontrar en GitHub (toqua este texto) y así ayudar a mejorar.</string>
+	<string name="about_description_2">Puedes encontrarnos en GitHub (toca este texto) y ayudarnos a mejorar. Todas las herramientas y bibliotecas que se usan en este proyecto son gratuitas, no todos los íconos que se muestran en esta sección provienen del proyecto correspondiente, en algunos solo tomamos una foto y creamos un ícono para usar aquí :)</string>
 	<string name="location_unknown_error">Error desconocido desde el proveedor de Localización</string>
 	<string name="location_provider_error">El proveedor de Localización no pudo obtener la última ubicación conocida</string>
 	<string name="gps_disabled">Servicio GPS desactivado o se está obteniendo ahora. Por favor, habilite el servicio GPS de su dispositivo al menos una vez para obtener su ubicación, no lo necesitará nuevamente a menos que desee un monitoreo en tiempo real o cambie de ubicación</string>
