@@ -67,10 +67,8 @@ class WeatherRepository @Inject constructor(
                 startHourlyIndex,
                 startHourlyIndex + settings.hourlyVisibleItemsSize()
             )
-                ?.apply {
-                    forEach {
-                        it.useMetricSystem = settings.useMetricSystem()
-                    }
+                ?.onEach {
+                    it.useMetricSystem = settings.useMetricSystem()
                 }
             emit(weather.hourly)
         }.flowOn(Dispatchers.Main)
@@ -91,7 +89,7 @@ class WeatherRepository @Inject constructor(
                 startDailyIndex,
                 startDailyIndex + settings.dailyVisibleItemsSize()
             )
-                ?.apply { forEach { it.useMetricSystem = settings.useMetricSystem() } }
+                ?.onEach { it.useMetricSystem = settings.useMetricSystem() }
             emit(weather.daily)
         }.flowOn(Dispatchers.Main)
     }
@@ -140,7 +138,7 @@ class WeatherRepository @Inject constructor(
                 startDailyIndex,
                 startDailyIndex + settings.dailyVisibleItemsSize()
             )
-                ?.apply { forEach { it.useMetricSystem = settings.useMetricSystem() } }
+                ?.onEach { it.useMetricSystem = settings.useMetricSystem() }
             Timber.i("AppLogger - Checking current ${weather.current?.useMetricSystem}")
             emit(weather)
         }.flowOn(Dispatchers.Main)
@@ -176,18 +174,16 @@ class WeatherRepository @Inject constructor(
                 startHourlyIndex,
                 startHourlyIndex + settings.hourlyVisibleItemsSize()
             )
-                ?.apply {
-                    forEach {
-                        it.useMetricSystem = settings.useMetricSystem()
-                        val hourlyCalendar =
-                            Calendar.getInstance().apply { timeInMillis = it.datetime }
-                        if (calendar != null && (calendar.get(Calendar.DAY_OF_YEAR) != hourlyCalendar.get(Calendar.DAY_OF_YEAR))) {
-                            calendar.add(Calendar.DAY_OF_YEAR, 1)
-                            index++
-                        }
-                        it.sunrise = weather.daily?.let { it[index].sunrise } ?: 0
-                        it.sunset = weather.daily?.let { it[index].sunset } ?: 0
+                ?.onEach {
+                    it.useMetricSystem = settings.useMetricSystem()
+                    val hourlyCalendar =
+                        Calendar.getInstance().apply { timeInMillis = it.datetime }
+                    if (calendar != null && (calendar.get(Calendar.DAY_OF_YEAR) != hourlyCalendar.get(Calendar.DAY_OF_YEAR))) {
+                        calendar.add(Calendar.DAY_OF_YEAR, 1)
+                        index++
                     }
+                    it.sunrise = weather.daily?.let { it[index].sunrise } ?: 0
+                    it.sunset = weather.daily?.let { it[index].sunset } ?: 0
                 }
             val startDailyIndex = findNextDayIndex(weather.daily)
             weather.daily = weather.daily?.subList(
@@ -201,18 +197,18 @@ class WeatherRepository @Inject constructor(
 
     private fun fixDatetime(weather: Weather?) {
         weather?.let {
-            it.current?.let {
-                it.datetime *= 1000L
-                it.sunrise *= 1000L
-                it.sunset *= 1000L
+            it.current?.apply {
+                datetime *= 1000L
+                sunrise *= 1000L
+                sunset *= 1000L
             }
-            it.minutely?.let { it.forEach { minute -> minute.datetime *= 1000L } }
-            it.hourly?.let { it.forEach { hour -> hour.datetime *= 1000L } }
-            it.daily?.let { it.forEach { day ->
+            it.minutely?.onEach { minute -> minute.datetime *= 1000L }
+            it.hourly?.onEach { hour -> hour.datetime *= 1000L }
+            it.daily?.onEach { day ->
                 day.datetime *= 1000L
                 day.sunrise *= 1000L
                 day.sunset *= 1000L
-            } }
+            }
         }
     }
 
