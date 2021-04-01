@@ -96,14 +96,6 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
 
     override fun onResume() {
         val window = dialog!!.window
-//        val size = Point()
-//        val display = if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-//            window!!.windowManager.defaultDisplay
-//        } else {
-//            requireContext().display
-//        }
-//        window!!.windowManager.currentWindowMetrics.bounds
-//        display.getSize(size)
         window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT
