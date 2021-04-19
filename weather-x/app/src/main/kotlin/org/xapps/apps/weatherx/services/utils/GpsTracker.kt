@@ -43,7 +43,7 @@ class GpsTracker(
     var location: Location? = null
         private set(value) {
             field = value
-            updaterEmitter.value = value
+            value?.let { updaterEmitter.value = it }
         }
 
     fun watchUpdater(): Flow<Location> {
