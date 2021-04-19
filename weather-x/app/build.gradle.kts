@@ -65,7 +65,7 @@ android {
     }
 
     buildTypes["release"].apply {
-        isMinifyEnabled = true
+        isMinifyEnabled = false
         val openWeatherMapApiKey: String by System.getProperties()
         buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", openWeatherMapApiKey)
 
