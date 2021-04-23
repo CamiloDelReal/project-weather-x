@@ -385,6 +385,25 @@
             app:layout_constraintStart_toEndOf="@id/v2"
             app:visibilityMode="ignore" />
 
+        <Constraint
+            android:id="@+id/lotUpwardsBegin"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:alpha="0.0"/>
+
+        <Constraint
+            android:id="@+id/lotUpwards"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:rotation="0"
+            android:alpha="0.0"/>
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/setBegin">
@@ -741,6 +760,25 @@
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
             app:visibilityMode="ignore" />
+
+        <Constraint
+            android:id="@+id/lotUpwardsBegin"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:alpha="1.0"/>
+
+        <Constraint
+            android:id="@+id/lotUpwards"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:rotation="0"
+            android:alpha="0.0"/>
 
     </ConstraintSet>
 
@@ -1101,6 +1139,25 @@
             app:layout_constraintStart_toEndOf="@id/v2"
             app:visibilityMode="ignore" />
 
+        <Constraint
+            android:id="@+id/lotUpwardsBegin"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:alpha="0.0"/>
+
+        <Constraint
+            android:id="@+id/lotUpwards"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:rotation="0"
+            android:alpha="1.0"/>
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/setEnd">
@@ -1460,6 +1517,25 @@
             app:layout_constraintEnd_toStartOf="@id/v98"
             app:layout_constraintStart_toEndOf="@id/v2"
             app:visibilityMode="ignore" />
+
+        <Constraint
+            android:id="@+id/lotUpwardsBegin"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:alpha="0.0"/>
+
+        <Constraint
+            android:id="@+id/lotUpwards"
+            android:layout_width="@dimen/upwards_size"
+            android:layout_height="@dimen/upwards_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:rotation="180"
+            android:alpha="1.0"/>
 
     </ConstraintSet>
 

@@ -10,6 +10,8 @@
 
     <dimen name="dragger_height">2dp</dimen>
 
+    <dimen name="upwards_size">48dp</dimen>
+
     <dimen name="home_button_add_height">54dp</dimen>
     <dimen name="home_button_add_width">54dp</dimen>
 

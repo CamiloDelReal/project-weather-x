@@ -66,8 +66,12 @@ class AboutFragment @Inject constructor() : Fragment() {
             launchUri(getString(R.string.material_design_icons_url))
         }
 
-        bindings.btnLinkLottieFiles.setOnClickListener {
+        bindings.btnLinkLottieFiles1.setOnClickListener {
             launchUri(getString(R.string.lottiefiles_jochang_url))
+        }
+
+        bindings.btnLinkLottieFiles2.setOnClickListener {
+            launchUri(getString(R.string.lottiefiles_kerembalku_url))
         }
 
         bindings.btnLinkUiGradients.setOnClickListener {
