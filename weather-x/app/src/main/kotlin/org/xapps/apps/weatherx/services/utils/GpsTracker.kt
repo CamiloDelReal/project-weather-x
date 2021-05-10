@@ -4,12 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import android.os.Looper
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asFlow
 import com.google.android.gms.location.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -23,8 +20,11 @@ class GpsTracker(
     private var locationRequest: LocationRequest? = null
     private var locationCallback: LocationCallback? = null
 
-    private val errorEmitter = MutableLiveData<Error>()
-    private val updaterEmitter = MutableLiveData<Location>()
+    private val _errorFlow = MutableSharedFlow<Error>(replay = 1)
+    private val _updaterFlow = MutableSharedFlow<Location>(replay = 1)
+
+    val errorFlow: SharedFlow<Error> = _errorFlow
+    val updaterFlow: SharedFlow<Location?> = _updaterFlow
 
     enum class Error {
         NONE,
@@ -37,22 +37,17 @@ class GpsTracker(
     var error: Error = Error.NONE
         private set(value) {
             field = value
-            errorEmitter.value = value
+            _errorFlow.tryEmit(value)
         }
 
     var location: Location? = null
         private set(value) {
             field = value
-            value?.let { updaterEmitter.value = it }
+            value?.let {
+                Timber.i("AppLogger - About to emit $value")
+                _updaterFlow.tryEmit(it)
+            }
         }
-
-    fun watchUpdater(): Flow<Location> {
-        return updaterEmitter.asFlow().flowOn(Dispatchers.Main)
-    }
-
-    fun watchError(): Flow<Error> {
-        return errorEmitter.asFlow().flowOn(Dispatchers.Main)
-    }
 
     fun start() {
         Timber.i("AppLogger - GPSTracker has started")
@@ -86,7 +81,7 @@ class GpsTracker(
                 super.onLocationResult(locationResult)
 
                 if (validateUpdates) {
-                    Timber.i("AppLogger - Location validation active")
+                    Timber.i("AppLogger - Location validation active $location")
                     if (location != null) {
                         Timber.i("AppLogger - Location is valid")
                         val distanceKm = calculateCoordinatesDistanceKm(
@@ -95,6 +90,7 @@ class GpsTracker(
                             locationResult.lastLocation.latitude,
                             locationResult.lastLocation.longitude
                         )
+                        Timber.i("Distance from last location ${distanceKm}Km ${distanceKm * 1000} ${MIN_DISPLACEMENT_FOR_UPDATES}")
                         if ((distanceKm * 1000) >= MIN_DISPLACEMENT_FOR_UPDATES) {
                             Timber.i("AppLogger - Location is in range to update")
                             location = locationResult.lastLocation

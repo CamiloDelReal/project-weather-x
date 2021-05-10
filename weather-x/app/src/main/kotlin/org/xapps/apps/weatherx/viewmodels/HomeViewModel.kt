@@ -4,15 +4,12 @@ import android.content.Context
 import android.location.Geocoder
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.local.PlaceDao
@@ -42,16 +39,16 @@ class HomeViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
 ) : ObservableViewModel() {
 
-    private val workingEmitter: MutableLiveData<Boolean> = MutableLiveData()
-    private val messageEmitter: MutableLiveData<Message> = MutableLiveData()
+    private val _workingFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val _messageFlow: MutableSharedFlow<Message> = MutableSharedFlow(replay = 1)
+
+    val workingFlow: StateFlow<Boolean> = _workingFlow
+    val messageFlow: SharedFlow<Message> = _messageFlow
 
     private var jobNetworkTracker: Job? = null
     private var jobGpsTrackerErrors: Job? = null
     private var jobGpsTrackerUpdates: Job? = null
     private var jobWeatherInfo: Job? = null
-
-    fun working(): LiveData<Boolean> = workingEmitter
-    fun message(): LiveData<Message> = messageEmitter
 
     val place: ObservableField<Place?> = ObservableField()
 
@@ -88,7 +85,7 @@ class HomeViewModel @Inject constructor(
                             startWeatherMonitorCustomPlace(customPlace)
                         } else {
                             Timber.i("AppLogger - The request place couldn't be found in the database")
-                            messageEmitter.postValue(Message.error(context.getString(R.string.error_retrieving_place_from_db)))
+                            _messageFlow.tryEmit(Message.error(context.getString(R.string.error_retrieving_place_from_db)))
                         }
                     }
             }
@@ -106,7 +103,7 @@ class HomeViewModel @Inject constructor(
             scheduleWeatherInfo()
         } else {
             Timber.i("AppLogger - Internet connection not found")
-            messageEmitter.postValue(Message.error(context.getString(R.string.internet_not_detected)))
+            _messageFlow.tryEmit(Message.error(context.getString(R.string.internet_not_detected)))
         }
     }
 
@@ -115,22 +112,21 @@ class HomeViewModel @Inject constructor(
         if (networkTracker.isConnectedToInternet()) {
             Timber.i("AppLogger - Internet gateway detected")
             jobGpsTrackerErrors = viewModelScope.launch {
-                gpsTracker.watchError()
-                    .collect { error ->
+                gpsTracker.errorFlow.collect { error ->
                         Timber.i("AppLogger - GpsTracker has returned error $error")
-                        if(currentWeather == null && session.currentPlace == null) {
+                        if(currentWeather.get() == null && session.currentPlace == null) {
                             val errorMessage = when (error) {
                                 GpsTracker.Error.INVALID_LOCATION -> context.getString(R.string.gps_disabled)
                                 GpsTracker.Error.PROVIDER_ERROR -> context.getString(R.string.location_provider_error)
                                 else -> context.getString(R.string.location_unknown_error)
                             }
-                            messageEmitter.postValue(Message.error(errorMessage))
+                            _messageFlow.tryEmit(Message.error(errorMessage))
                         }
                     }
             }
             jobGpsTrackerUpdates = viewModelScope.launch {
-                gpsTracker.watchUpdater()
-                    .collect { location ->
+                Timber.i("AppLogger - About to start to collect updates from gps tracker")
+                gpsTracker.updaterFlow.collect { location ->
                         Timber.i("AppLogger - Location recieved from tracker $location")
                         monitorCurrentPlace()
                     }
@@ -140,7 +136,7 @@ class HomeViewModel @Inject constructor(
             monitorCurrentPlace()
         } else {
             Timber.i("AppLogger - Internet connection not found")
-            messageEmitter.postValue(Message.error(context.getString(R.string.internet_not_detected)))
+            _messageFlow.tryEmit(Message.error(context.getString(R.string.internet_not_detected)))
         }
     }
 
@@ -182,7 +178,7 @@ class HomeViewModel @Inject constructor(
                             scheduleWeatherInfo()
                         } else {
                             Timber.i("AppLogger - There isn't a place saved in database")
-                            messageEmitter.postValue(Message.error(context.getString(R.string.gps_disabled)))
+                            _messageFlow.tryEmit(Message.error(context.getString(R.string.gps_disabled)))
                         }
                     }
             }
@@ -198,7 +194,7 @@ class HomeViewModel @Inject constructor(
                         weatherRepository.currentHourlyDaily()
                             .catch { exception ->
                                 Timber.e(exception)
-                                messageEmitter.postValue(Message.error(exception.localizedMessage))
+                                _messageFlow.tryEmit(Message.error(exception.localizedMessage))
                             }
                             .collect { weather ->
                                 weather?.current?.let {
@@ -224,7 +220,7 @@ class HomeViewModel @Inject constructor(
                                     dailyWeather.clear()
                                     dailyWeather.addAll(it)
                                 }
-                                messageEmitter.postValue(Message.ready())
+                                _messageFlow.tryEmit(Message.ready())
                             }
                     }
                 } else {

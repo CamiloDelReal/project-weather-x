@@ -15,9 +15,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.karumi.dexter.Dexter
@@ -27,6 +25,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.flow.collect
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
 import org.xapps.apps.weatherx.services.settings.SettingsService
@@ -35,6 +34,7 @@ import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
 import org.xapps.apps.weatherx.views.utils.Message
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -121,46 +121,53 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         })
 
-        viewModel.working().observe(viewLifecycleOwner, Observer { _ ->
+        lifecycleScope.launchWhenResumed {
+            viewModel.workingFlow.collect { isWorking ->
+                Timber.i("Working changed to $isWorking")
+            }
+        }
 
-        })
+        lifecycleScope.launchWhenResumed {
+            viewModel.messageFlow.collect { message ->
+                when(message.type) {
+                    Message.Type.MESSAGE -> {
 
-        viewModel.message().observe(viewLifecycleOwner, Observer { message ->
-            when(message.type) {
-                Message.Type.MESSAGE -> {
-
-                }
-                Message.Type.ERROR -> {
-                    if (bindings.motionFg.currentState == R.id.setLoading) {
-                        bindings.txvError.text = message.data
-                        bindings.txvError.visibility = View.VISIBLE
-                        bindings.btnTryAgain.visibility = View.VISIBLE
-                    } else {
-                        Toasty.custom(
-                            requireContext(),
-                            message.data!!,
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                R.drawable.ic_information_outline
-                            ),
-                            ContextCompat.getColor(requireContext(), R.color.red_500),
-                            ContextCompat.getColor(requireContext(), R.color.white),
-                            Toasty.LENGTH_LONG,
-                            true,
-                            true
-                        ).show()
                     }
-                }
-                Message.Type.READY -> {
-                    updateNavigationBarColor(false, true)
-                    if (bindings.motionFg.currentState == R.id.setLoading) {
-                        bindings.txvError.visibility = View.INVISIBLE
-                        bindings.btnTryAgain.visibility = View.INVISIBLE
-                        bindings.motionFg.transitionToEnd()
+                    Message.Type.ERROR -> {
+                        if (bindings.motionFg.currentState == R.id.setLoading) {
+                            bindings.txvError.text = message.data
+                            bindings.txvError.visibility = View.VISIBLE
+                            bindings.btnTryAgain.visibility = View.VISIBLE
+                        } else {
+                            Toasty.custom(
+                                requireContext(),
+                                message.data!!,
+                                AppCompatResources.getDrawable(
+                                    requireContext(),
+                                    R.drawable.ic_information_outline
+                                ),
+                                ContextCompat.getColor(requireContext(), R.color.red_500),
+                                ContextCompat.getColor(requireContext(), R.color.white),
+                                Toasty.LENGTH_LONG,
+                                true,
+                                true
+                            ).show()
+                        }
+                    }
+                    Message.Type.READY -> {
+                        updateNavigationBarColor(false, true)
+                        if (bindings.motionFg.currentState == R.id.setLoading) {
+                            bindings.txvError.visibility = View.INVISIBLE
+                            bindings.btnTryAgain.visibility = View.INVISIBLE
+                            bindings.motionFg.transitionToEnd()
+                        }
                     }
                 }
             }
-        })
+        }
+
+
+
 
         bindings.btnAdd.setOnClickListener {
             MoreOptionsPopup.showDialog(
