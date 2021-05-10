@@ -146,8 +146,6 @@ dependencies {
     // Hilt
     implementation(Libraries.Hilt.CORE)
     kapt(Libraries.Hilt.COMPILER)
-    implementation(Libraries.Hilt.VIEWMODEL)
-    kapt(Libraries.Hilt.JETPACK_COMPILER)
 
     // Retrofit
     implementation(Libraries.Retrofit.CORE)
