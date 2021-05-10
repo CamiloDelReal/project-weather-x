@@ -572,8 +572,8 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotUpwardsBegin"
-                android:layout_width="@dimen/upwards_size"
-                android:layout_height="@dimen/upwards_size"
+                android:layout_width="@dimen/up_down_wards_size"
+                android:layout_height="@dimen/up_down_wards_size"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_speed="1"
@@ -584,15 +584,28 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lotUpwards"
-                android:layout_width="@dimen/upwards_size"
-                android:layout_height="@dimen/upwards_size"
+                android:layout_width="@dimen/up_down_wards_size"
+                android:layout_height="@dimen/up_down_wards_size"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_speed="1"
                 app:upwards="@{true}"
+                android:layout_marginEnd="@dimen/up_down_wards_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/v50" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lotDownwards"
+                android:layout_width="@dimen/up_down_wards_size"
+                android:layout_height="@dimen/up_down_wards_size"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_speed="1"
+                android:rotation="180"
+                app:upwards="@{true}"
+                android:layout_marginStart="@dimen/up_down_wards_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/v50" />
 
             <View
                 android:id="@+id/draggerEnd"

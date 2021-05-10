@@ -387,8 +387,8 @@
 
         <Constraint
             android:id="@+id/lotUpwardsBegin"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -396,12 +396,21 @@
 
         <Constraint
             android:id="@+id/lotUpwards"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginEnd="@dimen/up_down_wards_margin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:rotation="0"
+            app:layout_constraintEnd_toStartOf="@id/v50"
+            android:alpha="0.0"/>
+
+        <Constraint
+            android:id="@+id/lotDownwards"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginStart="@dimen/up_down_wards_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/v50"
+            android:rotation="180"
             android:alpha="0.0"/>
 
     </ConstraintSet>
@@ -763,8 +772,8 @@
 
         <Constraint
             android:id="@+id/lotUpwardsBegin"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -772,12 +781,21 @@
 
         <Constraint
             android:id="@+id/lotUpwards"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginEnd="@dimen/up_down_wards_margin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:rotation="0"
+            app:layout_constraintEnd_toStartOf="@id/v50"
+            android:alpha="0.0"/>
+
+        <Constraint
+            android:id="@+id/lotDownwards"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginStart="@dimen/up_down_wards_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/v50"
+            android:rotation="180"
             android:alpha="0.0"/>
 
     </ConstraintSet>
@@ -1141,8 +1159,8 @@
 
         <Constraint
             android:id="@+id/lotUpwardsBegin"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -1150,12 +1168,21 @@
 
         <Constraint
             android:id="@+id/lotUpwards"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginEnd="@dimen/up_down_wards_margin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:rotation="0"
+            app:layout_constraintEnd_toStartOf="@id/v50"
+            android:alpha="1.0"/>
+
+        <Constraint
+            android:id="@+id/lotDownwards"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginStart="@dimen/up_down_wards_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/v50"
+            android:rotation="180"
             android:alpha="1.0"/>
 
     </ConstraintSet>
@@ -1520,8 +1547,8 @@
 
         <Constraint
             android:id="@+id/lotUpwardsBegin"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -1529,11 +1556,21 @@
 
         <Constraint
             android:id="@+id/lotUpwards"
-            android:layout_width="@dimen/upwards_size"
-            android:layout_height="@dimen/upwards_size"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginEnd="@dimen/up_down_wards_margin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/v50"
+            android:alpha="0.0"/>
+
+        <Constraint
+            android:id="@+id/lotDownwards"
+            android:layout_width="@dimen/up_down_wards_size"
+            android:layout_height="@dimen/up_down_wards_size"
+            android:layout_marginStart="@dimen/up_down_wards_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/v50"
+            app:layout_constraintEnd_toEndOf="@id/v50"
             android:rotation="180"
             android:alpha="1.0"/>
 
