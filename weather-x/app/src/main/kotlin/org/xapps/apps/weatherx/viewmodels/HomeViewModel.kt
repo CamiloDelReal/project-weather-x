@@ -11,11 +11,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.services.local.PlaceDao
 import org.xapps.apps.weatherx.services.models.*
 import org.xapps.apps.weatherx.services.repositories.WeatherRepository
-import org.xapps.apps.weatherx.services.settings.SettingsService
+import org.xapps.apps.weatherx.services.repositories.SettingsRepository
 import org.xapps.apps.weatherx.services.utils.DateUtils
 import org.xapps.apps.weatherx.services.utils.GpsTracker
 import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
@@ -30,7 +31,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val settings: SettingsService,
+    private val settings: SettingsRepository,
     private val networkTracker: NetworkTracker,
     private val session: Session,
     private val gpsTracker: GpsTracker,
@@ -57,14 +58,18 @@ class HomeViewModel @Inject constructor(
     val hourlyWeather = ObservableArrayList<Hourly>()
     val dailyWeather = ObservableArrayList<Daily>()
 
+    private var internetAvailable = networkTracker.isConnectedToInternet()
+
     init {
         session.currentLanguage = Locale.getDefault().language
         jobNetworkTracker = viewModelScope.launch {
             networkTracker.connectivityWatcher()
                 .collect { isConnectionAvailable ->
-                    if (isConnectionAvailable) {
+                    if (isConnectionAvailable && isConnectionAvailable != internetAvailable) {
+                        Timber.i("Network tracker has returned connection available")
                         startWeatherMonitor()
                     }
+                    internetAvailable = isConnectionAvailable
                 }
         }
         networkTracker.start()
@@ -72,29 +77,33 @@ class HomeViewModel @Inject constructor(
 
     fun startWeatherMonitor() {
         Timber.i("AppLogger - Start weather monitor")
-        val lastPlaceId = settings.lastPlaceMonitored()
-        if (lastPlaceId == Place.CURRENT_PLACE_ID) {
-            Timber.i("AppLogger - Current place was the last monitored place")
-            startWeatherMonitorCurrentPlace()
-        } else {
-            Timber.i("AppLogger - A custom place was the last monitored place")
-            viewModelScope.launch {
-                placeDao.placeAsync(lastPlaceId)
-                    .collect { customPlace ->
-                        if(customPlace != null) {
-                            startWeatherMonitorCustomPlace(customPlace)
-                        } else {
-                            Timber.i("AppLogger - The request place couldn't be found in the database")
-                            _messageFlow.tryEmit(Message.error(context.getString(R.string.error_retrieving_place_from_db)))
+        viewModelScope.launch {
+            val lastPlaceId = settings.lastPlaceMonitoredValue()
+            if (lastPlaceId == Place.CURRENT_PLACE_ID) {
+                Timber.i("AppLogger - Current place was the last monitored place")
+                startWeatherMonitorCurrentPlace()
+            } else {
+                Timber.i("AppLogger - A custom place was the last monitored place")
+                viewModelScope.launch {
+                    placeDao.placeAsync(lastPlaceId)
+                        .collect { customPlace ->
+                            if (customPlace != null) {
+                                startWeatherMonitorCustomPlace(customPlace)
+                            } else {
+                                Timber.i("AppLogger - The request place couldn't be found in the database")
+                                _messageFlow.tryEmit(Message.error(context.getString(R.string.error_retrieving_place_from_db)))
+                            }
                         }
-                    }
+                }
             }
         }
     }
 
     private fun startWeatherMonitorCustomPlace(customPlace: Place) {
         stopMonitors()
-        settings.setLastPlaceMonitored(customPlace.id)
+        viewModelScope.launch {
+            settings.setLastPlaceMonitored(customPlace.id)
+        }
         place.set(customPlace)
         session.currentPlace = customPlace
 
@@ -113,23 +122,23 @@ class HomeViewModel @Inject constructor(
             Timber.i("AppLogger - Internet gateway detected")
             jobGpsTrackerErrors = viewModelScope.launch {
                 gpsTracker.errorFlow.collect { error ->
-                        Timber.i("AppLogger - GpsTracker has returned error $error")
-                        if(currentWeather.get() == null && session.currentPlace == null) {
-                            val errorMessage = when (error) {
-                                GpsTracker.Error.INVALID_LOCATION -> context.getString(R.string.gps_disabled)
-                                GpsTracker.Error.PROVIDER_ERROR -> context.getString(R.string.location_provider_error)
-                                else -> context.getString(R.string.location_unknown_error)
-                            }
-                            _messageFlow.tryEmit(Message.error(errorMessage))
+                    Timber.i("AppLogger - GpsTracker has returned error $error")
+                    if(currentWeather.get() == null && session.currentPlace == null) {
+                        val errorMessage = when (error) {
+                            GpsTracker.Error.INVALID_LOCATION -> context.getString(R.string.gps_disabled)
+                            GpsTracker.Error.PROVIDER_ERROR -> context.getString(R.string.location_provider_error)
+                            else -> context.getString(R.string.location_unknown_error)
                         }
+                        _messageFlow.tryEmit(Message.error(errorMessage))
                     }
+                }
             }
             jobGpsTrackerUpdates = viewModelScope.launch {
                 Timber.i("AppLogger - About to start to collect updates from gps tracker")
                 gpsTracker.updaterFlow.collect { location ->
-                        Timber.i("AppLogger - Location recieved from tracker $location")
-                        monitorCurrentPlace()
-                    }
+                    Timber.i("AppLogger - Location recieved from tracker $location")
+                    monitorCurrentPlace()
+                }
             }
             gpsTracker.validateUpdates = true
             gpsTracker.start()
@@ -185,44 +194,40 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun resetScheduleWeatherInfo() {
+        scheduleWeatherInfo()
+    }
+
     private fun scheduleWeatherInfo() {
         stopJobWeatherScheduler()
         jobWeatherInfo = viewModelScope.launch {
             timerFlow(interval = 1000 * 60 * 10).collect {
                 if (networkTracker.isConnectedToInternet()) {
-                    viewModelScope.launch {
-                        weatherRepository.currentHourlyDaily()
-                            .catch { exception ->
-                                Timber.e(exception)
-                                _messageFlow.tryEmit(Message.error(exception.localizedMessage))
-                            }
-                            .collect { weather ->
-                                weather?.current?.let {
-                                    settings.setLastTemperature(it.temperature)
-                                    settings.setLastWasVisible(Utilities.isVisible(it.visibility))
-                                    settings.setLastWasDayLight(
-                                        DateUtils.isDayLight(
-                                            sunrise = it.sunrise,
-                                            sunset = it.sunset,
-                                            datetime = it.datetime
-                                        )
-                                    )
-                                    if (it.conditions.isNotEmpty()) {
-                                        settings.setLastConditionCode(it.conditions[0].id)
-                                    }
-                                }
-                                currentWeather.set(weather?.current)
-                                weather?.hourly?.let {
-                                    hourlyWeather.clear()
-                                    hourlyWeather.addAll(it)
-                                }
-                                weather?.daily?.let {
-                                    dailyWeather.clear()
-                                    dailyWeather.addAll(it)
-                                }
-                                _messageFlow.tryEmit(Message.ready())
-                            }
+                    val weather = weatherRepository.currentHourlyDaily()
+                    weather?.current?.let {
+                        settings.setLastTemperature(it.temperature)
+                        settings.setLastWasVisible(Utilities.isVisible(it.visibility))
+                        settings.setLastWasDayLight(
+                            DateUtils.isDayLight(
+                                sunrise = it.sunrise,
+                                sunset = it.sunset,
+                                datetime = it.datetime
+                            )
+                        )
+                        if (it.conditions.isNotEmpty()) {
+                            settings.setLastConditionCode(it.conditions[0].id)
+                        }
                     }
+                    currentWeather.set(weather?.current)
+                    weather?.hourly?.let {
+                        hourlyWeather.clear()
+                        hourlyWeather.addAll(it)
+                    }
+                    weather?.daily?.let {
+                        dailyWeather.clear()
+                        dailyWeather.addAll(it)
+                    }
+                    _messageFlow.tryEmit(Message.ready())
                 } else {
                     Timber.i("AppLogger - Internet connection not found, skipping weather request")
                 }
@@ -237,7 +242,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun stopJobWeatherScheduler() {
-        if (jobWeatherInfo?.isActive == true) {
+        if(jobWeatherInfo?.isActive == true) {
             Timber.i("AppLogger - Stopping weather job")
             jobWeatherInfo?.cancel()
             jobWeatherInfo = null
@@ -257,14 +262,18 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun lastConditionCode(): Int = settings.lastConditionCode()
+    fun useMetricSystem(): Flow<Boolean> = settings.useMetricSystem()
 
-    fun lastWasDayLight(): Boolean = settings.lastWasDayLight()
+    fun isDarkModeOn(): Flow<Boolean> = settings.isDarkModeOn()
 
-    fun lastTemperature(): Double = settings.lastTemperature()
+    fun lastConditionCode(): Int = runBlocking { settings.lastConditionCodeValue() }
 
-    fun useMetricSystem(): Boolean = settings.useMetricSystem()
+    fun lastWasDayLight(): Boolean = runBlocking { settings.lastWasDayLightValue() }
 
-    fun lastWasThereVisibility(): Boolean = settings.lastWasThereVisibility()
+    fun lastTemperature(): Double = runBlocking { settings.lastTemperatureValue() }
+
+    fun useMetricSystemValue(): Boolean = runBlocking { settings.useMetricSystemValue() }
+
+    fun lastWasThereVisibility(): Boolean = runBlocking { settings.lastWasThereVisibilityValue() }
 
 }

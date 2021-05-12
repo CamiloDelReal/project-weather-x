@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import org.xapps.apps.weatherx.services.settings.SettingsService
+import org.xapps.apps.weatherx.services.repositories.SettingsRepository
 import javax.inject.Singleton
 
 
@@ -20,7 +20,7 @@ class SettingsModule {
 
     @Singleton
     @Provides
-    fun provideSettingsService(@ApplicationContext context: Context): SettingsService =
-        SettingsService(context, PREFERENCE_FILENAME)
+    fun provideSettingsService(@ApplicationContext context: Context): SettingsRepository =
+        SettingsRepository(context, PREFERENCE_FILENAME)
 
 }

@@ -1,12 +1,9 @@
 package org.xapps.apps.weatherx.services.repositories
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import org.xapps.apps.weatherx.services.models.*
 import org.xapps.apps.weatherx.services.remote.WeatherApi
-import org.xapps.apps.weatherx.services.settings.SettingsService
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -15,167 +12,106 @@ import javax.inject.Inject
 class WeatherRepository @Inject constructor(
     private val session: Session,
     private val weatherApi: WeatherApi,
-    private val settings: SettingsService
+    private val settings: SettingsRepository
 ) {
 
-    fun current(): Flow<Current?> {
-        return flow {
-            val weather = weatherApi.current(
-                session.apiKey,
-                session.currentPlace!!.latitude,
-                session.currentPlace!!.longitude,
-                session.currentLanguage!!,
-                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
-            )
-            fixDatetime(weather)
-            weather.current?.useMetricSystem = settings.useMetricSystem()
-            emit(weather.current)
-        }.flowOn(Dispatchers.Main)
+    suspend fun current(): Current? = withContext(Dispatchers.IO) {
+        val weather = weatherApi.current(
+            session.apiKey,
+            session.currentPlace!!.latitude,
+            session.currentPlace!!.longitude,
+            session.currentLanguage!!,
+            if (settings.useMetricSystemValue()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+        )
+        fixDatetime(weather)
+        weather.current?.useMetricSystem = settings.useMetricSystemValue()
+        weather.current
     }
 
-    fun minutely(): Flow<List<Minutely>?> {
-        return flow {
-            val weather = weatherApi.minutely(
-                session.apiKey,
-                session.currentPlace!!.latitude,
-                session.currentPlace!!.longitude,
-                session.currentLanguage!!,
-                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
-            )
-            fixDatetime(weather)
-            val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
-            weather.minutely = weather.minutely?.subList(
-                startMinutelyIndex,
-                startMinutelyIndex + settings.minutelyVisibleItemsSize()
-            )
-            emit(weather.minutely)
-        }.flowOn(Dispatchers.Main)
+    suspend fun minutely(): List<Minutely>? = withContext(Dispatchers.IO){
+        val weather = weatherApi.minutely(
+            session.apiKey,
+            session.currentPlace!!.latitude,
+            session.currentPlace!!.longitude,
+            session.currentLanguage!!,
+            if (settings.useMetricSystemValue()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+        )
+        fixDatetime(weather)
+        val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
+        weather.minutely = weather.minutely?.subList(
+            startMinutelyIndex,
+            startMinutelyIndex + settings.minutelyVisibleItemsSizeValue()
+        )
+        weather.minutely
     }
 
-    fun hourly(): Flow<List<Hourly>?> {
-        return flow {
-            val weather = weatherApi.hourly(
-                session.apiKey,
-                session.currentPlace!!.latitude,
-                session.currentPlace!!.longitude,
-                session.currentLanguage!!,
-                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
-            )
-            fixDatetime(weather)
-            val startHourlyIndex = findNextHourIndex(weather.hourly)
-            weather.hourly = weather.hourly?.subList(
-                startHourlyIndex,
-                startHourlyIndex + settings.hourlyVisibleItemsSize()
-            )
-                ?.onEach {
-                    it.useMetricSystem = settings.useMetricSystem()
-                }
-            emit(weather.hourly)
-        }.flowOn(Dispatchers.Main)
-    }
-
-    fun daily(): Flow<List<Daily>?> {
-        return flow {
-            val weather = weatherApi.daily(
-                session.apiKey,
-                session.currentPlace!!.latitude,
-                session.currentPlace!!.longitude,
-                session.currentLanguage!!,
-                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
-            )
-            fixDatetime(weather)
-            val startDailyIndex = findNextDayIndex(weather.daily)
-            weather.daily = weather.daily?.subList(
-                startDailyIndex,
-                startDailyIndex + settings.dailyVisibleItemsSize()
-            )
-                ?.onEach { it.useMetricSystem = settings.useMetricSystem() }
-            emit(weather.daily)
-        }.flowOn(Dispatchers.Main)
-    }
-
-    fun currentHourlyDaily(): Flow<Weather?> {
-        return flow {
-            val weather = weatherApi.currentHourlyDaily(
-                session.apiKey,
-                session.currentPlace!!.latitude,
-                session.currentPlace!!.longitude,
-                session.currentLanguage!!,
-                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
-            )
-            weather.current?.useMetricSystem = settings.useMetricSystem()
-            fixDatetime(weather)
-            val currentDay = findCurrentDay(weather.daily)
-            var index = currentDay?.let { day ->
-                weather.current?.minimumTemperature = day.temperature.minimum
-                weather.current?.maximumTemperature = day.temperature.maximum
-                weather.current?.probabilityOfPrecipitation = day.probabilityOfPrecipitation
-                weather.daily!!.indexOf(day)
-            } ?: 0
-            val calendar: Calendar? = currentDay?.let { day ->
-                Calendar.getInstance().apply { timeInMillis = day.datetime }
+    suspend fun hourly(): List<Hourly>? = withContext(Dispatchers.IO) {
+        val weather = weatherApi.hourly(
+            session.apiKey,
+            session.currentPlace!!.latitude,
+            session.currentPlace!!.longitude,
+            session.currentLanguage!!,
+            if (settings.useMetricSystemValue()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+        )
+        fixDatetime(weather)
+        val startHourlyIndex = findNextHourIndex(weather.hourly)
+        weather.hourly = weather.hourly?.subList(
+            startHourlyIndex,
+            startHourlyIndex + settings.hourlyVisibleItemsSizeValue()
+        )
+            ?.onEach {
+                it.useMetricSystem = settings.useMetricSystemValue()
             }
-            val startHourlyIndex = findNextHourIndex(weather.hourly)
-            weather.hourly = weather.hourly?.subList(
-                startHourlyIndex,
-                startHourlyIndex + settings.hourlyVisibleItemsSize()
-            )
-                ?.apply {
-                    forEach {
-                        it.useMetricSystem = settings.useMetricSystem()
-                        val hourlyCalendar =
-                            Calendar.getInstance().apply { timeInMillis = it.datetime }
-                        if (calendar != null && (calendar.get(Calendar.DAY_OF_YEAR) != hourlyCalendar.get(Calendar.DAY_OF_YEAR))) {
-                            calendar.add(Calendar.DAY_OF_YEAR, 1)
-                            index++
-                        }
-                        it.sunrise = weather.daily?.let { it[index].sunrise } ?: 0
-                        it.sunset = weather.daily?.let { it[index].sunset } ?: 0
-                    }
-                }
-            val startDailyIndex = findNextDayIndex(weather.daily)
-            weather.daily = weather.daily?.subList(
-                startDailyIndex,
-                startDailyIndex + settings.dailyVisibleItemsSize()
-            )
-                ?.onEach { it.useMetricSystem = settings.useMetricSystem() }
-            Timber.i("AppLogger - Checking current ${weather.current?.useMetricSystem}")
-            emit(weather)
-        }.flowOn(Dispatchers.Main)
+        weather.hourly
     }
 
-    fun weather(): Flow<Weather?> {
-        return flow {
-            val weather = weatherApi.weather(
-                session.apiKey,
-                session.currentPlace!!.latitude,
-                session.currentPlace!!.longitude,
-                session.currentLanguage!!,
-                if (settings.useMetricSystem()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
-            )
-            weather.current?.useMetricSystem = settings.useMetricSystem()
-            fixDatetime(weather)
-            val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
-            weather.minutely = weather.minutely?.subList(
-                startMinutelyIndex,
-                startMinutelyIndex + settings.minutelyVisibleItemsSize()
-            )
-            val currentDay = findCurrentDay(weather.daily)
-            var index = currentDay?.let { day ->
-                weather.current?.minimumTemperature = day.temperature.minimum
-                weather.current?.maximumTemperature = day.temperature.maximum
-                weather.daily!!.indexOf(day)
-            } ?: 0
-            val calendar: Calendar? = currentDay?.let { day ->
-                Calendar.getInstance().apply { timeInMillis = day.datetime }
-            }
-            val startHourlyIndex = findNextHourIndex(weather.hourly)
-            weather.hourly = weather.hourly?.subList(
-                startHourlyIndex,
-                startHourlyIndex + settings.hourlyVisibleItemsSize()
-            )
-                ?.onEach {
-                    it.useMetricSystem = settings.useMetricSystem()
+    suspend fun daily(): List<Daily>? = withContext(Dispatchers.IO) {
+        val weather = weatherApi.daily(
+            session.apiKey,
+            session.currentPlace!!.latitude,
+            session.currentPlace!!.longitude,
+            session.currentLanguage!!,
+            if (settings.useMetricSystemValue()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+        )
+        fixDatetime(weather)
+        val startDailyIndex = findNextDayIndex(weather.daily)
+        weather.daily = weather.daily?.subList(
+            startDailyIndex,
+            startDailyIndex + settings.dailyVisibleItemsSizeValue()
+        )
+            ?.onEach { it.useMetricSystem = settings.useMetricSystemValue() }
+        weather.daily
+    }
+
+    suspend fun currentHourlyDaily(): Weather = withContext(Dispatchers.IO) {
+        Timber.tag("WeatherRepository").i("currentHourlyDaily")
+        val weather = weatherApi.currentHourlyDaily(
+            session.apiKey,
+            session.currentPlace!!.latitude,
+            session.currentPlace!!.longitude,
+            session.currentLanguage!!,
+            if (settings.useMetricSystemValue()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+        )
+        weather.current?.useMetricSystem = settings.useMetricSystemValue()
+        fixDatetime(weather)
+        val currentDay = findCurrentDay(weather.daily)
+        var index = currentDay?.let { day ->
+            weather.current?.minimumTemperature = day.temperature.minimum
+            weather.current?.maximumTemperature = day.temperature.maximum
+            weather.current?.probabilityOfPrecipitation = day.probabilityOfPrecipitation
+            weather.daily!!.indexOf(day)
+        } ?: 0
+        val calendar: Calendar? = currentDay?.let { day ->
+            Calendar.getInstance().apply { timeInMillis = day.datetime }
+        }
+        val startHourlyIndex = findNextHourIndex(weather.hourly)
+        weather.hourly = weather.hourly?.subList(
+            startHourlyIndex,
+            startHourlyIndex + settings.hourlyVisibleItemsSizeValue()
+        )
+            ?.apply {
+                forEach {
+                    it.useMetricSystem = settings.useMetricSystemValue()
                     val hourlyCalendar =
                         Calendar.getInstance().apply { timeInMillis = it.datetime }
                     if (calendar != null && (calendar.get(Calendar.DAY_OF_YEAR) != hourlyCalendar.get(Calendar.DAY_OF_YEAR))) {
@@ -185,14 +121,64 @@ class WeatherRepository @Inject constructor(
                     it.sunrise = weather.daily?.let { it[index].sunrise } ?: 0
                     it.sunset = weather.daily?.let { it[index].sunset } ?: 0
                 }
-            val startDailyIndex = findNextDayIndex(weather.daily)
-            weather.daily = weather.daily?.subList(
-                startDailyIndex,
-                startDailyIndex + settings.dailyVisibleItemsSize()
-            )
-                ?.apply { forEach { it.useMetricSystem = settings.useMetricSystem() } }
-            emit(weather)
-        }.flowOn(Dispatchers.Main)
+            }
+        val startDailyIndex = findNextDayIndex(weather.daily)
+        weather.daily = weather.daily?.subList(
+            startDailyIndex,
+            startDailyIndex + settings.dailyVisibleItemsSizeValue()
+        )
+            ?.onEach { it.useMetricSystem = settings.useMetricSystemValue() }
+        Timber.i("AppLogger - Checking current ${weather.current?.useMetricSystem}")
+        weather
+    }
+
+    suspend fun weather(): Weather? = withContext(Dispatchers.IO) {
+        val weather = weatherApi.weather(
+            session.apiKey,
+            session.currentPlace!!.latitude,
+            session.currentPlace!!.longitude,
+            session.currentLanguage!!,
+            if (settings.useMetricSystemValue()) WeatherApi.UNIT_METRIC else WeatherApi.UNIT_IMPERIAL
+        )
+        weather.current?.useMetricSystem = settings.useMetricSystemValue()
+        fixDatetime(weather)
+        val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
+        weather.minutely = weather.minutely?.subList(
+            startMinutelyIndex,
+            startMinutelyIndex + settings.minutelyVisibleItemsSizeValue()
+        )
+        val currentDay = findCurrentDay(weather.daily)
+        var index = currentDay?.let { day ->
+            weather.current?.minimumTemperature = day.temperature.minimum
+            weather.current?.maximumTemperature = day.temperature.maximum
+            weather.daily!!.indexOf(day)
+        } ?: 0
+        val calendar: Calendar? = currentDay?.let { day ->
+            Calendar.getInstance().apply { timeInMillis = day.datetime }
+        }
+        val startHourlyIndex = findNextHourIndex(weather.hourly)
+        weather.hourly = weather.hourly?.subList(
+            startHourlyIndex,
+            startHourlyIndex + settings.hourlyVisibleItemsSizeValue()
+        )
+            ?.onEach {
+                it.useMetricSystem = settings.useMetricSystemValue()
+                val hourlyCalendar =
+                    Calendar.getInstance().apply { timeInMillis = it.datetime }
+                if (calendar != null && (calendar.get(Calendar.DAY_OF_YEAR) != hourlyCalendar.get(Calendar.DAY_OF_YEAR))) {
+                    calendar.add(Calendar.DAY_OF_YEAR, 1)
+                    index++
+                }
+                it.sunrise = weather.daily?.let { it[index].sunrise } ?: 0
+                it.sunset = weather.daily?.let { it[index].sunset } ?: 0
+            }
+        val startDailyIndex = findNextDayIndex(weather.daily)
+        weather.daily = weather.daily?.subList(
+            startDailyIndex,
+            startDailyIndex + settings.dailyVisibleItemsSizeValue()
+        )
+            ?.apply { forEach { it.useMetricSystem = settings.useMetricSystemValue() } }
+        weather
     }
 
     private fun fixDatetime(weather: Weather?) {

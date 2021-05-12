@@ -25,10 +25,10 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
-import org.xapps.apps.weatherx.services.settings.SettingsService
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
@@ -44,9 +44,6 @@ class HomeFragment @Inject constructor() : Fragment() {
     private lateinit var bindings: FragmentHomeBinding
 
     private val viewModel: HomeViewModel by viewModels()
-
-    @Inject
-    lateinit var settings: SettingsService
 
     private var lastCompletedConstraint: Int? = null
     private var lastConditionBottomColor: Int? = null
@@ -166,8 +163,26 @@ class HomeFragment @Inject constructor() : Fragment() {
             }
         }
 
+        lifecycleScope.launchWhenResumed {
+            viewModel.useMetricSystem()
+                .catch { ex ->
+                    Timber.e(ex)
+                }
+                .collect { _ ->
+//                    Timber.i("UseMetric - Called")
+//                    viewModel.startWeatherMonitor()
+                }
+        }
 
-
+        lifecycleScope.launchWhenResumed {
+            viewModel.isDarkModeOn()
+                .catch { ex->
+                    Timber.e(ex)
+                }
+                .collect { isDarkModeOn ->
+                    AppCompatDelegate.setDefaultNightMode(if (isDarkModeOn) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                }
+        }
 
         bindings.btnAdd.setOnClickListener {
             MoreOptionsPopup.showDialog(
@@ -180,12 +195,15 @@ class HomeFragment @Inject constructor() : Fragment() {
                 }
                 when (option) {
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
-                        viewModel.startWeatherMonitor()
+                        Timber.i("Metric system configuration has changed. Flow collector will handle it")
+                        Timber.i("UseMetric - Called")
+                        viewModel.resetScheduleWeatherInfo()
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
-                        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                        Timber.i("Dark mode configuration has changed. Flow collector will handle it")
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW -> {
+                        Timber.i("Open About view request received")
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
                     }
                 }
@@ -258,7 +276,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             viewModel.lastConditionCode(),
             viewModel.lastWasDayLight(),
             viewModel.lastTemperature(),
-            viewModel.useMetricSystem()
+            viewModel.useMetricSystemValue()
         )
         bindings.rootLayout.setBackgroundResource(lastBackground)
         updateNavigationBarColor()
@@ -270,7 +288,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             viewModel.lastConditionCode(),
             viewModel.lastWasDayLight(),
             viewModel.lastTemperature(),
-            viewModel.useMetricSystem()
+            viewModel.useMetricSystemValue()
         )
         if (bindings.motionFg.currentState in arrayOf(R.id.setLoading, R.id.setBegin)) {
             if (animate) {

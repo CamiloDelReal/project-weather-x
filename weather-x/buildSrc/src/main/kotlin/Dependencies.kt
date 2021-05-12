@@ -100,11 +100,10 @@ object Libraries {
             const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:$LEGACY_SUPPORT_VERSION"
         }
 
-        object SharedPreferences {
-            private const val VERSION = "1.1.1"
+        object DataStore {
+            private const val VERSION = "1.0.0-beta01"
 
-            const val CORE = "androidx.preference:preference:$VERSION"
-            const val CORE_KTX = "androidx.preference:preference-ktx:$VERSION"
+            const val BASE = "androidx.datastore:datastore-preferences:$VERSION"
         }
 
         object Lifecycle {

@@ -5,8 +5,9 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.*
 import org.xapps.apps.weatherx.BuildConfig
-import org.xapps.apps.weatherx.services.settings.SettingsService
+import org.xapps.apps.weatherx.services.repositories.SettingsRepository
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class ApplicationManager : Application() {
 
     @Inject
-    lateinit var settings: SettingsService
+    lateinit var settings: SettingsRepository
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
@@ -23,7 +24,9 @@ class ApplicationManager : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+        runBlocking {
+            AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOnValue()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+        }
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
@@ -33,5 +36,4 @@ class ApplicationManager : Application() {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-
 }
