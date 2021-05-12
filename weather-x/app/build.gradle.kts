@@ -123,8 +123,8 @@ dependencies {
     implementation(Libraries.Jetpack.Navigation.UI_KTX)
     implementation(Libraries.Jetpack.Navigation.FRAGMENT_KTX)
 
-    // Jetpack Shared Preferences
-    implementation(Libraries.Jetpack.SharedPreferences.CORE_KTX)
+    // Jetpack DataStore
+    implementation(Libraries.Jetpack.DataStore.BASE)
 
     // Jetpack Lifecycle
     implementation(Libraries.Jetpack.Lifecycle.RUNTIME_KTX)
