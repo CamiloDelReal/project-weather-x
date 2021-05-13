@@ -49,6 +49,7 @@ android {
     }
     tasks.withType().configureEach {
         kotlinOptions.freeCompilerArgs += "-Xopt-in=org.mylibrary.OptInAnnotation"
+        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     android.buildFeatures.dataBinding = true

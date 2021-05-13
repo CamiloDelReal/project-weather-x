@@ -30,22 +30,13 @@ object Build {
 object Repositories {
     fun addBuildScriptRepositories(handler: RepositoryHandler) {
         handler.google()
-        handler.jcenter()
         handler.maven(url = "https://plugins.gradle.org/m2")
-        handler.maven(url = "https://maven.fabric.io/public")
-        handler.maven(url = "https://clojars.org/repo/")
-        handler.maven(url = "https://repo1.maven.org/maven2")
-        handler.maven(url = "https://jitpack.io")
     }
 
     fun addProjectRepositories(handler: RepositoryHandler) {
         handler.google()
-        handler.jcenter()
         handler.mavenCentral()
-        handler.maven(url = "https://clojars.org/repo/")
-        handler.maven(url = "https://repo1.maven.org/maven2")
         handler.maven(url = "https://jitpack.io")
-        handler.maven(url = "http://dl.bintray.com/piasy/maven")
     }
 }
 
@@ -168,7 +159,7 @@ object Libraries {
         private const val LOTTIE_VERSION = "3.7.0"
         private const val TOASTY_VERSION = "1.5.0"
 
-        const val SHAPE_OF_VIEW = "com.github.florent37:shapeofview:$SHAPE_OF_VIEW_VERSION"
+        const val SHAPE_OF_VIEW = "io.github.florent37:shapeofview:$SHAPE_OF_VIEW_VERSION"
         const val LOTTIE = "com.airbnb.android:lottie:$LOTTIE_VERSION"
         const val TOASTY = "com.github.GrenderG:Toasty:$TOASTY_VERSION"
     }
