@@ -1,7 +1,6 @@
 package org.xapps.apps.weatherx.services.local
 
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
 import org.xapps.apps.weatherx.services.models.Place
 
 
@@ -21,13 +20,13 @@ interface PlaceDao {
     fun insert(places: List<Place>): List<Long>
 
     @Query("SELECT * FROM places")
-    fun placesAsync(): Flow<List<Place>>
+    suspend fun placesAsync(): List<Place>
 
     @Query("SELECT * FROM places")
     fun places(): List<Place>
 
     @Query("SELECT * FROM places WHERE id = :id")
-    fun placeAsync(id: Long): Flow<Place?>
+    suspend fun placeAsync(id: Long): Place?
 
     @Query("SELECT * FROM places WHERE id = :id")
     fun place(id: Long): Place?

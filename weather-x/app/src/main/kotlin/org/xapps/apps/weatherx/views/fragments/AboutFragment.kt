@@ -25,7 +25,7 @@ class AboutFragment @Inject constructor() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bindings = FragmentAboutBinding.inflate(layoutInflater)
         bindings.lifecycleOwner = viewLifecycleOwner
         bindings.version = BuildConfig.VERSION_NAME

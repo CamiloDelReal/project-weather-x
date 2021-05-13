@@ -1,6 +1,6 @@
 package org.xapps.apps.weatherx.services.repositories
 
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.xapps.apps.weatherx.services.models.*
 import org.xapps.apps.weatherx.services.remote.WeatherApi
@@ -10,12 +10,13 @@ import javax.inject.Inject
 
 
 class WeatherRepository @Inject constructor(
+    private val dispatcher: CoroutineDispatcher,
     private val session: Session,
     private val weatherApi: WeatherApi,
     private val settings: SettingsRepository
 ) {
 
-    suspend fun current(): Current? = withContext(Dispatchers.IO) {
+    suspend fun current(): Current? = withContext(dispatcher) {
         val weather = weatherApi.current(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -28,7 +29,7 @@ class WeatherRepository @Inject constructor(
         weather.current
     }
 
-    suspend fun minutely(): List<Minutely>? = withContext(Dispatchers.IO){
+    suspend fun minutely(): List<Minutely>? = withContext(dispatcher){
         val weather = weatherApi.minutely(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -45,7 +46,7 @@ class WeatherRepository @Inject constructor(
         weather.minutely
     }
 
-    suspend fun hourly(): List<Hourly>? = withContext(Dispatchers.IO) {
+    suspend fun hourly(): List<Hourly>? = withContext(dispatcher) {
         val weather = weatherApi.hourly(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -65,7 +66,7 @@ class WeatherRepository @Inject constructor(
         weather.hourly
     }
 
-    suspend fun daily(): List<Daily>? = withContext(Dispatchers.IO) {
+    suspend fun daily(): List<Daily>? = withContext(dispatcher) {
         val weather = weatherApi.daily(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -83,7 +84,7 @@ class WeatherRepository @Inject constructor(
         weather.daily
     }
 
-    suspend fun currentHourlyDaily(): Weather = withContext(Dispatchers.IO) {
+    suspend fun currentHourlyDaily(): Weather = withContext(dispatcher) {
         Timber.tag("WeatherRepository").i("currentHourlyDaily")
         val weather = weatherApi.currentHourlyDaily(
             session.apiKey,
@@ -132,7 +133,7 @@ class WeatherRepository @Inject constructor(
         weather
     }
 
-    suspend fun weather(): Weather? = withContext(Dispatchers.IO) {
+    suspend fun weather(): Weather? = withContext(dispatcher) {
         val weather = weatherApi.weather(
             session.apiKey,
             session.currentPlace!!.latitude,

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import org.xapps.apps.weatherx.services.models.Condition
 import org.xapps.apps.weatherx.services.models.Place
@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 class SettingsRepository @Inject constructor(
     private val context: Context,
-    private val preferenceName: String
+    private val dispatcher: CoroutineDispatcher,
+    preferenceName: String
 ) {
 
     companion object {
@@ -33,12 +34,11 @@ class SettingsRepository @Inject constructor(
         private val ATTR_LAST_WAS_THERE_VISIBILITY = booleanPreferencesKey("attrLastWasThereVisibility")
     }
 
-    private val sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE)
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = preferenceName)
 
 
     suspend fun isFirstTimeValue(): Boolean =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_IS_FIRST_TIME] ?: false
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_IS_FIRST_TIME] ?: false
 
     suspend fun setIsFirstTime(isFirstTime: Boolean) =
         context.dataStore.edit { preferences ->
@@ -46,7 +46,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun isOnBoardingFinishedValue(): Boolean =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_ON_BOARDING_FINISHED] ?: false
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_ON_BOARDING_FINISHED] ?: false
 
     suspend fun setOnBoardingFinished(onBoardingFinished: Boolean) =
         context.dataStore.edit { preferences ->
@@ -54,7 +54,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun isDarkModeOnValue(): Boolean =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_DARK_MODE_ON] ?: false
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_DARK_MODE_ON] ?: false
 
     fun isDarkModeOn(): Flow<Boolean> =
         context.dataStore.data
@@ -66,7 +66,7 @@ class SettingsRepository @Inject constructor(
                 val isActive = preferences[ATTR_DARK_MODE_ON] ?: false
                 isActive
             }
-            .flowOn(Dispatchers.IO)
+            .flowOn(dispatcher)
 
     suspend fun setIsDarkModeOn(darkModeOn: Boolean) =
         context.dataStore.edit { preferences ->
@@ -74,7 +74,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun lastPlaceMonitoredValue(): Long =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_LAST_PLACE_MONITORED] ?: Place.CURRENT_PLACE_ID
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_LAST_PLACE_MONITORED] ?: Place.CURRENT_PLACE_ID
 
     suspend fun setLastPlaceMonitored(id: Long) =
         context.dataStore.edit { preferences ->
@@ -82,7 +82,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun minutelyVisibleItemsSizeValue(): Int =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_MINUTELY_VISIBLE_ITEMS_SIZE] ?: 60
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_MINUTELY_VISIBLE_ITEMS_SIZE] ?: 60
 
     suspend fun setMinutelyVisibleItemsSize(size: Int) =
         context.dataStore.edit { preferences ->
@@ -90,7 +90,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun hourlyVisibleItemsSizeValue(): Int =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_HOURLY_VISIBLE_ITEMS_SIZE] ?: 24
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_HOURLY_VISIBLE_ITEMS_SIZE] ?: 24
 
     suspend fun setHourlyVisibleItemsSize(size: Int) =
         context.dataStore.edit { preferences ->
@@ -98,7 +98,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun dailyVisibleItemsSizeValue(): Int =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_DAILY_VISIBLE_ITEMS_SIZE] ?: 7
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_DAILY_VISIBLE_ITEMS_SIZE] ?: 7
 
     suspend fun setDailyVisibleItemsSize(size: Int) =
         context.dataStore.edit { preferences ->
@@ -106,7 +106,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun useMetricSystemValue(): Boolean =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_USE_METRIC_SYSTEM] ?: true
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_USE_METRIC_SYSTEM] ?: true
 
     fun useMetricSystem(): Flow<Boolean> =
         context.dataStore.data
@@ -117,7 +117,7 @@ class SettingsRepository @Inject constructor(
             .map { preferences ->
                 preferences[ATTR_USE_METRIC_SYSTEM] ?: true
             }
-            .flowOn(Dispatchers.IO)
+            .flowOn(dispatcher)
 
     suspend fun setUseMetricSystem(useMetricSystem: Boolean) =
         context.dataStore.edit { preferences ->
@@ -125,7 +125,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun lastConditionCodeValue(): Int =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_LAST_CONDITION_CODE] ?: Condition.Group.DEFAULT_CODE
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_LAST_CONDITION_CODE] ?: Condition.Group.DEFAULT_CODE
 
     suspend fun setLastConditionCode(code: Int) =
         context.dataStore.edit { preferences ->
@@ -133,7 +133,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun lastTemperatureValue(): Double =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_LAST_TEMPERATURE] ?: 0.0
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_LAST_TEMPERATURE] ?: 0.0
 
     suspend fun setLastTemperature(temperature: Double) =
         context.dataStore.edit { preferences ->
@@ -141,7 +141,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun lastWasDayLightValue(): Boolean =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_LAST_WAS_DAY_LIGHT] ?: true
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_LAST_WAS_DAY_LIGHT] ?: true
 
     suspend fun setLastWasDayLight(dayLight: Boolean) =
         context.dataStore.edit { preferences ->
@@ -149,7 +149,7 @@ class SettingsRepository @Inject constructor(
         }
 
     suspend fun lastWasThereVisibilityValue(): Boolean =
-        context.dataStore.data.flowOn(Dispatchers.IO).first()[ATTR_LAST_WAS_THERE_VISIBILITY] ?: true
+        context.dataStore.data.flowOn(dispatcher).first()[ATTR_LAST_WAS_THERE_VISIBILITY] ?: true
 
     suspend fun setLastWasVisible(isThereVisibility: Boolean) =
         context.dataStore.edit { preferences ->

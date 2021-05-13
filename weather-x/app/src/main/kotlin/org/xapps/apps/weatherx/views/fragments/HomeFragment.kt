@@ -27,6 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.skip
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
@@ -52,7 +54,7 @@ class HomeFragment @Inject constructor() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bindings = FragmentHomeBinding.inflate(layoutInflater)
         bindings.lifecycleOwner = viewLifecycleOwner
         bindings.viewModel = viewModel
@@ -165,12 +167,13 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         lifecycleScope.launchWhenResumed {
             viewModel.useMetricSystem()
+                .drop(1)
                 .catch { ex ->
                     Timber.e(ex)
                 }
                 .collect { _ ->
-//                    Timber.i("UseMetric - Called")
-//                    viewModel.startWeatherMonitor()
+                    Timber.i("Use metric system flow collector")
+                    viewModel.resetScheduleWeatherInfo()
                 }
         }
 
@@ -196,8 +199,6 @@ class HomeFragment @Inject constructor() : Fragment() {
                 when (option) {
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
                         Timber.i("Metric system configuration has changed. Flow collector will handle it")
-                        Timber.i("UseMetric - Called")
-                        viewModel.resetScheduleWeatherInfo()
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
                         Timber.i("Dark mode configuration has changed. Flow collector will handle it")

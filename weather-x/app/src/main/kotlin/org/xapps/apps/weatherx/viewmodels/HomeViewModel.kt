@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.xapps.apps.weatherx.R
-import org.xapps.apps.weatherx.services.local.PlaceDao
 import org.xapps.apps.weatherx.services.models.*
+import org.xapps.apps.weatherx.services.repositories.PlaceRepository
 import org.xapps.apps.weatherx.services.repositories.WeatherRepository
 import org.xapps.apps.weatherx.services.repositories.SettingsRepository
 import org.xapps.apps.weatherx.services.utils.DateUtils
@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
     private val session: Session,
     private val gpsTracker: GpsTracker,
     private val geocoder: Geocoder,
-    private val placeDao: PlaceDao,
+    private val placeRepository: PlaceRepository,
     private val weatherRepository: WeatherRepository
 ) : ObservableViewModel() {
 
@@ -85,15 +85,17 @@ class HomeViewModel @Inject constructor(
             } else {
                 Timber.i("AppLogger - A custom place was the last monitored place")
                 viewModelScope.launch {
-                    placeDao.placeAsync(lastPlaceId)
-                        .collect { customPlace ->
-                            if (customPlace != null) {
-                                startWeatherMonitorCustomPlace(customPlace)
-                            } else {
-                                Timber.i("AppLogger - The request place couldn't be found in the database")
-                                _messageFlow.tryEmit(Message.error(context.getString(R.string.error_retrieving_place_from_db)))
-                            }
+                    try {
+                        val customPlace = placeRepository.place(lastPlaceId)
+                        if (customPlace != null) {
+                            startWeatherMonitorCustomPlace(customPlace)
+                        } else {
+                            Timber.i("AppLogger - The request place couldn't be found in the database")
+                            _messageFlow.tryEmit(Message.error(context.getString(R.string.error_retrieving_place_from_db)))
                         }
+                    } catch(ex: Exception) {
+                        Timber.e(ex,"Exception captured")
+                    }
                 }
             }
         }
@@ -166,30 +168,28 @@ class HomeViewModel @Inject constructor(
                         )
                         place.set(currentPlace)
                         session.currentPlace = currentPlace
-                        placeDao.insertAsync(currentPlace)
+                        placeRepository.insert(currentPlace)
 
                         scheduleWeatherInfo()
                     }
-                } catch(e: Exception) {
-                    Timber.i(e, "Exception captured")
+                } catch(ex: Exception) {
+                    Timber.i(ex, "Exception captured")
                 }
             } ?: run {
                 Timber.i("AppLogger - GPS tracker doesn't have location yet, getting location from database")
-                placeDao.placeAsync(Place.CURRENT_PLACE_ID)
-                    .catch {
-                        it.printStackTrace()
+                try {
+                    val currentPlace = placeRepository.place(Place.CURRENT_PLACE_ID)
+                    if (currentPlace != null) {
+                        place.set(currentPlace)
+                        session.currentPlace = currentPlace
+                        scheduleWeatherInfo()
+                    } else {
+                        Timber.i("AppLogger - There isn't a place saved in database")
+                        _messageFlow.tryEmit(Message.error(context.getString(R.string.gps_disabled)))
                     }
-                    .collect { currentPlace ->
-                        if(currentPlace != null) {
-                            place.set(currentPlace)
-                            session.currentPlace = currentPlace
-
-                            scheduleWeatherInfo()
-                        } else {
-                            Timber.i("AppLogger - There isn't a place saved in database")
-                            _messageFlow.tryEmit(Message.error(context.getString(R.string.gps_disabled)))
-                        }
-                    }
+                } catch(ex: Exception) {
+                    Timber.e(ex, "Exception captured")
+                }
             }
         }
     }
@@ -201,33 +201,38 @@ class HomeViewModel @Inject constructor(
     private fun scheduleWeatherInfo() {
         stopJobWeatherScheduler()
         jobWeatherInfo = viewModelScope.launch {
+            Timber.i("Schedule weather info starting")
             timerFlow(interval = 1000 * 60 * 10).collect {
                 if (networkTracker.isConnectedToInternet()) {
-                    val weather = weatherRepository.currentHourlyDaily()
-                    weather?.current?.let {
-                        settings.setLastTemperature(it.temperature)
-                        settings.setLastWasVisible(Utilities.isVisible(it.visibility))
-                        settings.setLastWasDayLight(
-                            DateUtils.isDayLight(
-                                sunrise = it.sunrise,
-                                sunset = it.sunset,
-                                datetime = it.datetime
+                    try {
+                        val weather = weatherRepository.currentHourlyDaily()
+                        weather.current?.let {
+                            settings.setLastTemperature(it.temperature)
+                            settings.setLastWasVisible(Utilities.isVisible(it.visibility))
+                            settings.setLastWasDayLight(
+                                DateUtils.isDayLight(
+                                    sunrise = it.sunrise,
+                                    sunset = it.sunset,
+                                    datetime = it.datetime
+                                )
                             )
-                        )
-                        if (it.conditions.isNotEmpty()) {
-                            settings.setLastConditionCode(it.conditions[0].id)
+                            if (it.conditions.isNotEmpty()) {
+                                settings.setLastConditionCode(it.conditions[0].id)
+                            }
                         }
+                        currentWeather.set(weather.current)
+                        weather.hourly?.let {
+                            hourlyWeather.clear()
+                            hourlyWeather.addAll(it)
+                        }
+                        weather.daily?.let {
+                            dailyWeather.clear()
+                            dailyWeather.addAll(it)
+                        }
+                        _messageFlow.tryEmit(Message.ready())
+                    } catch(ex: Exception) {
+                        Timber.e(ex, "Exception captured")
                     }
-                    currentWeather.set(weather?.current)
-                    weather?.hourly?.let {
-                        hourlyWeather.clear()
-                        hourlyWeather.addAll(it)
-                    }
-                    weather?.daily?.let {
-                        dailyWeather.clear()
-                        dailyWeather.addAll(it)
-                    }
-                    _messageFlow.tryEmit(Message.ready())
                 } else {
                     Timber.i("AppLogger - Internet connection not found, skipping weather request")
                 }

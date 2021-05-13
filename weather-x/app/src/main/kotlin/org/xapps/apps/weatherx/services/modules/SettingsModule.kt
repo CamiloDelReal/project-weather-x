@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import org.xapps.apps.weatherx.services.repositories.SettingsRepository
 import javax.inject.Singleton
 
@@ -15,12 +16,12 @@ import javax.inject.Singleton
 class SettingsModule {
 
     companion object {
-        const val PREFERENCE_FILENAME = "application_preferences.xml"
+        const val PREFERENCE_NAME = "application_preferences"
     }
 
     @Singleton
     @Provides
     fun provideSettingsService(@ApplicationContext context: Context): SettingsRepository =
-        SettingsRepository(context, PREFERENCE_FILENAME)
+        SettingsRepository(context, Dispatchers.IO, PREFERENCE_NAME)
 
 }

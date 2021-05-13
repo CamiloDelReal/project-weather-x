@@ -7,8 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import org.xapps.apps.weatherx.services.local.LocalDatabaseService
 import org.xapps.apps.weatherx.services.local.PlaceDao
+import org.xapps.apps.weatherx.services.repositories.PlaceRepository
 import javax.inject.Singleton
 
 
@@ -27,7 +29,11 @@ class LocalModule {
 
     @Singleton
     @Provides
-    fun provideLocationDao(localDatabaseService: LocalDatabaseService): PlaceDao =
+    fun providePlaceDao(localDatabaseService: LocalDatabaseService): PlaceDao =
         localDatabaseService.locationDao()
 
+    @Singleton
+    @Provides
+    fun providePlaceRepository(placeDao: PlaceDao): PlaceRepository =
+        PlaceRepository(Dispatchers.IO, placeDao)
 }
