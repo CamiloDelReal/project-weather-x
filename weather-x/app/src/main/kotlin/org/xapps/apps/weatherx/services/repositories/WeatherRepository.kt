@@ -4,6 +4,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.xapps.apps.weatherx.services.models.*
 import org.xapps.apps.weatherx.services.remote.WeatherApi
+import org.xapps.apps.weatherx.services.utils.debug
+import org.xapps.apps.weatherx.services.utils.info
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -17,6 +19,7 @@ class WeatherRepository @Inject constructor(
 ) {
 
     suspend fun current(): Current? = withContext(dispatcher) {
+        info<WeatherRepository>("Requesting current weather info")
         val weather = weatherApi.current(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -26,10 +29,12 @@ class WeatherRepository @Inject constructor(
         )
         fixDatetime(weather)
         weather.current?.useMetricSystem = settings.useMetricSystemValue()
+        debug<WeatherRepository>("Object ${weather.current}")
         weather.current
     }
 
     suspend fun minutely(): List<Minutely>? = withContext(dispatcher){
+        info<WeatherRepository>("Requesting minutely weather info")
         val weather = weatherApi.minutely(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -39,14 +44,17 @@ class WeatherRepository @Inject constructor(
         )
         fixDatetime(weather)
         val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
+        debug<WeatherRepository>("Index for next minute info $startMinutelyIndex")
         weather.minutely = weather.minutely?.subList(
             startMinutelyIndex,
             startMinutelyIndex + settings.minutelyVisibleItemsSizeValue()
         )
+        debug<WeatherRepository>("Object ${weather.minutely}")
         weather.minutely
     }
 
     suspend fun hourly(): List<Hourly>? = withContext(dispatcher) {
+        info<WeatherRepository>("Requesting hourly weather info")
         val weather = weatherApi.hourly(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -56,6 +64,7 @@ class WeatherRepository @Inject constructor(
         )
         fixDatetime(weather)
         val startHourlyIndex = findNextHourIndex(weather.hourly)
+        debug<WeatherRepository>("Index for next hour info $startHourlyIndex")
         weather.hourly = weather.hourly?.subList(
             startHourlyIndex,
             startHourlyIndex + settings.hourlyVisibleItemsSizeValue()
@@ -63,10 +72,12 @@ class WeatherRepository @Inject constructor(
             ?.onEach {
                 it.useMetricSystem = settings.useMetricSystemValue()
             }
+        debug<WeatherRepository>("Object ${weather.hourly}")
         weather.hourly
     }
 
     suspend fun daily(): List<Daily>? = withContext(dispatcher) {
+        info<WeatherRepository>("Requesting daily weather info")
         val weather = weatherApi.daily(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -76,16 +87,18 @@ class WeatherRepository @Inject constructor(
         )
         fixDatetime(weather)
         val startDailyIndex = findNextDayIndex(weather.daily)
+        debug<WeatherRepository>("Index for next day info $startDailyIndex")
         weather.daily = weather.daily?.subList(
             startDailyIndex,
             startDailyIndex + settings.dailyVisibleItemsSizeValue()
         )
             ?.onEach { it.useMetricSystem = settings.useMetricSystemValue() }
+        debug<WeatherRepository>("Object ${weather.daily}")
         weather.daily
     }
 
     suspend fun currentHourlyDaily(): Weather = withContext(dispatcher) {
-        Timber.tag("WeatherRepository").i("currentHourlyDaily")
+        info<WeatherRepository>("Requesting current, hourly and daily weather info")
         val weather = weatherApi.currentHourlyDaily(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -106,6 +119,7 @@ class WeatherRepository @Inject constructor(
             Calendar.getInstance().apply { timeInMillis = day.datetime }
         }
         val startHourlyIndex = findNextHourIndex(weather.hourly)
+        debug<WeatherRepository>("Index for next hour info $startHourlyIndex")
         weather.hourly = weather.hourly?.subList(
             startHourlyIndex,
             startHourlyIndex + settings.hourlyVisibleItemsSizeValue()
@@ -124,16 +138,19 @@ class WeatherRepository @Inject constructor(
                 }
             }
         val startDailyIndex = findNextDayIndex(weather.daily)
+        debug<WeatherRepository>("Index for next day info $startDailyIndex")
         weather.daily = weather.daily?.subList(
             startDailyIndex,
             startDailyIndex + settings.dailyVisibleItemsSizeValue()
         )
             ?.onEach { it.useMetricSystem = settings.useMetricSystemValue() }
         Timber.i("AppLogger - Checking current ${weather.current?.useMetricSystem}")
+        debug<WeatherRepository>("Object $weather")
         weather
     }
 
-    suspend fun weather(): Weather? = withContext(dispatcher) {
+    suspend fun weather(): Weather = withContext(dispatcher) {
+        info<WeatherRepository>("Requesting weather info")
         val weather = weatherApi.weather(
             session.apiKey,
             session.currentPlace!!.latitude,
@@ -144,6 +161,7 @@ class WeatherRepository @Inject constructor(
         weather.current?.useMetricSystem = settings.useMetricSystemValue()
         fixDatetime(weather)
         val startMinutelyIndex = findNextMinuteIndex(weather.minutely)
+        debug<WeatherRepository>("Index for next minute info $startMinutelyIndex")
         weather.minutely = weather.minutely?.subList(
             startMinutelyIndex,
             startMinutelyIndex + settings.minutelyVisibleItemsSizeValue()
@@ -158,6 +176,7 @@ class WeatherRepository @Inject constructor(
             Calendar.getInstance().apply { timeInMillis = day.datetime }
         }
         val startHourlyIndex = findNextHourIndex(weather.hourly)
+        debug<WeatherRepository>("Index for next hour info $startHourlyIndex")
         weather.hourly = weather.hourly?.subList(
             startHourlyIndex,
             startHourlyIndex + settings.hourlyVisibleItemsSizeValue()
@@ -174,6 +193,7 @@ class WeatherRepository @Inject constructor(
                 it.sunset = weather.daily?.let { it[index].sunset } ?: 0
             }
         val startDailyIndex = findNextDayIndex(weather.daily)
+        debug<WeatherRepository>("Index for next day info $startDailyIndex")
         weather.daily = weather.daily?.subList(
             startDailyIndex,
             startDailyIndex + settings.dailyVisibleItemsSizeValue()
@@ -183,6 +203,7 @@ class WeatherRepository @Inject constructor(
     }
 
     private fun fixDatetime(weather: Weather?) {
+        info<WeatherRepository>("Requesting fix date time")
         weather?.let {
             it.current?.apply {
                 datetime *= 1000L
@@ -200,6 +221,7 @@ class WeatherRepository @Inject constructor(
     }
 
     private fun findNextMinuteIndex(minutely: List<Minutely>?): Int {
+        info<WeatherRepository>("Requesting find next minute index")
         val currentTimestamp = Date().time
         return minutely?.firstOrNull { it -> (it.datetime >= currentTimestamp) }?.let {
             minutely.indexOf(it)
@@ -209,6 +231,7 @@ class WeatherRepository @Inject constructor(
     }
 
     private fun findNextHourIndex(hourly: List<Hourly>?): Int {
+        info<WeatherRepository>("Requesting find next hour index")
         val currentTimestamp = Date().time
         return hourly?.firstOrNull { it -> (it.datetime >= currentTimestamp) }?.let {
             hourly.indexOf(it)
@@ -218,6 +241,7 @@ class WeatherRepository @Inject constructor(
     }
 
     private fun findCurrentDay(daily: List<Daily>?): Daily? {
+        info<WeatherRepository>("Requesting find current day")
         return daily?.firstOrNull { it ->
             val current = Date()
             val currentCalendar = Calendar.getInstance().apply { time = current }
@@ -229,6 +253,7 @@ class WeatherRepository @Inject constructor(
     }
 
     private fun findNextDayIndex(daily: List<Daily>?): Int {
+        info<WeatherRepository>("Requesting find next day index")
         return daily?.let {
             it.firstOrNull { day ->
                 val current = Date()
