@@ -39,7 +39,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.35" />
 
-            <com.github.florent37.shapeofview.shapes.ArcView
+            <io.github.florent37.shapeofview.shapes.ArcView
                 android:id="@+id/itemBackground"
                 android:layout_width="0dp"
                 android:layout_height="0dp">
@@ -49,7 +49,7 @@
                     android:layout_height="match_parent"
                     android:background="?attr/colorSurface" />
 
-            </com.github.florent37.shapeofview.shapes.ArcView>
+            </io.github.florent37.shapeofview.shapes.ArcView>
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 

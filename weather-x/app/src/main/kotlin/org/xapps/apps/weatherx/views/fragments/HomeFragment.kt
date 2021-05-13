@@ -30,12 +30,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
+import org.xapps.apps.weatherx.services.utils.error
+import org.xapps.apps.weatherx.services.utils.info
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
 import org.xapps.apps.weatherx.views.popups.MoreOptionsPopup
 import org.xapps.apps.weatherx.views.utils.Message
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -121,7 +122,7 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         lifecycleScope.launchWhenResumed {
             viewModel.workingFlow.collect { isWorking ->
-                Timber.i("Working changed to $isWorking")
+                info<HomeFragment>("Working value has changed to $isWorking")
             }
         }
 
@@ -168,10 +169,10 @@ class HomeFragment @Inject constructor() : Fragment() {
             viewModel.useMetricSystem()
                 .drop(1)
                 .catch { ex ->
-                    Timber.e(ex)
+                    error<HomeFragment>(ex)
                 }
                 .collect { _ ->
-                    Timber.i("Use metric system flow collector")
+                    info<HomeFragment>("Using metric system flow collector")
                     viewModel.resetScheduleWeatherInfo()
                 }
         }
@@ -179,9 +180,10 @@ class HomeFragment @Inject constructor() : Fragment() {
         lifecycleScope.launchWhenResumed {
             viewModel.isDarkModeOn()
                 .catch { ex->
-                    Timber.e(ex)
+                    error<HomeFragment>(ex)
                 }
                 .collect { isDarkModeOn ->
+                    info<HomeFragment>("Using dark mode flow collector")
                     AppCompatDelegate.setDefaultNightMode(if (isDarkModeOn) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
                 }
         }
@@ -197,13 +199,13 @@ class HomeFragment @Inject constructor() : Fragment() {
                 }
                 when (option) {
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
-                        Timber.i("Metric system configuration has changed. Flow collector will handle it")
+                        info<HomeFragment>("Metric system configuration has changed. Flow collector will handle it")
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
-                        Timber.i("Dark mode configuration has changed. Flow collector will handle it")
+                        info<HomeFragment>("Dark mode configuration has changed. Flow collector will handle it")
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW -> {
-                        Timber.i("Open About view request received")
+                        info<HomeFragment>("Open About view request received")
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
                     }
                 }

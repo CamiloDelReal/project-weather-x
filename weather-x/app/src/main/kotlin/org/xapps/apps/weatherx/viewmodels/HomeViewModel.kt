@@ -20,7 +20,7 @@ import org.xapps.apps.weatherx.services.repositories.SettingsRepository
 import org.xapps.apps.weatherx.services.utils.DateUtils
 import org.xapps.apps.weatherx.services.utils.GpsTracker
 import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
-import org.xapps.apps.weatherx.services.utils.NetworkTracker
+import org.xapps.apps.weatherx.services.utils.ConnectivityTracker
 import org.xapps.apps.weatherx.views.utils.Message
 import org.xapps.apps.weatherx.views.utils.Utilities
 import timber.log.Timber
@@ -32,7 +32,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val settings: SettingsRepository,
-    private val networkTracker: NetworkTracker,
+    private val connectivityTracker: ConnectivityTracker,
     private val session: Session,
     private val gpsTracker: GpsTracker,
     private val geocoder: Geocoder,
@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
     val workingFlow: StateFlow<Boolean> = _workingFlow
     val messageFlow: SharedFlow<Message> = _messageFlow
 
-    private var jobNetworkTracker: Job? = null
+    private var jobConnectivityTracker: Job? = null
     private var jobGpsTrackerErrors: Job? = null
     private var jobGpsTrackerUpdates: Job? = null
     private var jobWeatherInfo: Job? = null
@@ -58,12 +58,12 @@ class HomeViewModel @Inject constructor(
     val hourlyWeather = ObservableArrayList<Hourly>()
     val dailyWeather = ObservableArrayList<Daily>()
 
-    private var internetAvailable = networkTracker.isConnectedToInternet()
+    private var internetAvailable = connectivityTracker.isConnectedToInternet()
 
     init {
         session.currentLanguage = Locale.getDefault().language
-        jobNetworkTracker = viewModelScope.launch {
-            networkTracker.connectivityWatcher()
+        jobConnectivityTracker = viewModelScope.launch {
+            connectivityTracker.connectivityFlow
                 .collect { isConnectionAvailable ->
                     if (isConnectionAvailable && isConnectionAvailable != internetAvailable) {
                         Timber.i("Network tracker has returned connection available")
@@ -72,7 +72,7 @@ class HomeViewModel @Inject constructor(
                     internetAvailable = isConnectionAvailable
                 }
         }
-        networkTracker.start()
+        connectivityTracker.start()
     }
 
     fun startWeatherMonitor() {
@@ -109,7 +109,7 @@ class HomeViewModel @Inject constructor(
         place.set(customPlace)
         session.currentPlace = customPlace
 
-        if (networkTracker.isConnectedToInternet()) {
+        if (connectivityTracker.isConnectedToInternet()) {
             Timber.i("AppLogger - Internet gateway detected")
             scheduleWeatherInfo()
         } else {
@@ -120,7 +120,7 @@ class HomeViewModel @Inject constructor(
 
     private fun startWeatherMonitorCurrentPlace() {
         stopMonitors()
-        if (networkTracker.isConnectedToInternet()) {
+        if (connectivityTracker.isConnectedToInternet()) {
             Timber.i("AppLogger - Internet gateway detected")
             jobGpsTrackerErrors = viewModelScope.launch {
                 gpsTracker.errorFlow.collect { error ->
@@ -203,7 +203,7 @@ class HomeViewModel @Inject constructor(
         jobWeatherInfo = viewModelScope.launch {
             Timber.i("Schedule weather info starting")
             timerFlow(interval = 1000 * 60 * 10).collect {
-                if (networkTracker.isConnectedToInternet()) {
+                if (connectivityTracker.isConnectedToInternet()) {
                     try {
                         val weather = weatherRepository.currentHourlyDaily()
                         weather.current?.let {

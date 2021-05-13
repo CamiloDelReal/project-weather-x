@@ -7,8 +7,11 @@ import android.os.Looper
 import com.google.android.gms.location.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 
 @SuppressLint("MissingPermission")
@@ -37,6 +40,7 @@ class GpsTracker(
     var error: Error = Error.NONE
         private set(value) {
             field = value
+            info<GpsTracker>("About to emit $value")
             _errorFlow.tryEmit(value)
         }
 
@@ -44,25 +48,27 @@ class GpsTracker(
         private set(value) {
             field = value
             value?.let {
-                Timber.i("AppLogger - About to emit $value")
+                info<GpsTracker>("About to emit $value")
                 _updaterFlow.tryEmit(it)
             }
         }
 
     fun start() {
-        Timber.i("AppLogger - GPSTracker has started")
+        info<GpsTracker>("Gps tracker is starting")
         locationProvider = LocationServices.getFusedLocationProviderClient(context)
 
         locationProvider?.lastLocation?.apply {
             addOnFailureListener{
+                error<GpsTracker>(it)
                 error = Error.PROVIDER_ERROR
             }
             addOnSuccessListener { lastLocation ->
+                info<GpsTracker>("Location provider has received new location $lastLocation")
                 if(lastLocation != null) {
-                    Timber.i("AppLogger - Last location has returned a valid value $lastLocation")
+                    info<GpsTracker>("Location received is valid")
                     processLocation(lastLocation)
                 } else {
-                    Timber.i("AppLogger - Last location has returned an invalid value")
+                    error<GpsTracker>("Location provider has received null object")
                     error = Error.INVALID_LOCATION
                 }
             }
@@ -79,49 +85,53 @@ class GpsTracker(
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
-
+                info<GpsTracker>("Location provider callback has received a result $locationResult")
                 processLocation(locationResult.lastLocation)
             }
         }
 
         locationProvider?.requestLocationUpdates(locationRequest!!, locationCallback!!, Looper.myLooper()!!)
+        info<GpsTracker>("Gps tracker has started")
     }
 
     private fun processLocation(lastLocation: Location) {
+        info<GpsTracker>("Starting processing of last location received $lastLocation")
         if (validateUpdates) {
-            Timber.i("AppLogger - Location validation active $location")
+            info<GpsTracker>("Update validation is active")
             if (location != null) {
-                Timber.i("AppLogger - Location is valid")
+                info<GpsTracker>("Current location is valid, proceeding to validate last location")
                 val distanceKm = calculateCoordinatesDistanceKm(
                     location!!.latitude,
                     location!!.longitude,
                     lastLocation.latitude,
                     lastLocation.longitude
                 )
-                Timber.i("Distance from last location ${distanceKm}Km ${distanceKm * 1000} ${MIN_DISPLACEMENT_FOR_UPDATES}")
+                debug<GpsTracker>("Distance from last location ${distanceKm}Km")
                 if ((distanceKm * 1000) >= MIN_DISPLACEMENT_FOR_UPDATES) {
-                    Timber.i("AppLogger - Location is in range to update")
+                    info<GpsTracker>("Location is in range to update, saving last location")
                     location = lastLocation
                 }
             } else {
-                Timber.i("AppLogger - Current saved location is invalid, proceding to save the location recieved")
+                info<GpsTracker>("Current saved location is invalid, saving last location")
                 location = lastLocation
             }
         } else {
-            Timber.i("AppLogger - Location validation is not active, proceding to save new location")
+            info<GpsTracker>("Update validation is not active, saving last location")
             location = lastLocation
         }
     }
 
     fun stop() {
+        info<GpsTracker>("Gps tracker is been stopped")
         val removeTask = locationProvider?.removeLocationUpdates(locationCallback!!)
         removeTask?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Timber.i("AppLogger - Location callback removed")
+                info<GpsTracker>("Location provider callback removed")
             } else {
-                Timber.i("AppLogger - Failed to remove location callback")
+                error<GpsTracker>("Failed to remove location callback")
             }
         }
+        info<GpsTracker>("Gps tracker has been stopped")
     }
 
     companion object {
@@ -147,10 +157,10 @@ class GpsTracker(
         val rLat2: Double = decimalToRadian(lat2)
         val deltaLat: Double = decimalToRadian(lat2 - lat1)
         val deltaLong: Double = decimalToRadian(lon2 - lon1)
-        val a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
-                Math.cos(rLat1) * Math.cos(rLat2) *
-                Math.sin(deltaLong / 2) * Math.sin(deltaLong / 2)
-        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        val a = sin(deltaLat / 2) * sin(deltaLat / 2) +
+                cos(rLat1) * cos(rLat2) *
+                sin(deltaLong / 2) * sin(deltaLong / 2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         return R * c
     }
 

@@ -23,6 +23,10 @@ inline fun <reified T> error(throwable: Throwable) {
     Timber.tag(T::class.java.simpleName).e(throwable)
 }
 
+inline fun <reified T> error(throwable: Throwable, message: String, vararg args: Any) {
+    Timber.tag(T::class.java.simpleName).e(throwable, message, args)
+}
+
 inline fun <reified T> warning(message: String, vararg args: Any) {
     Timber.tag(T::class.java.simpleName).w(message, args)
 }
