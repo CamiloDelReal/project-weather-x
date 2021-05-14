@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
-import org.xapps.apps.weatherx.services.models.Condition
-import org.xapps.apps.weatherx.services.models.Current
-import org.xapps.apps.weatherx.services.models.Daily
-import org.xapps.apps.weatherx.services.models.Hourly
-import org.xapps.apps.weatherx.services.utils.DateUtils
+import org.xapps.apps.weatherx.core.models.Condition
+import org.xapps.apps.weatherx.core.models.Current
+import org.xapps.apps.weatherx.core.models.Daily
+import org.xapps.apps.weatherx.core.models.Hourly
+import org.xapps.apps.weatherx.core.utils.DateUtils
 import org.xapps.apps.weatherx.views.utils.Utilities
 
 

@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.utils
+package org.xapps.apps.weatherx.core.utils
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose

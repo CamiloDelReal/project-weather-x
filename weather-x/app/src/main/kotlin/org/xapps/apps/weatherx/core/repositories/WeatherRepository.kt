@@ -1,11 +1,11 @@
-package org.xapps.apps.weatherx.services.repositories
+package org.xapps.apps.weatherx.core.repositories
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.xapps.apps.weatherx.services.models.*
-import org.xapps.apps.weatherx.services.remote.WeatherApi
-import org.xapps.apps.weatherx.services.utils.debug
-import org.xapps.apps.weatherx.services.utils.info
+import org.xapps.apps.weatherx.core.models.*
+import org.xapps.apps.weatherx.core.remote.WeatherApi
+import org.xapps.apps.weatherx.core.utils.debug
+import org.xapps.apps.weatherx.core.utils.info
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject

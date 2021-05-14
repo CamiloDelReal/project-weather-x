@@ -1,8 +1,8 @@
-package org.xapps.apps.weatherx.services.local
+package org.xapps.apps.weatherx.core.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import org.xapps.apps.weatherx.services.models.Place
+import org.xapps.apps.weatherx.core.models.Place
 
 
 @Database(entities = arrayOf(Place::class), version = 1, exportSchema = false)

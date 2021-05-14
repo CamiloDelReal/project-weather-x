@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.repositories
+package org.xapps.apps.weatherx.core.repositories
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -6,8 +6,8 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
-import org.xapps.apps.weatherx.services.models.Condition
-import org.xapps.apps.weatherx.services.models.Place
+import org.xapps.apps.weatherx.core.models.Condition
+import org.xapps.apps.weatherx.core.models.Place
 import timber.log.Timber
 import javax.inject.Inject
 

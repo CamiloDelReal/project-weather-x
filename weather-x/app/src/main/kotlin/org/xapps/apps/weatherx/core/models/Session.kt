@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.models
+package org.xapps.apps.weatherx.core.models
 
 import org.xapps.apps.weatherx.BuildConfig
 

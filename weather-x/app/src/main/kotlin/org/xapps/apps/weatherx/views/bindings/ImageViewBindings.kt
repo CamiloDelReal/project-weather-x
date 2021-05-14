@@ -2,7 +2,7 @@ package org.xapps.apps.weatherx.views.bindings
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import org.xapps.apps.weatherx.services.models.Hourly
+import org.xapps.apps.weatherx.core.models.Hourly
 
 
 object ImageViewBindings {

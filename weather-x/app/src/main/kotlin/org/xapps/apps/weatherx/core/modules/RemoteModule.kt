@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.modules
+package org.xapps.apps.weatherx.core.modules
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.xapps.apps.weatherx.BuildConfig
-import org.xapps.apps.weatherx.services.remote.WeatherApi
+import org.xapps.apps.weatherx.core.remote.WeatherApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton

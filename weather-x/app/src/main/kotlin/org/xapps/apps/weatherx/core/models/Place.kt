@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.models
+package org.xapps.apps.weatherx.core.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

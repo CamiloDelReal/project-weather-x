@@ -3,7 +3,7 @@ package org.xapps.apps.weatherx.views.bindings
 import android.view.View
 import android.widget.LinearLayout
 import androidx.databinding.BindingAdapter
-import org.xapps.apps.weatherx.services.models.Daily
+import org.xapps.apps.weatherx.core.models.Daily
 
 
 object LinearLayoutBindings {

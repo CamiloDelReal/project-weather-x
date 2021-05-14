@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.databinding.BindingAdapter
 import org.xapps.apps.weatherx.R
-import org.xapps.apps.weatherx.services.models.Current
+import org.xapps.apps.weatherx.core.models.Current
 import java.util.*
 
 

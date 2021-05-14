@@ -7,7 +7,7 @@ import androidx.multidex.MultiDex
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.*
 import org.xapps.apps.weatherx.BuildConfig
-import org.xapps.apps.weatherx.services.repositories.SettingsRepository
+import org.xapps.apps.weatherx.core.repositories.SettingsRepository
 import timber.log.Timber
 import javax.inject.Inject
 

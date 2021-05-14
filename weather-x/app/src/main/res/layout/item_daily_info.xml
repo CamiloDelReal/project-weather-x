@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="org.xapps.apps.weatherx.services.models.Daily" />
+            type="org.xapps.apps.weatherx.core.models.Daily" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

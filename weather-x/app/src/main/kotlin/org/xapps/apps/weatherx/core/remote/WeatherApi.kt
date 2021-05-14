@@ -1,6 +1,6 @@
-package org.xapps.apps.weatherx.services.remote
+package org.xapps.apps.weatherx.core.remote
 
-import org.xapps.apps.weatherx.services.models.Weather
+import org.xapps.apps.weatherx.core.models.Weather
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

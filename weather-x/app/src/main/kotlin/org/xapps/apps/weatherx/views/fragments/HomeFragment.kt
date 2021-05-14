@@ -30,8 +30,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
-import org.xapps.apps.weatherx.services.utils.error
-import org.xapps.apps.weatherx.services.utils.info
+import org.xapps.apps.weatherx.core.utils.error
+import org.xapps.apps.weatherx.core.utils.info
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
@@ -264,9 +264,9 @@ class HomeFragment @Inject constructor() : Fragment() {
 
     private fun prepareForLoading() {
         val lastAnimation = LottieAnimationViewBindings.weatherAnimation(
-            viewModel.lastConditionCode(),
-            viewModel.lastWasDayLight(),
-            viewModel.lastWasThereVisibility()
+            viewModel.lastConditionCodeValue(),
+            viewModel.lastWasDayLightValue(),
+            viewModel.lastWasThereVisibilityValue()
         )
         bindings.lotConditionImage.tag = lastAnimation
         bindings.lotConditionImage.setAnimation(lastAnimation)
@@ -275,10 +275,10 @@ class HomeFragment @Inject constructor() : Fragment() {
         bindings.lotConditionImage.repeatMode = LottieDrawable.RESTART
         bindings.lotConditionImage.playAnimation()
         val lastBackground = ConstraintLayoutBindings.conditionBackground(
-            viewModel.lastConditionCode(),
-            viewModel.lastWasDayLight(),
-            viewModel.lastTemperature(),
-            viewModel.useMetricSystemValue()
+            viewModel.lastConditionCodeValue(),
+            viewModel.lastWasDayLightValue(),
+            viewModel.lastTemperatureValue(),
+            viewModel.useMetricSystemValueValue()
         )
         bindings.rootLayout.setBackgroundResource(lastBackground)
         updateNavigationBarColor()
@@ -287,10 +287,10 @@ class HomeFragment @Inject constructor() : Fragment() {
     private fun updateNavigationBarColor(useSurface: Boolean = true, animate: Boolean = false) {
         val previousBottomColor = lastConditionBottomColor
         lastConditionBottomColor = ConstraintLayoutBindings.conditionBottomColor(
-            viewModel.lastConditionCode(),
-            viewModel.lastWasDayLight(),
-            viewModel.lastTemperature(),
-            viewModel.useMetricSystemValue()
+            viewModel.lastConditionCodeValue(),
+            viewModel.lastWasDayLightValue(),
+            viewModel.lastTemperatureValue(),
+            viewModel.useMetricSystemValueValue()
         )
         if (bindings.motionFg.currentState in arrayOf(R.id.setLoading, R.id.setBegin)) {
             if (animate) {

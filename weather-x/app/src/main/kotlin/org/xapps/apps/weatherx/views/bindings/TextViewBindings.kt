@@ -3,11 +3,10 @@ package org.xapps.apps.weatherx.views.bindings
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import org.xapps.apps.weatherx.R
-import org.xapps.apps.weatherx.services.models.Current
-import org.xapps.apps.weatherx.services.models.Daily
-import org.xapps.apps.weatherx.services.models.Hourly
-import org.xapps.apps.weatherx.services.utils.DateUtils
-import java.lang.Character.isLowerCase
+import org.xapps.apps.weatherx.core.models.Current
+import org.xapps.apps.weatherx.core.models.Daily
+import org.xapps.apps.weatherx.core.models.Hourly
+import org.xapps.apps.weatherx.core.utils.DateUtils
 import java.util.*
 import kotlin.math.ceil
 

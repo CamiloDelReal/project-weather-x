@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.modules
+package org.xapps.apps.weatherx.core.modules
 
 import android.content.Context
 import dagger.Module
@@ -7,7 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
-import org.xapps.apps.weatherx.services.repositories.SettingsRepository
+import org.xapps.apps.weatherx.core.repositories.SettingsRepository
 import javax.inject.Singleton
 
 

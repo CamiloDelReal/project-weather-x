@@ -1,7 +1,7 @@
-package org.xapps.apps.weatherx.services.local
+package org.xapps.apps.weatherx.core.local
 
 import androidx.room.*
-import org.xapps.apps.weatherx.services.models.Place
+import org.xapps.apps.weatherx.core.models.Place
 
 
 @Dao

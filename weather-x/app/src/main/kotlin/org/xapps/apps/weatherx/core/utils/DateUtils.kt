@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.utils
+package org.xapps.apps.weatherx.core.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

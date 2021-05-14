@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.modules
+package org.xapps.apps.weatherx.core.modules
 
 import android.content.Context
 import android.location.Geocoder
@@ -7,9 +7,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import org.xapps.apps.weatherx.services.models.Session
-import org.xapps.apps.weatherx.services.utils.GpsTracker
-import org.xapps.apps.weatherx.services.utils.ConnectivityTracker
+import org.xapps.apps.weatherx.core.models.Session
+import org.xapps.apps.weatherx.core.utils.GpsTracker
+import org.xapps.apps.weatherx.core.utils.ConnectivityTracker
 import java.util.*
 import javax.inject.Singleton
 

@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.utils
+package org.xapps.apps.weatherx.core.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

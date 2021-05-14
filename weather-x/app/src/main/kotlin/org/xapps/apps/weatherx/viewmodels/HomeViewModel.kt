@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.xapps.apps.weatherx.R
-import org.xapps.apps.weatherx.services.models.*
-import org.xapps.apps.weatherx.services.repositories.PlaceRepository
-import org.xapps.apps.weatherx.services.repositories.WeatherRepository
-import org.xapps.apps.weatherx.services.repositories.SettingsRepository
-import org.xapps.apps.weatherx.services.utils.DateUtils
-import org.xapps.apps.weatherx.services.utils.GpsTracker
-import org.xapps.apps.weatherx.services.utils.KotlinUtils.timerFlow
-import org.xapps.apps.weatherx.services.utils.ConnectivityTracker
+import org.xapps.apps.weatherx.core.models.*
+import org.xapps.apps.weatherx.core.repositories.PlaceRepository
+import org.xapps.apps.weatherx.core.repositories.WeatherRepository
+import org.xapps.apps.weatherx.core.repositories.SettingsRepository
+import org.xapps.apps.weatherx.core.utils.DateUtils
+import org.xapps.apps.weatherx.core.utils.GpsTracker
+import org.xapps.apps.weatherx.core.utils.KotlinUtils.timerFlow
+import org.xapps.apps.weatherx.core.utils.ConnectivityTracker
 import org.xapps.apps.weatherx.views.utils.Message
 import org.xapps.apps.weatherx.views.utils.Utilities
 import timber.log.Timber
@@ -31,7 +31,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val settings: SettingsRepository,
+    private val settingsRepository: SettingsRepository,
     private val connectivityTracker: ConnectivityTracker,
     private val session: Session,
     private val gpsTracker: GpsTracker,
@@ -78,7 +78,7 @@ class HomeViewModel @Inject constructor(
     fun startWeatherMonitor() {
         Timber.i("AppLogger - Start weather monitor")
         viewModelScope.launch {
-            val lastPlaceId = settings.lastPlaceMonitoredValue()
+            val lastPlaceId = settingsRepository.lastPlaceMonitoredValue()
             if (lastPlaceId == Place.CURRENT_PLACE_ID) {
                 Timber.i("AppLogger - Current place was the last monitored place")
                 startWeatherMonitorCurrentPlace()
@@ -104,7 +104,7 @@ class HomeViewModel @Inject constructor(
     private fun startWeatherMonitorCustomPlace(customPlace: Place) {
         stopMonitors()
         viewModelScope.launch {
-            settings.setLastPlaceMonitored(customPlace.id)
+            settingsRepository.setLastPlaceMonitored(customPlace.id)
         }
         place.set(customPlace)
         session.currentPlace = customPlace
@@ -207,9 +207,9 @@ class HomeViewModel @Inject constructor(
                     try {
                         val weather = weatherRepository.currentHourlyDaily()
                         weather.current?.let {
-                            settings.setLastTemperature(it.temperature)
-                            settings.setLastWasVisible(Utilities.isVisible(it.visibility))
-                            settings.setLastWasDayLight(
+                            settingsRepository.setLastTemperature(it.temperature)
+                            settingsRepository.setLastWasVisible(Utilities.isVisible(it.visibility))
+                            settingsRepository.setLastWasDayLight(
                                 DateUtils.isDayLight(
                                     sunrise = it.sunrise,
                                     sunset = it.sunset,
@@ -217,7 +217,7 @@ class HomeViewModel @Inject constructor(
                                 )
                             )
                             if (it.conditions.isNotEmpty()) {
-                                settings.setLastConditionCode(it.conditions[0].id)
+                                settingsRepository.setLastConditionCode(it.conditions[0].id)
                             }
                         }
                         currentWeather.set(weather.current)
@@ -267,18 +267,18 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun useMetricSystem(): Flow<Boolean> = settings.useMetricSystem()
+    fun useMetricSystem(): Flow<Boolean> = settingsRepository.useMetricSystem()
 
-    fun isDarkModeOn(): Flow<Boolean> = settings.isDarkModeOn()
+    fun isDarkModeOn(): Flow<Boolean> = settingsRepository.isDarkModeOn()
 
-    fun lastConditionCode(): Int = runBlocking { settings.lastConditionCodeValue() }
+    fun lastConditionCodeValue(): Int = runBlocking { settingsRepository.lastConditionCodeValue() }
 
-    fun lastWasDayLight(): Boolean = runBlocking { settings.lastWasDayLightValue() }
+    fun lastWasDayLightValue(): Boolean = runBlocking { settingsRepository.lastWasDayLightValue() }
 
-    fun lastTemperature(): Double = runBlocking { settings.lastTemperatureValue() }
+    fun lastTemperatureValue(): Double = runBlocking { settingsRepository.lastTemperatureValue() }
 
-    fun useMetricSystemValue(): Boolean = runBlocking { settings.useMetricSystemValue() }
+    fun useMetricSystemValueValue(): Boolean = runBlocking { settingsRepository.useMetricSystemValue() }
 
-    fun lastWasThereVisibility(): Boolean = runBlocking { settings.lastWasThereVisibilityValue() }
+    fun lastWasThereVisibilityValue(): Boolean = runBlocking { settingsRepository.lastWasThereVisibilityValue() }
 
 }

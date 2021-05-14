@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.ContentPopupMoreOptionsBinding
-import org.xapps.apps.weatherx.services.repositories.SettingsRepository
+import org.xapps.apps.weatherx.core.repositories.SettingsRepository
 import javax.inject.Inject
 
 

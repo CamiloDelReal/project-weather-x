@@ -1,4 +1,4 @@
-package org.xapps.apps.weatherx.services.models
+package org.xapps.apps.weatherx.core.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
