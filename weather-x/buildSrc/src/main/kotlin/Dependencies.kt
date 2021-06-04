@@ -16,7 +16,7 @@ object Plugins {
 
 object Build {
     const val SDK_VERSION = 30
-    const val MIN_SDK_VERSION = 24
+    const val MIN_SDK_VERSION = 26
     const val TARGET_SDK_VERSION = 30
     const val BUILD_TOOLS_VERSION = "30.0.3"
     const val APPLICATION_ID = "org.xapps.apps.weatherx"

@@ -46,11 +46,11 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
         super.onCreate(savedInstanceState)
 
         val style = STYLE_NO_FRAME
-        val theme = R.style.PopupStyle
+        val theme = R.style.Popup
         setStyle(style, theme)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val layoutInflater = LayoutInflater.from(context)
         bindings = ContentPopupMoreOptionsBinding.inflate(layoutInflater, container, false)
         return bindings.root

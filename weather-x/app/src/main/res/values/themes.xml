@@ -37,7 +37,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="PopupStyle">
+    <style name="Popup">
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorPrimaryVariant">@color/blue_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -56,10 +56,10 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowAnimationStyle">@style/PopupStyle.Animation</item>
+        <item name="android:windowAnimationStyle">@style/Popup.Animation</item>
     </style>
 
-    <style name="PopupStyle.Animation" parent="@android:style/Animation.Activity">
+    <style name="Popup.Animation" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/popup_in</item>
         <item name="android:windowExitAnimation">@anim/popup_out</item>
     </style>
