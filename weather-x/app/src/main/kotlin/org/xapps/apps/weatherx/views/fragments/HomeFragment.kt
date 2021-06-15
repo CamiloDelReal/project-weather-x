@@ -25,6 +25,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
@@ -50,6 +51,11 @@ class HomeFragment @Inject constructor() : Fragment() {
     private var lastCompletedConstraint: Int? = null
     private var lastConditionBottomColor: Int? = null
     private lateinit var navigationBarColorAnimation: ValueAnimator
+
+    private var workingJob: Job? = null
+    private var messageJob: Job? = null
+    private var metricsJob: Job? = null
+    private var darkModeJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -120,13 +126,13 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         })
 
-        lifecycleScope.launchWhenResumed {
+        workingJob = lifecycleScope.launchWhenResumed {
             viewModel.workingFlow.collect { isWorking ->
                 info<HomeFragment>("Working value has changed to $isWorking")
             }
         }
 
-        lifecycleScope.launchWhenResumed {
+        messageJob = lifecycleScope.launchWhenResumed {
             viewModel.messageFlow.collect { message ->
                 when(message.type) {
                     Message.Type.MESSAGE -> {
@@ -165,7 +171,7 @@ class HomeFragment @Inject constructor() : Fragment() {
             }
         }
 
-        lifecycleScope.launchWhenResumed {
+        metricsJob = lifecycleScope.launchWhenResumed {
             viewModel.useMetricSystem()
                 .drop(1)
                 .catch { ex ->
@@ -177,7 +183,7 @@ class HomeFragment @Inject constructor() : Fragment() {
                 }
         }
 
-        lifecycleScope.launchWhenResumed {
+        darkModeJob = lifecycleScope.launchWhenResumed {
             viewModel.isDarkModeOn()
                 .catch { ex->
                     error<HomeFragment>(ex)
@@ -323,6 +329,18 @@ class HomeFragment @Inject constructor() : Fragment() {
                 )
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        workingJob?.cancel()
+        workingJob = null
+        messageJob?.cancel()
+        messageJob = null
+        metricsJob?.cancel()
+        metricsJob = null
+        darkModeJob?.cancel()
+        darkModeJob = null
     }
 
     override fun onDestroy() {
