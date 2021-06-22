@@ -4,8 +4,8 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.xapps.apps.weatherx.services.models.Daily
-import org.xapps.apps.weatherx.services.models.Hourly
+import org.xapps.apps.weatherx.core.models.Daily
+import org.xapps.apps.weatherx.core.models.Hourly
 import org.xapps.apps.weatherx.views.adapters.DailyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlyAdapter
 import org.xapps.apps.weatherx.views.adapters.HourlySimpleAdapter

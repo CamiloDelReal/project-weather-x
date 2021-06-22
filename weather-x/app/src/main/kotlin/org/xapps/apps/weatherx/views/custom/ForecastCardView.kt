@@ -12,8 +12,7 @@ import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.ContentCardForecastBinding
-import org.xapps.apps.weatherx.services.models.Current
-import java.util.*
+import org.xapps.apps.weatherx.core.models.Current
 
 
 class ForecastCardView @JvmOverloads constructor(

@@ -38,6 +38,8 @@
     <string name="openweathermap_url">https://openweathermap.org</string>
     <string name="lottiefiles_jochang_url">https://lottiefiles.com/user/26177</string>
     <string name="designed_by_jochang">Designed by jochang from LottieFiles</string>
+    <string name="lottiefiles_kerembalku_url">https://lottiefiles.com/kerembalku</string>
+    <string name="designed_by_kerembalku">Designed by Kerem Balku from LottieFiles</string>
     <string name="uigradients">uiGradients</string>
     <string name="uigradients_url">https://uigradients.com</string>
     <string name="about">About</string>

@@ -49,6 +49,7 @@ android {
     }
     tasks.withType().configureEach {
         kotlinOptions.freeCompilerArgs += "-Xopt-in=org.mylibrary.OptInAnnotation"
+        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     android.buildFeatures.dataBinding = true
@@ -65,7 +66,7 @@ android {
     }
 
     buildTypes["release"].apply {
-        isMinifyEnabled = true
+        isMinifyEnabled = false
         val openWeatherMapApiKey: String by System.getProperties()
         buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", openWeatherMapApiKey)
 
@@ -123,8 +124,8 @@ dependencies {
     implementation(Libraries.Jetpack.Navigation.UI_KTX)
     implementation(Libraries.Jetpack.Navigation.FRAGMENT_KTX)
 
-    // Jetpack Shared Preferences
-    implementation(Libraries.Jetpack.SharedPreferences.CORE_KTX)
+    // Jetpack DataStore
+    implementation(Libraries.Jetpack.DataStore.BASE)
 
     // Jetpack Lifecycle
     implementation(Libraries.Jetpack.Lifecycle.RUNTIME_KTX)
@@ -146,8 +147,6 @@ dependencies {
     // Hilt
     implementation(Libraries.Hilt.CORE)
     kapt(Libraries.Hilt.COMPILER)
-    implementation(Libraries.Hilt.VIEWMODEL)
-    kapt(Libraries.Hilt.JETPACK_COMPILER)
 
     // Retrofit
     implementation(Libraries.Retrofit.CORE)

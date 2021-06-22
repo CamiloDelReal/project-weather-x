@@ -32,18 +32,12 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddPlace"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        style="@style/Popup.Button"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/popup_more_options_button_height"
                         android:layout_centerInParent="true"
-                        android:enabled="false"
-                        android:gravity="start|center_vertical"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:paddingHorizontal="@dimen/popup_more_options_button_padding"
                         android:text="@string/add_place"
-                        android:textAllCaps="false"
-                        app:cornerRadius="0dp" />
+                        android:enabled="false"/>
 
                     <TextView
                         style="@style/TextAppearance.MaterialComponents.Caption"
@@ -63,54 +57,24 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnUseMetric"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    style="@style/Popup.Button.Check"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/popup_more_options_button_height"
-                    android:checkable="true"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:gravity="start|center_vertical"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:paddingStart="@dimen/popup_more_options_button_padding"
-                    android:paddingEnd="@dimen/popup_more_options_button_padding_with_check"
-                    android:text="@string/metric_system"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text_button_check_menu"
-                    app:backgroundTint="@color/bg_button_check_menu"
-                    app:cornerRadius="0dp"
-                    app:rippleColor="@color/mtrl_btn_text_btn_ripple_color" />
+                    android:text="@string/metric_system" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDarkMode"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    style="@style/Popup.Button.Check"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/popup_more_options_button_height"
-                    android:checkable="true"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:gravity="start|center_vertical"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:paddingStart="@dimen/popup_more_options_button_padding"
-                    android:paddingEnd="@dimen/popup_more_options_button_padding_with_check"
-                    android:text="@string/dark_mode"
-                    android:textAllCaps="false"
-                    android:textColor="@color/text_button_check_menu"
-                    app:backgroundTint="@color/bg_button_check_menu"
-                    app:cornerRadius="0dp"
-                    app:rippleColor="@color/mtrl_btn_text_btn_ripple_color" />
+                    android:text="@string/dark_mode" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAbout"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    style="@style/Popup.Button"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/popup_more_options_button_height"
-                    android:gravity="start|center_vertical"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:paddingHorizontal="@dimen/popup_more_options_button_padding"
-                    android:text="@string/about"
-                    android:textAllCaps="false"
-                    app:cornerRadius="0dp" />
+                    android:text="@string/about" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

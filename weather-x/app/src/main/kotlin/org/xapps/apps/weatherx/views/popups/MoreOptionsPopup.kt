@@ -1,18 +1,18 @@
 package org.xapps.apps.weatherx.views.popups
 
-import android.graphics.Point
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import org.xapps.apps.weatherx.BuildConfig
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.ContentPopupMoreOptionsBinding
-import org.xapps.apps.weatherx.services.settings.SettingsService
+import org.xapps.apps.weatherx.core.repositories.SettingsRepository
 import javax.inject.Inject
 
 
@@ -40,17 +40,17 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
     private lateinit var bindings: ContentPopupMoreOptionsBinding
 
     @Inject
-    lateinit var settings: SettingsService
+    lateinit var settings: SettingsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val style = STYLE_NO_FRAME
-        val theme = R.style.PopupStyle
+        val theme = R.style.Popup
         setStyle(style, theme)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val layoutInflater = LayoutInflater.from(context)
         bindings = ContentPopupMoreOptionsBinding.inflate(layoutInflater, container, false)
         return bindings.root
@@ -59,22 +59,28 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bindings.btnUseMetric.isChecked = settings.useMetricSystem()
-        bindings.btnUseMetric.addOnCheckedChangeListener { _, isChecked ->
-            settings.setUseMetricSystem(isChecked)
-            val data = Bundle().apply {
-                putInt(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED)
-            }
-            close(data)
+        runBlocking {
+            bindings.btnUseMetric.isChecked = settings.useMetricSystemValue()
+            bindings.btnDarkMode.isChecked = settings.isDarkModeOnValue()
         }
 
-        bindings.btnDarkMode.isChecked = settings.isDarkModeOn()
-        bindings.btnDarkMode.addOnCheckedChangeListener { _, isChecked ->
-            settings.setIsDarkModeOn(isChecked)
-            val data = Bundle().apply {
-                putInt(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_DARK_MODE_UPDATED)
+        bindings.btnUseMetric.addOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                settings.setUseMetricSystem(isChecked)
+                val data = Bundle().apply {
+                    putInt(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED)
+                }
+                close(data)
             }
-            close(data)
+        }
+        bindings.btnDarkMode.addOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                settings.setIsDarkModeOn(isChecked)
+                val data = Bundle().apply {
+                    putInt(MORE_OPTIONS_POPUP_OPTION, MORE_OPTIONS_POPUP_DARK_MODE_UPDATED)
+                }
+                close(data)
+            }
         }
 
         bindings.rootLayout.setOnClickListener {
@@ -96,14 +102,6 @@ class MoreOptionsPopup @Inject constructor() : DialogFragment() {
 
     override fun onResume() {
         val window = dialog!!.window
-//        val size = Point()
-//        val display = if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-//            window!!.windowManager.defaultDisplay
-//        } else {
-//            requireContext().display
-//        }
-//        window!!.windowManager.currentWindowMetrics.bounds
-//        display.getSize(size)
         window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT

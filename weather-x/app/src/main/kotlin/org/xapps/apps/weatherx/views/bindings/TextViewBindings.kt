@@ -3,10 +3,10 @@ package org.xapps.apps.weatherx.views.bindings
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import org.xapps.apps.weatherx.R
-import org.xapps.apps.weatherx.services.models.Current
-import org.xapps.apps.weatherx.services.models.Daily
-import org.xapps.apps.weatherx.services.models.Hourly
-import org.xapps.apps.weatherx.services.utils.DateUtils
+import org.xapps.apps.weatherx.core.models.Current
+import org.xapps.apps.weatherx.core.models.Daily
+import org.xapps.apps.weatherx.core.models.Hourly
+import org.xapps.apps.weatherx.core.utils.DateUtils
 import java.util.*
 import kotlin.math.ceil
 
@@ -30,8 +30,7 @@ object TextViewBindings {
     @JvmStatic
     @BindingAdapter("timestampToDayOfTheWeek")
     fun timestampToDayOfTheWeek(textView: TextView, timestamp: Long) {
-        textView.text = if (timestamp != 0L) DateUtils.dateToString(timestamp, "EEEE")
-            .capitalize() else ""
+        textView.text = if (timestamp != 0L) DateUtils.dateToString(timestamp, "EEEE").replaceFirstChar { it.uppercase() }  else ""
     }
 
     @JvmStatic
@@ -143,7 +142,7 @@ object TextViewBindings {
     @BindingAdapter("condition")
     fun condition(textView: TextView, value: Current?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ", ") { it.description.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.description.replaceFirstChar { it.uppercase() } }
         } ?: run {
             textView.context.getString(R.string.empty)
         }
@@ -154,7 +153,7 @@ object TextViewBindings {
     @BindingAdapter("condition")
     fun condition(textView: TextView, value: Daily?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ", ") { it.description.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.description.replaceFirstChar { it.uppercase() } }
         } ?: run {
             textView.context.getString(R.string.empty)
         }
@@ -165,7 +164,7 @@ object TextViewBindings {
     @BindingAdapter("condition")
     fun condition(textView: TextView, value: Hourly?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ", ") { it.description.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.description.replaceFirstChar { it.uppercase() } }
         } ?: run {
             textView.context.getString(R.string.empty)
         }
@@ -176,7 +175,7 @@ object TextViewBindings {
     @BindingAdapter("conditionSimple")
     fun conditionSimple(textView: TextView, value: Hourly?) {
         val valueStr = value?.let { info ->
-            info.conditions.joinToString(separator = ", ") { it.main.capitalize() }
+            info.conditions.joinToString(separator = ", ") { it.main.replaceFirstChar { it.uppercase() } }
         } ?: run {
             textView.context.getString(R.string.empty)
         }

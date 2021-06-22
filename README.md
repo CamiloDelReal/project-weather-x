@@ -46,6 +46,7 @@ Simple open source android application to get weather information
   * [Material Design Icons](https://materialdesignicons.com)
 - Animated Icons
   * [Lottie Files designed by jochang from LottieFiles](https://lottiefiles.com/user/26177)
+  * [Lottie Files designed by Kerem Balku from LottieFiles](https://lottiefiles.com/kerembalku)
 - Colors
   * [Gradient inspirations from uiGradients](https://uigradients.com)
 - Libraries and Tools

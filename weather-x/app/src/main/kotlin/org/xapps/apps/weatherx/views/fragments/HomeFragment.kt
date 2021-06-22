@@ -15,9 +15,7 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.karumi.dexter.Dexter
@@ -27,9 +25,14 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.drop
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.FragmentHomeBinding
-import org.xapps.apps.weatherx.services.settings.SettingsService
+import org.xapps.apps.weatherx.core.utils.error
+import org.xapps.apps.weatherx.core.utils.info
 import org.xapps.apps.weatherx.viewmodels.HomeViewModel
 import org.xapps.apps.weatherx.views.bindings.ConstraintLayoutBindings
 import org.xapps.apps.weatherx.views.bindings.LottieAnimationViewBindings
@@ -45,17 +48,19 @@ class HomeFragment @Inject constructor() : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    @Inject
-    lateinit var settings: SettingsService
-
     private var lastCompletedConstraint: Int? = null
     private var lastConditionBottomColor: Int? = null
     private lateinit var navigationBarColorAnimation: ValueAnimator
 
+    private var workingJob: Job? = null
+    private var messageJob: Job? = null
+    private var metricsJob: Job? = null
+    private var darkModeJob: Job? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bindings = FragmentHomeBinding.inflate(layoutInflater)
         bindings.lifecycleOwner = viewLifecycleOwner
         bindings.viewModel = viewModel
@@ -121,46 +126,73 @@ class HomeFragment @Inject constructor() : Fragment() {
 
         })
 
-        viewModel.working().observe(viewLifecycleOwner, Observer { _ ->
+        workingJob = lifecycleScope.launchWhenResumed {
+            viewModel.workingFlow.collect { isWorking ->
+                info<HomeFragment>("Working value has changed to $isWorking")
+            }
+        }
 
-        })
+        messageJob = lifecycleScope.launchWhenResumed {
+            viewModel.messageFlow.collect { message ->
+                when(message.type) {
+                    Message.Type.MESSAGE -> {
 
-        viewModel.message().observe(viewLifecycleOwner, Observer { message ->
-            when(message.type) {
-                Message.Type.MESSAGE -> {
-
-                }
-                Message.Type.ERROR -> {
-                    if (bindings.motionFg.currentState == R.id.setLoading) {
-                        bindings.txvError.text = message.data
-                        bindings.txvError.visibility = View.VISIBLE
-                        bindings.btnTryAgain.visibility = View.VISIBLE
-                    } else {
-                        Toasty.custom(
-                            requireContext(),
-                            message.data!!,
-                            AppCompatResources.getDrawable(
-                                requireContext(),
-                                R.drawable.ic_information_outline
-                            ),
-                            ContextCompat.getColor(requireContext(), R.color.red_500),
-                            ContextCompat.getColor(requireContext(), R.color.white),
-                            Toasty.LENGTH_LONG,
-                            true,
-                            true
-                        ).show()
                     }
-                }
-                Message.Type.READY -> {
-                    updateNavigationBarColor(false, true)
-                    if (bindings.motionFg.currentState == R.id.setLoading) {
-                        bindings.txvError.visibility = View.INVISIBLE
-                        bindings.btnTryAgain.visibility = View.INVISIBLE
-                        bindings.motionFg.transitionToEnd()
+                    Message.Type.ERROR -> {
+                        if (bindings.motionFg.currentState == R.id.setLoading) {
+                            bindings.txvError.text = message.data
+                            bindings.txvError.visibility = View.VISIBLE
+                            bindings.btnTryAgain.visibility = View.VISIBLE
+                        } else {
+                            Toasty.custom(
+                                requireContext(),
+                                message.data!!,
+                                AppCompatResources.getDrawable(
+                                    requireContext(),
+                                    R.drawable.ic_information_outline
+                                ),
+                                ContextCompat.getColor(requireContext(), R.color.red_500),
+                                ContextCompat.getColor(requireContext(), R.color.white),
+                                Toasty.LENGTH_LONG,
+                                true,
+                                true
+                            ).show()
+                        }
+                    }
+                    Message.Type.READY -> {
+                        updateNavigationBarColor(false, true)
+                        if (bindings.motionFg.currentState == R.id.setLoading) {
+                            bindings.txvError.visibility = View.INVISIBLE
+                            bindings.btnTryAgain.visibility = View.INVISIBLE
+                            bindings.motionFg.transitionToEnd()
+                        }
                     }
                 }
             }
-        })
+        }
+
+        metricsJob = lifecycleScope.launchWhenResumed {
+            viewModel.useMetricSystem()
+                .drop(1)
+                .catch { ex ->
+                    error<HomeFragment>(ex)
+                }
+                .collect { _ ->
+                    info<HomeFragment>("Using metric system flow collector")
+                    viewModel.resetScheduleWeatherInfo()
+                }
+        }
+
+        darkModeJob = lifecycleScope.launchWhenResumed {
+            viewModel.isDarkModeOn()
+                .catch { ex->
+                    error<HomeFragment>(ex)
+                }
+                .collect { isDarkModeOn ->
+                    info<HomeFragment>("Using dark mode flow collector")
+                    AppCompatDelegate.setDefaultNightMode(if (isDarkModeOn) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                }
+        }
 
         bindings.btnAdd.setOnClickListener {
             MoreOptionsPopup.showDialog(
@@ -173,12 +205,13 @@ class HomeFragment @Inject constructor() : Fragment() {
                 }
                 when (option) {
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_METRIC_SYSTEM_UPDATED -> {
-                        viewModel.startWeatherMonitor()
+                        info<HomeFragment>("Metric system configuration has changed. Flow collector will handle it")
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_DARK_MODE_UPDATED -> {
-                        AppCompatDelegate.setDefaultNightMode(if (settings.isDarkModeOn()) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+                        info<HomeFragment>("Dark mode configuration has changed. Flow collector will handle it")
                     }
                     MoreOptionsPopup.MORE_OPTIONS_POPUP_OPEN_ABOUT_VIEW -> {
+                        info<HomeFragment>("Open About view request received")
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCommonActivity())
                     }
                 }
@@ -237,9 +270,9 @@ class HomeFragment @Inject constructor() : Fragment() {
 
     private fun prepareForLoading() {
         val lastAnimation = LottieAnimationViewBindings.weatherAnimation(
-            viewModel.lastConditionCode(),
-            viewModel.lastWasDayLight(),
-            viewModel.lastWasThereVisibility()
+            viewModel.lastConditionCodeValue(),
+            viewModel.lastWasDayLightValue(),
+            viewModel.lastWasThereVisibilityValue()
         )
         bindings.lotConditionImage.tag = lastAnimation
         bindings.lotConditionImage.setAnimation(lastAnimation)
@@ -248,10 +281,10 @@ class HomeFragment @Inject constructor() : Fragment() {
         bindings.lotConditionImage.repeatMode = LottieDrawable.RESTART
         bindings.lotConditionImage.playAnimation()
         val lastBackground = ConstraintLayoutBindings.conditionBackground(
-            viewModel.lastConditionCode(),
-            viewModel.lastWasDayLight(),
-            viewModel.lastTemperature(),
-            viewModel.useMetricSystem()
+            viewModel.lastConditionCodeValue(),
+            viewModel.lastWasDayLightValue(),
+            viewModel.lastTemperatureValue(),
+            viewModel.useMetricSystemValueValue()
         )
         bindings.rootLayout.setBackgroundResource(lastBackground)
         updateNavigationBarColor()
@@ -260,10 +293,10 @@ class HomeFragment @Inject constructor() : Fragment() {
     private fun updateNavigationBarColor(useSurface: Boolean = true, animate: Boolean = false) {
         val previousBottomColor = lastConditionBottomColor
         lastConditionBottomColor = ConstraintLayoutBindings.conditionBottomColor(
-            viewModel.lastConditionCode(),
-            viewModel.lastWasDayLight(),
-            viewModel.lastTemperature(),
-            viewModel.useMetricSystem()
+            viewModel.lastConditionCodeValue(),
+            viewModel.lastWasDayLightValue(),
+            viewModel.lastTemperatureValue(),
+            viewModel.useMetricSystemValueValue()
         )
         if (bindings.motionFg.currentState in arrayOf(R.id.setLoading, R.id.setBegin)) {
             if (animate) {
@@ -296,6 +329,18 @@ class HomeFragment @Inject constructor() : Fragment() {
                 )
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        workingJob?.cancel()
+        workingJob = null
+        messageJob?.cancel()
+        messageJob = null
+        metricsJob?.cancel()
+        metricsJob = null
+        darkModeJob?.cancel()
+        darkModeJob = null
     }
 
     override fun onDestroy() {

@@ -5,8 +5,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import org.xapps.apps.weatherx.R
-import org.xapps.apps.weatherx.services.models.Current
-import org.xapps.apps.weatherx.services.utils.DateUtils
+import org.xapps.apps.weatherx.core.models.Current
+import org.xapps.apps.weatherx.core.utils.DateUtils
 
 
 object ConstraintLayoutBindings {

@@ -2,18 +2,39 @@ package org.xapps.apps.weatherx.views.bindings
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.BindingAdapter
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
-import org.xapps.apps.weatherx.services.models.Condition
-import org.xapps.apps.weatherx.services.models.Current
-import org.xapps.apps.weatherx.services.models.Daily
-import org.xapps.apps.weatherx.services.models.Hourly
-import org.xapps.apps.weatherx.services.utils.DateUtils
+import org.xapps.apps.weatherx.core.models.Condition
+import org.xapps.apps.weatherx.core.models.Current
+import org.xapps.apps.weatherx.core.models.Daily
+import org.xapps.apps.weatherx.core.models.Hourly
+import org.xapps.apps.weatherx.core.utils.DateUtils
 import org.xapps.apps.weatherx.views.utils.Utilities
 
 
 object LottieAnimationViewBindings {
+
+    @JvmStatic
+    @BindingAdapter("upwards")
+    fun upwards(view: LottieAnimationView, variable: Boolean) {
+        val value = if (!variable) {
+            "upwards-white.json"
+        } else {
+            when (AppCompatDelegate.getDefaultNightMode()) {
+                AppCompatDelegate.MODE_NIGHT_YES -> "upwards-white.json"
+                AppCompatDelegate.MODE_NIGHT_NO -> "upwards-black.json"
+                else -> "upwards-white.json"
+            }
+        }
+        view.tag = value
+        view.setAnimation(value)
+        view.speed = 1.0f
+        view.repeatCount = LottieDrawable.INFINITE
+        view.repeatMode = LottieDrawable.RESTART
+        view.playAnimation()
+    }
 
     @JvmStatic
     @BindingAdapter("weatherAnimation")
@@ -64,9 +85,10 @@ object LottieAnimationViewBindings {
         animate: Boolean = false
     ) {
         condition?.let {
-            val isDayLight = DateUtils.isDayLight(sunrise = sunrise, sunset = sunset, datetime = datetime)
+            val isDayLight =
+                DateUtils.isDayLight(sunrise = sunrise, sunset = sunset, datetime = datetime)
             val animation = weatherAnimation(it.id, isDayLight, Utilities.isVisible(visibility))
-            if(animate) {
+            if (animate) {
                 if (view.tag == null || view.tag as String != animation) {
                     view.tag = animation
                     view.animate().alpha(0.0f).setDuration(250)
@@ -140,16 +162,36 @@ object LottieAnimationViewBindings {
             620 -> if (isDayLight) "620-light-shower-snow-day.json" else "620-light-shower-snow-night.json"
             621 -> "621-shower-snow.json"
             622 -> "622-heavy-shower-snow.json"
-            701 -> if(!isThereVisibility) "701-mist-no-visibility.json" else { if (isDayLight) "701-mist-day.json" else "701-mist-night.json" }
-            711 -> if(!isThereVisibility) "711-smoke-no-visibility.json" else { if (isDayLight) "711-smoke-day.json" else "711-smoke-night.json" }
-            721 -> if(!isThereVisibility) "721-haze-no-visibility.json" else { if (isDayLight) "721-haze-day.json" else "721-haze-night.json" }
-            731 -> if(!isThereVisibility) "731-dust-no-visibility.json" else { if (isDayLight) "731-dust-day.json" else "731-dust-night.json" }
-            741 -> if(!isThereVisibility) "741-fog-no-visibility.json" else { if (isDayLight) "741-fog-day.json" else "741-fog-night.json" }
-            751 -> if(!isThereVisibility) "751-sand-no-visibility.json" else { if (isDayLight) "751-sand-day.json" else "751-sand-night.json" }
-            761 -> if(!isThereVisibility) "761-dust-no-visibility.json" else { if (isDayLight) "761-dust-day.json" else "761-dust-night.json" }
-            762 -> if(!isThereVisibility) "762-ash-no-visibility.json" else { if (isDayLight) "762-ash-day.json" else "762-ash-night.json" }
-            771 -> if(!isThereVisibility) "771-squall-no-visibility.json" else { if (isDayLight) "771-squall-day.json" else "771-squall-night.json" }
-            781 -> if(!isThereVisibility) "781-tornado-no-visibility.json" else { if (isDayLight) "781-tornado-day.json" else "781-tornado-night.json" }
+            701 -> if (!isThereVisibility) "701-mist-no-visibility.json" else {
+                if (isDayLight) "701-mist-day.json" else "701-mist-night.json"
+            }
+            711 -> if (!isThereVisibility) "711-smoke-no-visibility.json" else {
+                if (isDayLight) "711-smoke-day.json" else "711-smoke-night.json"
+            }
+            721 -> if (!isThereVisibility) "721-haze-no-visibility.json" else {
+                if (isDayLight) "721-haze-day.json" else "721-haze-night.json"
+            }
+            731 -> if (!isThereVisibility) "731-dust-no-visibility.json" else {
+                if (isDayLight) "731-dust-day.json" else "731-dust-night.json"
+            }
+            741 -> if (!isThereVisibility) "741-fog-no-visibility.json" else {
+                if (isDayLight) "741-fog-day.json" else "741-fog-night.json"
+            }
+            751 -> if (!isThereVisibility) "751-sand-no-visibility.json" else {
+                if (isDayLight) "751-sand-day.json" else "751-sand-night.json"
+            }
+            761 -> if (!isThereVisibility) "761-dust-no-visibility.json" else {
+                if (isDayLight) "761-dust-day.json" else "761-dust-night.json"
+            }
+            762 -> if (!isThereVisibility) "762-ash-no-visibility.json" else {
+                if (isDayLight) "762-ash-day.json" else "762-ash-night.json"
+            }
+            771 -> if (!isThereVisibility) "771-squall-no-visibility.json" else {
+                if (isDayLight) "771-squall-day.json" else "771-squall-night.json"
+            }
+            781 -> if (!isThereVisibility) "781-tornado-no-visibility.json" else {
+                if (isDayLight) "781-tornado-day.json" else "781-tornado-night.json"
+            }
             800 -> if (isDayLight) "800-clear-sky-day.json" else "800-clear-sky-night.json"
             801 -> if (isDayLight) "801-few-clouds-day.json" else "801-few-clouds-night.json"
             802 -> if (isDayLight) "802-scattered-clouds-day.json" else "802-scattered-clouds-night.json"

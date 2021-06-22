@@ -231,12 +231,20 @@
                     android:layout_height="@dimen/about_section_header_space" />
 
                 <org.xapps.apps.weatherx.views.custom.AboutReference
-                    android:id="@+id/btnLinkLottieFiles"
+                    android:id="@+id/btnLinkLottieFiles1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:ar_icon="@drawable/ic_lottiefiles"
                     app:ar_link="@string/lottiefiles_jochang_url"
                     app:ar_text="@string/designed_by_jochang" />
+
+                <org.xapps.apps.weatherx.views.custom.AboutReference
+                    android:id="@+id/btnLinkLottieFiles2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ar_icon="@drawable/ic_lottiefiles"
+                    app:ar_link="@string/lottiefiles_kerembalku_url"
+                    app:ar_text="@string/designed_by_kerembalku" />
 
                 <Space
                     android:layout_width="match_parent"

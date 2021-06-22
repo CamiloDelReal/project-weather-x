@@ -3,7 +3,7 @@ package org.xapps.apps.weatherx.views.adapters
 import androidx.databinding.ViewDataBinding
 import org.xapps.apps.weatherx.R
 import org.xapps.apps.weatherx.databinding.ItemDailyInfoBinding
-import org.xapps.apps.weatherx.services.models.Daily
+import org.xapps.apps.weatherx.core.models.Daily
 
 
 class DailyAdapter(items: List<Daily>) : ListBindingAdapter<Daily>(items) {
